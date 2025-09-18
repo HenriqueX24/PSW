@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avaliação</title>
+    <!--<link rel="stylesheet" href="avaliacaostyle.css">-->
+    <style>
+        body {
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    font-family: 'Inter', Arial, sans-serif;
+}
+.avaliacao-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.avaliacao-header {
+    display: flex;
+    align-items: center;
+    padding: 18px 16px 0 16px;
+    background: #fff;
+    position: relative;
+}
+.avaliacao-header h1 {
+    flex: 1;
+    text-align: center;
+    color: #5cc6ba;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 0 -28px;
+}
+.avaliacao-header .voltar {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    margin-right: 8px;
+}
+.avaliacao-main {
+    padding: 0 0 80px 0;
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    min-height: 60vh;
+}
+.criar-avaliacao {
+    background: #f6fafa;
+    border-radius: 32px;
+    margin: 16px 12px 18px 12px;
+    padding: 12px 18px 10px 18px;
+    display: flex;
+    flex-direction: column;
+}
+.criar-link {
+    color: #5cc6ba;
+    font-size: 1.1rem;
+    font-style: italic;
+    margin-bottom: 6px;
+    cursor: pointer;
+}
+.criar-form {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-top: 4px;
+}
+.form-col {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #444;
+    font-weight: 600;
+    font-size: 1.05rem;
+    flex: 1;
+}
+.criar-btn {
+    background: #5cc6ba;
+    border: none;
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-left: 8px;
+}
+.criar-btn:hover {
+    background: #49b0a7;
+}
+.lista-avaliacoes {
+    margin: 16px auto 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    align-items: center;
+    width: 100%;
+    max-width: 420px;
+}
+.avaliacao-item {
+    background: #f6fafa;
+    border-radius: 28px;
+    padding: 16px 28px 16px 18px;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+.item-nome {
+    font-weight: 700;
+    color: #444;
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+    word-break: break-word;
+}
+.item-info {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+.item-data, .item-link {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #5cc6ba;
+    font-size: 1.05rem;
+    font-weight: 500;
+    word-break: break-word;
+}
+
+.add-avaliacao-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #7ED6C0;
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  padding: 14px 24px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin: 0 auto;
+  box-shadow: 0 2px 8px #0001;
+  transition: background 0.2s;
+}
+
+.add-avaliacao-btn:hover {
+  background: #3DC9A7;
+}
+
+.plus-icon {
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.bottom-nav {
+    width: 100vw;
+    background: #fff;
+    border-top: 1px solid #ececec;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 0 8px 0;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 10;
+}
+
+.nav-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.nav-icon svg {
+    width: 32px;
+    height: 32px;
+}
+.nav-icon.active svg path {
+    fill: #e0e0e0;
+}
+.nav-icon.home svg path {
+    fill: #e0e0e0;
+}
+.nav-icon.active img {
+    filter: grayscale(100%) brightness(0.8);
+}
+
+@media (max-width: 700px) {
+    .avaliacao-header h1 {
+        font-size: 1.2rem;
+        margin-left: 0;
+    }
+    .criar-form {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    .form-col {
+        width: 100%;
+        font-size: 1rem;
+    }
+    .criar-btn {
+        margin-left: 0;
+        margin-top: 6px;
+    }
+}
+@media (max-width: 900px) {
+    .lista-avaliacoes {
+        flex-direction: column;
+        gap: 18px;
+        align-items: stretch;
+    }
+    .avaliacao-item {
+        min-width: 0;
+        width: 100%;
+        max-width: 100%;
+    }
+    .item-info {
+        gap: 14px;
+        flex-wrap: wrap;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="avaliacao-container">
+        <header class="avaliacao-header">
+            <a href="#" class="voltar" onclick="window.location.href='../home.html'">
+                <!-- Ícone seta para a esquerda -->
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                    <path d="M15 18l-6-6 6-6" stroke="#5cc6ba" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </a>
+            <h1>Avaliação</h1>
+        </header>
+        <main class="avaliacao-main">
+            <div class="lista-avaliacoes">
+                <div class="avaliacao-item">
+                    <div class="item-nome">Avaliação 360</div>
+                    <div class="item-info">
+                        <span class="item-data">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <rect x="3" y="4" width="18" height="18" rx="4" fill="none" stroke="#5cc6ba" stroke-width="2"/>
+                                <path d="M16 2v4M8 2v4M3 10h18" stroke="#5cc6ba" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            18/08/2025
+                        </span>
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeac0NDz1hlTsUdRy33boOPd1rP6zB6VBTmeDx55P5fugkIdg/viewform?usp=header">
+                        <span class="item-link">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M10 13a5 5 0 0 1 7.07 0l1.41 1.41a5 5 0 0 1-7.07 7.07l-1.41-1.41" stroke="#5cc6ba" stroke-width="2"/>
+                                <path d="M14 11a5 5 0 0 0-7.07 0l-1.41 1.41a5 5 0 0 0 7.07 7.07l1.41-1.41" stroke="#5cc6ba" stroke-width="2"/>
+                                <a href="https://docs.google.com/forms/d/e/1FAIpQLSeac0NDz1hlTsUdRy33boOPd1rP6zB6VBTmeDx55P5fugkIdg/viewform?usp=header">
+                            </svg>
+                            Link
+                        </a>
+                        </span>
+                    </div>
+                </div>
+                <div class="avaliacao-item">
+                    <div class="item-nome">Avaliação PCH</div>
+                    <div class="item-info">
+                        <span class="item-data">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <rect x="3" y="4" width="18" height="18" rx="4" fill="none" stroke="#5cc6ba" stroke-width="2"/>
+                                <path d="M16 2v4M8 2v4M3 10h18" stroke="#5cc6ba" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            18/06/2025
+                        </span>
+                        <span class="item-link">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M10 13a5 5 0 0 1 7.07 0l1.41 1.41a5 5 0 0 1-7.07 7.07l-1.41-1.41" stroke="#5cc6ba" stroke-width="2"/>
+                                <path d="M14 11a5 5 0 0 0-7.07 0l-1.41 1.41a5 5 0 0 0 7.07 7.07l1.41-1.41" stroke="#5cc6ba" stroke-width="2"/>
+                            </svg>
+                            Link
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <button class="add-avaliacao-btn" onclick="window.location.href='../criar-avaliacao.html'">
+                <span class="plus-icon">+</span> Nova Avaliação
+            </button>
+        </main>
+        <nav class="bottom-nav">
+            <div class="nav-icon active" onclick="window.location.href='autoavaliacao.html'">
+                <!-- Ícone Avaliação -->
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <g opacity="0.5">
+                        <rect x="4" y="6" width="20" height="20" rx="6" fill="#fff" stroke="#bdbdbd" stroke-width="2"/>
+                        <path d="M11 18l4 4 6-8" stroke="#bdbdbd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="26" cy="8" r="4" fill="none" stroke="#bdbdbd" stroke-width="2"/>
+                        <path d="M28.5 5.5a4 4 0 0 1 0 5.66" stroke="#bdbdbd" stroke-width="2" stroke-linecap="round"/>
+                    </g>
+                </svg>
+            </div>
+            <div class="nav-icon home" onclick="window.location.href='../home.html'">
+                <!-- Casa -->
+                <svg viewBox="0 0 24 24" fill="#e0e0e0"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+            </div>
+            <div class="nav-icon">
+                <!-- Usuário -->
+                <svg viewBox="0 0 24 24" fill="#e0e0e0"><path d="M12 12c2.7 0 8 1.34 8 4v2H4v-2c0-2.66 5.3-4 8-4zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg>
+            </div>
+        </nav>
+    </div>
+</body>
+</html>

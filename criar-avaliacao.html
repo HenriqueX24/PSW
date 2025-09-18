@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Avaliação</title>
+    <!--<link rel="stylesheet" href="criar-avaliacao.css">-->
+    <style>
+        body {
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    font-family: 'Inter', Arial, sans-serif;
+}
+.avaliacao-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.avaliacao-header {
+    display: flex;
+    align-items: center;
+    padding: 24px 32px 0 32px;
+    background: #fff;
+    position: relative;
+}
+.avaliacao-header h1 {
+    flex: 1;
+    text-align: center;
+    color: #5cc6ba;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 0 -28px;
+}
+.avaliacao-header .voltar {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    margin-right: 8px;
+}
+.avaliacao-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 16px 80px 16px;
+}
+.criar-avaliacao-form {
+    background: #f6fafa;
+    border-radius: 18px;
+    padding: 32px 24px 24px 24px;
+    max-width: 400px;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.form-group label {
+    font-weight: 500;
+    color: #444;
+    font-size: 1.05rem;
+}
+.form-group input {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 1rem;
+    font-family: inherit;
+    background: #fff;
+}
+.form-group input:focus {
+    outline: 2px solid #5cc6ba;
+    border-color: #5cc6ba;
+}
+.main-btn {
+    background: #5cc6ba;
+    color: #fff;
+    border: none;
+    border-radius: 16px;
+    padding: 16px 0;
+    font-size: 1.2rem;
+    font-weight: 500;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 8px;
+    transition: background 0.2s;
+}
+.main-btn:hover {
+    background: #49b0a7;
+}
+.bottom-nav {
+    width: 100vw;
+    background: #fff;
+    border-top: 1px solid #ececec;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 0 8px 0;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 10;
+}
+.nav-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.nav-icon img, .nav-icon svg {
+    width: 32px;
+    height: 32px;
+}
+.nav-icon.home svg path {
+    fill: #e0e0e0;
+}
+.nav-icon.active svg path {
+    fill: #e0e0e0;
+}
+@media (max-width: 600px) {
+    .avaliacao-header {
+        padding: 18px 8px 0 8px;
+    }
+    .avaliacao-header h1 {
+        font-size: 1.3rem;
+        margin-left: 0;
+    }
+    .avaliacao-main {
+        padding: 16px 4px 80px 4px;
+    }
+    .criar-avaliacao-form {
+        padding: 16px 6px 12px 6px;
+        max-width: 98vw;
+    }
+    .main-btn {
+        font-size: 1rem;
+        padding: 12px 0;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="avaliacao-container">
+        <header class="avaliacao-header">
+            <a href="#" class="voltar" aria-label="Voltar" onclick="window.location.href='../avaliacao.html'">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                    <path d="M15 18l-6-6 6-6" stroke="#5cc6ba" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </a>
+            <h1>Criar Avaliação</h1>
+        </header>
+        <main class="avaliacao-main">
+            <form class="criar-avaliacao-form">
+                <div class="form-group">
+                    <label for="titulo">Título</label>
+                    <input type="text" id="titulo" name="titulo" placeholder="Digite o título da avaliação" required>
+                </div>
+                <div class="form-group">
+                    <label for="data">Data da Avaliação</label>
+                    <input type="date" id="data" name="data" required>
+                </div>
+                <div class="form-group">
+                    <label for="link">Link do Formulário</label>
+                    <input type="url" id="link" name="link" placeholder="Cole o link do formulário" required>
+                </div>
+                <button type="submit" class="main-btn">Salvar Avaliação</button>
+            </form>
+        </main>
+        <nav class="bottom-nav">
+            <div class="nav-icon active">
+                <!-- Ícone Avaliação -->
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <g opacity="0.5">
+                        <rect x="4" y="6" width="20" height="20" rx="6" fill="#fff" stroke="#bdbdbd" stroke-width="2"/>
+                        <path d="M11 18l4 4 6-8" stroke="#bdbdbd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="26" cy="8" r="4" fill="none" stroke="#bdbdbd" stroke-width="2"/>
+                        <path d="M28.5 5.5a4 4 0 0 1 0 5.66" stroke="#bdbdbd" stroke-width="2" stroke-linecap="round"/>
+                    </g>
+                </svg>
+            </div>
+            <div class="nav-icon home" onclick="window.location.href='../home.html'">
+                <!-- Casa -->
+                <svg viewBox="0 0 24 24" fill="#e0e0e0"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+            </div>
+            <div class="nav-icon">
+                <!-- Usuário -->
+                <svg viewBox="0 0 24 24" fill="#e0e0e0"><path d="M12 12c2.7 0 8 1.34 8 4v2H4v-2c0-2.66 5.3-4 8-4zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg>
+            </div>
+        </nav>
+    </div>
+</body>
+</html>
