@@ -1,7 +1,13 @@
 // src/main.jsx
 import React from "react";
+import ReactDOM from 'react-dom/client'; // Apenas uma importação é necessária
 import "./index.css";
-import { createRoot } from "react-dom/client";
+
+// Redux
+import store from './app/store';
+import { Provider } from 'react-redux';
+
+// Rotas
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
@@ -19,26 +25,29 @@ import CicloFuncionarios from "./pages/CicloFuncionarios/CicloFuncionarios.jsx";
 import Avaliacao from "./pages/Avaliacao/Avaliacao.jsx";
 import Autoavaliacao from "./pages/Autoavaliacao/Autoavaliacao.jsx";
 
-createRoot(document.getElementById("root")).render(
+// A única chamada de renderização, agora corrigida e mesclada
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Navigate to="/login" replace />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/perfil" element={<Perfil />} />
-        <Route path="/metas" element={<Metas />} />
-        <Route path="/meta-detalhe/:id" element={<MetaDetalhe />} />
-        <Route path="/criar-meta" element={<CriarMeta />} />
-        <Route path="/criar-conta" element={<CriarConta />} />
-        <Route path="/criar-ciclo" element={<CriarCiclo />} />
-        <Route path="/criar-avaliacao" element={<CriarAvaliacao />} />
-        <Route path="/ciclo-revisao" element={<CicloRevisao />} />
-        <Route path="/ciclo-funcionarios/:id" element={<CicloFuncionarios />} />
-        <Route path="/avaliacao/:id" element={<Avaliacao />} />
-        <Route path="/auto-avaliacao/:id" element={<Autoavaliacao />} />
-        <Route path="*" element={<Navigate to="/login" replace />} />
-      </Routes>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Navigate to="/login" replace />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/perfil" element={<Perfil />} />
+          <Route path="/metas" element={<Metas />} />
+          <Route path="/meta-detalhe/:id" element={<MetaDetalhe />} />
+          <Route path="/criar-meta" element={<CriarMeta />} />
+          <Route path="/criar-conta" element={<CriarConta />} />
+          <Route path="/criar-ciclo" element={<CriarCiclo />} />
+          <Route path="/criar-avaliacao" element={<CriarAvaliacao />} />
+          <Route path="/ciclo-revisao" element={<CicloRevisao />} />
+          <Route path="/ciclo-funcionarios/:id" element={<CicloFuncionarios />} />
+          <Route path="/avaliacao/:id" element={<Avaliacao />} />
+          <Route path="/auto-avaliacao/:id" element={<Autoavaliacao />} />
+          <Route path="*" element={<Navigate to="/login" replace />} />
+        </Routes>
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 );
