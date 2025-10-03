@@ -1,0 +1,114 @@
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #f6f6f6;            
+  font-family: 'Inter', Arial, sans-serif;
+  padding-bottom: 72px;       
+}
+
+.avaliacao-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #fff;
+}
+
+.avaliacao-header {
+  position: relative;             
+  display: flex;
+  align-items: center;
+  justify-content: center;        
+  padding: 24px 32px 0 32px;
+  background: #fff;
+  border-bottom: 1px solid #ececec;
+}
+
+.avaliacao-header h1 {
+  color: #5cc6ba;
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;                    
+}
+
+
+.avaliacao-header .voltar {
+  position: absolute;
+  left: 16px;
+  top: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  background: transparent;        
+  border: none;
+  padding: 6px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.avaliacao-header .voltar:focus { outline: none; box-shadow: none; }
+.avaliacao-header .voltar:hover { background: #f0f7f6; }
+
+/* Main */
+.avaliacao-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 16px 80px 16px;
+}
+
+.criar-avaliacao-form {
+  background: #f6fafa;
+  border-radius: 18px;
+  padding: 32px 24px 24px 24px;
+  max-width: 400px;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group label { font-weight: 500; color: #444; font-size: 1.05rem; }
+.form-group input {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 1rem;
+  font-family: inherit;
+  background: #fff;
+}
+.form-group input:focus {
+  outline: none;
+  border-color: #5cc6ba;
+  box-shadow: 0 0 0 2px rgba(92,198,186,.2);
+}
+
+.main-btn {
+  background: #5cc6ba;
+  color: #fff;
+  border: none;
+  border-radius: 16px;
+  padding: 16px 0;
+  font-size: 1.2rem;
+  font-weight: 500;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 8px;
+  transition: background 0.2s, transform .03s;
+}
+.main-btn:hover { background: #49b0a7; }
+.main-btn:active { transform: translateY(1px); }
+
+@media (max-width: 600px) {
+  .avaliacao-header { padding: 18px 8px 0 8px; }
+  .avaliacao-header h1 { font-size: 1.3rem; }
+  .avaliacao-main { padding: 16px 4px 80px 4px; }
+  .criar-avaliacao-form { padding: 16px 6px 12px 6px; max-width: 98vw; }
+  .main-btn { font-size: 1rem; padding: 12px 0; }
+  .avaliacao-header .voltar { top: 8px; left: 8px; }
+}
