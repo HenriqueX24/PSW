@@ -1,0 +1,116 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  font-family: "Roboto", Arial, sans-serif;
+}
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.header {
+  display: flex;
+  align-items: center;
+  padding: 24px 32px 0 32px;
+  background: #fff;
+  position: relative;
+}
+.header h1 {
+  flex: 1;
+  text-align: center;
+  color: #5cc6ba;
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 0 -24px;
+}
+.back-btn {
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-right: 8px;
+}
+.divider {
+  border: none;
+  border-top: 1px solid #ececec;
+  margin: 8px 0 0 0;
+}
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 16px 24px 16px;
+}
+.goal-form {
+  background: #f6fafa;
+  border-radius: 18px;
+  padding: 24px 24px 16px 24px;
+  max-width: 400px;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.form-group label {
+  font-weight: 500;
+  color: #444;
+  font-size: 1.05rem;
+}
+.form-group input,
+.form-group textarea {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 1rem;
+  font-family: inherit;
+  background: #fff;
+  resize: none;
+}
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: 2px solid #5cc6ba;
+  border-color: #5cc6ba;
+}
+.main-btn {
+  background: #5cc6ba;
+  color: #fff;
+  border: none;
+  border-radius: 16px;
+  padding: 16px 0;
+  font-size: 1.2rem;
+  font-weight: 500;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 8px;
+  transition: background 0.2s;
+}
+
+@media (max-width: 600px) {
+  .header {
+    padding: 18px 8px 0 8px;
+  }
+  .header h1 {
+    font-size: 1.3rem;
+  }
+  main {
+    padding: 16px 4px;
+  }
+  .goal-form {
+    padding: 16px 6px 12px 6px;
+    max-width: 98vw;
+  }
+  .main-btn {
+    font-size: 1rem;
+    padding: 12px 0;
+  }
+}
