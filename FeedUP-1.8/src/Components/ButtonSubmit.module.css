@@ -1,0 +1,17 @@
+.btnLogin {
+    padding-top: 0%;
+    margin-top: 0%;
+    padding: 12px 0;
+    background: linear-gradient(90deg, #5cc6ba 0%, #3b9e8c 100%);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btnLogin:hover {
+    background: linear-gradient(90deg, #3b9e8c 0%, #5cc6ba 100%);
+}
