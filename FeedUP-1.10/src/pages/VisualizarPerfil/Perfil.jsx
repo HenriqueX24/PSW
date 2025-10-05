@@ -3,6 +3,9 @@ import "./perfilstyle.css";
 import { useNavigate, NavLink, useLocation, Link } from "react-router-dom";
 import NavBar from '../../Components/NavBar';
 import { useSelector } from 'react-redux';
+import Button from '@mui/material/Button'
+import EditIcon from '@mui/icons-material/Edit';
+import { Container, IconButton } from "@mui/material";
 
 export default function Perfil() {
   const navigate = useNavigate();
@@ -13,6 +16,13 @@ export default function Perfil() {
     if (!isAuthenticated) {
       navigate('/login');
     }
+
+    // NOVO: Adiciona um retorno antecipado (ex: um loader) se o currentUser for null
+  // (Note: O useEffect ainda será executado para o redirecionamento)
+  if (!currentUser) {
+    // Você pode retornar um spinner ou null, dependendo de como você gerencia o carregamento
+    return <div>Carregando perfil...</div>; 
+  }
   }, [isAuthenticated, navigate]);
   const handleVoltar = (e) => {
     e.preventDefault();
@@ -59,11 +69,11 @@ export default function Perfil() {
 
           <div className="perfil-campo">
             <span className="perfil-label">Nome</span>
-            <span className="perfil-valor">{currentUser.nome}</span>
+            <span className="perfil-valor">{currentUser?.nome}</span>
           </div>
           <div className="perfil-campo">
             <span className="perfil-label">E-mail</span>
-            <span className="perfil-valor">{currentUser.email}</span>
+            <span className="perfil-valor">{currentUser?.email}</span>
           </div>
           <div className="perfil-campo">
             <span className="perfil-label">Departamento</span>
@@ -71,7 +81,7 @@ export default function Perfil() {
           </div>
           <div className="perfil-campo">
             <span className="perfil-label">CPF</span>
-            <span className="perfil-valor">{currentUser.cpf}</span>
+            <span className="perfil-valor">{currentUser?.cpf}</span>
           </div>
 
           <div className="perfil-campo perfil-radio">
@@ -79,7 +89,7 @@ export default function Perfil() {
               <input 
               type="radio" 
               name="tipo" 
-              checked={currentUser.cargo === 'funcionario'}/>
+              checked={currentUser?.cargo === 'funcionario'}/>
               <span className="radio-custom" />
               Funcionário
             </label>
@@ -87,11 +97,18 @@ export default function Perfil() {
               <input 
               type="radio" 
               name="tipo"
-              checked={currentUser.cargo === 'gestor'}/>
+              checked={currentUser?.cargo === 'gestor'}/>
               <span className="radio-custom" />
               Gestor
             </label>
           </div>
+          <div>
+          <IconButton >
+            <EditIcon direction="row" spacing={1} display="flex" align="left"/>
+          </IconButton>
+            </div>
+            
+            <Button flex-wrap="row" color="error">Encerrar Conta</Button>
         </div>
       </main>
 
