@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"; 
 import "./homestyle.css";
 import { useNavigate } from "react-router-dom";
-import logo from "../../Assets/logo.png";
+import logo from "../../assets/logo.png";
 import { useSelector } from "react-redux";
 import { Box, Container, Grid, Typography } from "@mui/material";
 import MenuNav from "../../Components/MenuNav.jsx";
