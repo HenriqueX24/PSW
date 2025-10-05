@@ -1,0 +1,62 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "nome": "Pedro Teste",
+      "cpf": "111.222.333-44",
+      "email": "pedro@teste.com",
+      "senha": "123456",
+      "cargo": "funcionario"
+    },
+    {
+      "id": "2",
+      "nome": "Gestora",
+      "cpf": "555.666.777-88",
+      "email": "a@gestora.com",
+      "senha": "senha",
+      "cargo": "gestor"
+    },
+    {
+      "id": "dd7a",
+      "nome": "pedro",
+      "cpf": "111.111.111-11",
+      "email": "seila@gmail.com",
+      "senha": "123456",
+      "cargo": "gestor"
+    }
+  ],
+  "metas": [
+    {
+      "id": "1",
+      "titulo": "Aumentar vendas em 10%",
+      "descricao": "Meta para o trimestre atual",
+      "status": "em-analise",
+      "responsavel": "Usuário de Teste"
+    },
+    {
+      "id": "a14f",
+      "titulo": "AAAAAAA",
+      "descricao": "AAAAAAAAAA",
+      "periodo": "adsasdasd",
+      "responsavel": "AAAAAAA",
+      "status": "em-analise"
+    }
+  ],
+  "ciclos": [
+    {
+      "id": "e4cb",
+      "avaliadores": [
+        "a@gestora.com"
+      ],
+      "avaliados": [
+        "a@gestora.com",
+        "pedro@teste.com",
+        "a@gestora.com"
+      ],
+      "titulo": "teste",
+      "tipo": "Mensal",
+      "inicio": "2025-10-08",
+      "termino": "2025-11-12"
+    }
+  ]
+}
