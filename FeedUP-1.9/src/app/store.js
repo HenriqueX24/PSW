@@ -1,0 +1,12 @@
+import { configureStore } from '@reduxjs/toolkit';
+import usersReducer from '../features/user/usersSlice'; 
+import loginReducer from '../features/user/loginSlice';
+import { addNewMeta } from "../features/user/metaSlice";
+import metasReducer from '../features/user/metaSlice';
+export default configureStore({
+  reducer: {
+    users: usersReducer, 
+    login: loginReducer, 
+    metas: metasReducer, 
+  },
+});

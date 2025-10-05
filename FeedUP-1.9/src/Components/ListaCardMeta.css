@@ -1,0 +1,10 @@
+.goals-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.goal-card-link {
+  text-decoration: none;
+  color: inherit;
+}
