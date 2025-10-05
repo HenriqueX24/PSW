@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import styles from "./loginstyle.module.css";
-import ButtonSubmit from "../../Components/ButtonSubmit.jsx";
 import { useSelector, useDispatch } from "react-redux";
 import { loginSuccess, loginFailure } from "../../features/user/loginSlice";
 import { selectAllUsers } from "../../features/user/usersSlice";
+import Box from '@mui/material/Box'
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import ButtonSubmit from "../../Components/ButtonSubmit.jsx";
 
 export default function Login() {
   const [identifier, setIdentifier] = useState("");
@@ -34,10 +37,31 @@ export default function Login() {
   };
 
   return (
-    <div className={styles.loginConteiner} style={{ padding: 24 }}>
-      <h1 className="text-teal-400 text-3xl mb-8 font-bold text-center">
+    <Box
+      fullWidth
+      margin="normal"
+      sx={{
+        display: "flex",
+        border: "1px grey",
+        borderRadius: 1,
+        boxShadow: 5,
+        backgroundColor: "white",
+        flexGrow: 5,
+      }}
+    >
+      <Container className={styles.loginPageWrapper} maxWidth={360}>
+    <div className={styles.loginConteiner} >
+      <Typography
+            component="h1"
+            variant="h4"
+            sx={{
+              color: "#2dd4bf",
+              mb: 4,
+              fontWeight: "bold",
+            }}
+          >
         Bem-vindo ao FeedUp!
-      </h1>
+      </Typography>
       <form className={styles.loginForm} onSubmit={handleSubmit}>
         <label htmlFor="login">E-mail ou CPF</label>
         <input
@@ -64,5 +88,7 @@ export default function Login() {
         </div>
       </form>
     </div>
+    </Container>
+    </Box>
   );
 }
