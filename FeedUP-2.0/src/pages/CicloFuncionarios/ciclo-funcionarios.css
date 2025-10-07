@@ -4,7 +4,12 @@ body {
   margin: 0;
   color: #444;
 }
+.body-ciclo-f{
+  background-color: #e9e9e9;
+}
+.header-ciclo-f{
 
+}
 .header {
   display: flex;
   align-items: center;
@@ -25,6 +30,7 @@ body {
   padding: 0;
 }
 
+
 .header h1 {
   flex: 1;
   text-align: center;
@@ -34,19 +40,43 @@ body {
   margin: 0 32px 0 0;
 }
 
-main {
-  padding: 16px 12px 80px 12px;
-  max-width: 480px;
-  margin: 0 auto;
+.ciclo-func {
+  display: flex;
+    flex-direction: column;
+}
+
+.ciclo-func-div {
+  margin-top: 10%;
 }
 
 .employee-list {
+
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 18px;
+  justify-content: center;
+  align-items: center;
+
+}
+
+@media (max-width: 1500px) {
+
+  .employee-list {
+
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin-bottom: 30%;
+  }
+
 }
 
 .employee-card {
+  width: 350px;
+  height: 190px;
   background: #F3F8F7;
   border-radius: 18px;
   padding: 16px 18px;
@@ -120,12 +150,15 @@ main {
   width: 32px;
   height: 32px;
 }
+
 .nav-icon.active svg path {
   fill: #e0e0e0;
 }
+
 .nav-icon.home svg path {
   fill: #e0e0e0;
 }
+
 .nav-icon.active img {
   filter: grayscale(100%) brightness(0.8);
 }
@@ -157,20 +190,17 @@ main {
   main {
     padding: 12px 4px 80px 4px;
   }
-  .employee-card {
-    padding: 12px 8px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
+
   .header h1 {
     font-size: 1.2rem;
     margin-right: 16px;
   }
+
   .employee-actions {
     align-items: flex-start;
     width: 100%;
   }
+
   .ver-avaliacao-btn {
     width: 100%;
     margin-top: 2px;
