@@ -15,6 +15,14 @@
       "email": "a@gestor.com",
       "senha": "senha",
       "cargo": "gestor"
+    },
+    {
+      "id": "6470",
+      "nome": "gestor1",
+      "cpf": "564.562.156-89",
+      "email": "gestor@gmail.com",
+      "senha": "123456",
+      "cargo": "gestor"
     }
   ],
   "metas": [
@@ -22,7 +30,7 @@
       "id": "1",
       "titulo": "Aumentar vendas em 10%",
       "descricao": "Meta para o trimestre atual",
-      "status": "Aprovado",
+      "status": "aprovado",
       "responsavel": "Usuário de Teste"
     }
   ],

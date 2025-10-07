@@ -7,7 +7,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
+// ListItemIcon não é mais necessário, então pode ser removido
 import ListItemText from '@mui/material/ListItemText';
 import { NavLink } from 'react-router-dom'; // Importar NavLink
 
@@ -59,16 +59,16 @@ function PersistentDrawerRight({ open, handleDrawerClose }) {
       <List>
         {mobileLinks.map((item) => (
           <ListItem key={item.to} disablePadding>
+            {/* INÍCIO DA CORREÇÃO */}
             <ListItemButton 
                 component={NavLink} // Usa NavLink para navegar
                 to={item.to}
                 onClick={handleDrawerClose} // Fecha o menu após a navegação
             >
-              <ListItemIcon>
-                <item.icon />
-              </ListItemIcon>
+              {/* O ListItemIcon foi removido daqui */}
               <ListItemText primary={item.label} />
             </ListItemButton>
+            {/* FIM DA CORREÇÃO */}
           </ListItem>
         ))}
       </List>
