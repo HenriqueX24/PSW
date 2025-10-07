@@ -1,8 +1,14 @@
 import { createSlice, createAsyncThunk, createEntityAdapter  } from '@reduxjs/toolkit';
 
-
 const usersAdapter = createEntityAdapter();
 
+export const addNewUser = createAsyncThunk('users/addNewUser', async (newUser) => {
+});
+
+const initialState = usersAdapter.getInitialState({
+  status: 'idle',
+  error: null,
+});
 export const fetchUsers = createAsyncThunk(
   'users/fetchUsers', 
   async () => {
@@ -11,10 +17,6 @@ export const fetchUsers = createAsyncThunk(
     return data;
   }
 );
-const initialState = usersAdapter.getInitialState({
-  status: 'idle',
-  error: null,
-});
 export const usersSlice = createSlice({
   name: 'users',
   initialState,
