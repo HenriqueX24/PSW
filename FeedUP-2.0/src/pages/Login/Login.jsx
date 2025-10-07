@@ -37,10 +37,14 @@ export default function Login() {
   };
 
   return (
+    <>
     <Box
       fullWidth
       margin="normal"
       sx={{
+        borderStyle: "solid",
+        borderColor: "grey.400",
+        borderWidth: 1,
         display: "flex",
         border: "1px grey",
         borderRadius: 1,
@@ -49,8 +53,8 @@ export default function Login() {
         flexGrow: 5,
       }}
     >
-      <Container className={styles.loginPageWrapper} maxWidth={360}>
-    <div className={styles.loginConteiner} >
+      <Container className={styles.loginPageWrapper} maxWidth={"xs"}>
+    <div className={styles.loginContainer} >
       <Typography
             component="h1"
             variant="h4"
@@ -90,5 +94,6 @@ export default function Login() {
     </div>
     </Container>
     </Box>
+    </>
   );
 }
