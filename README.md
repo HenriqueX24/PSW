@@ -1,5 +1,5 @@
 # PSW
-Versão mais atual é **FeedUP-1.10**. Faça um clone e 
+Versão mais atual é **FeedUP-2.0**. Faça um clone e 
 * instale as dependêcias: *npm i*
 * instale o json-server: *npm install -g json-server*
 * rode em terminais separados as duas instruções:<br/>
