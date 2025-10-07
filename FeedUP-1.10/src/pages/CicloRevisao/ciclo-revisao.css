@@ -1,6 +1,6 @@
 body {
   font-family: "Roboto", Arial, sans-serif;
-  background: #fff;
+  background: #fff !important;
   margin: 0;
   color: #444;
 }
@@ -15,6 +15,42 @@ body {
   position: sticky;
   top: 0;
   z-index: 10;
+}
+
+@media (min-width: 1200px) {
+    .css-5c1adp-MuiContainer-root {
+        max-width: 1200px;
+        display: flex
+;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.css-zjhuaj-MuiGrid-root {
+    --Grid-columns: 12;
+    --Grid-columnSpacing: 16px;
+    --Grid-rowSpacing: 16px;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    min-width: 0;
+    box-sizing: border-box;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex
+;
+    -webkit-box-flex-wrap: wrap;
+
+    gap: var(--Grid-rowSpacing) var(--Grid-columnSpacing);
+    justify-content: center;
+}
+
+@media (min-width: 600px) {
+    .css-1u9o2lj-MuiToolbar-root {
+        min-height: 40px !important;
+    }
 }
 
 .header .back-btn {
@@ -34,11 +70,6 @@ body {
   margin: 0 32px 0 0;
 }
 
-main {
-  padding: 16px 12px 80px 12px;
-  max-width: 480px;
-  margin: 0 auto;
-}
 
 .cycle-section {
   margin-bottom: 24px;
@@ -149,6 +180,9 @@ main {
 .cycle-section {
   width: 100%;
   margin-bottom: 1.5rem;
+}
+.ciclo-main{
+margin-top: 3%;
 }
 
 @media (max-width: 600px) {
