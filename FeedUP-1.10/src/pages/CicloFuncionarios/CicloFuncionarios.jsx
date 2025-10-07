@@ -39,7 +39,11 @@ export default function CicloFuncionarios() {
   ];
 
   return (
-    <>
+    <body className="body-ciclo-f">
+      
+
+      <div className="ciclo-func">
+        <div className="header-ciclo-f">
       <header className="header">
         <button
           type="button"
@@ -59,39 +63,42 @@ export default function CicloFuncionarios() {
         </button>
         <h1>Funcionários</h1>
       </header>
-
-      <main>
-        <section className="employee-list">
-          {employees.map((emp, idx) => (
-            <div key={idx} className="employee-card">
-              <div className="employee-info">
-                <span className="employee-name">{emp.name}</span>
-                <span className="employee-email">{emp.email}</span>
-                <span className="employee-dept">Departamento: {emp.dept}</span>
-              </div>
-
-              {emp.status === "realizado" ? (
-                <div className="employee-actions">
-                  <span className="status-label realizado">
-                    Avaliação realizada
-                  </span>
-                  <button
-                    type="button"
-                    className="ver-avaliacao-btn"
-                    onClick={() => navigate(`/avaliacao/${emp.avaliacaoId}`)}
-                  >
-                    Ver Avaliação
-                  </button>
+      </div>
+      
+        <div className="ciclo-func-div">
+          <section className="employee-list">
+            {employees.map((emp, idx) => (
+              <div key={idx} className="employee-card">
+                <div className="employee-info">
+                  <span className="employee-name">{emp.name}</span>
+                  <span className="employee-email">{emp.email}</span>
+                  <span className="employee-dept">Departamento: {emp.dept}</span>
                 </div>
-              ) : (
-                <span className="status-label pendente">
-                  Avaliação pendente
-                </span>
-              )}
-            </div>
-          ))}
-        </section>
-      </main>
+
+                {emp.status === "realizado" ? (
+                  <div className="employee-actions">
+                    <span className="status-label realizado">
+                      Avaliação realizada
+                    </span>
+                    <button
+                      type="button"
+                      className="ver-avaliacao-btn"
+                      onClick={() => navigate(`/avaliacao/${emp.avaliacaoId}`)}
+                    >
+                      Ver Avaliação
+                    </button>
+                  </div>
+                ) : (
+                  <span className="status-label pendente">
+                    Avaliação pendente
+                  </span>
+                )}
+              </div>
+            ))}
+          </section>
+
+        </div>
+      </div>
 
       {/* Bottom nav */}
       <nav className="bottom-nav">
@@ -158,6 +165,6 @@ export default function CicloFuncionarios() {
           </svg>
         </button>
       </nav>
-    </>
+    </body>
   );
 }
