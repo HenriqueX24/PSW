@@ -52,6 +52,7 @@ function App() {
       <Route path="*" element={<Navigate to="/login" replace />} />
       <Route path="/ciclo-revisao" element={<CicloRevisao />} />
       <Route path="/editar-meta/:id" element={<Metas />} />
+      <Route path="/perfil/editar" element={<CriarConta />} />
     </Routes>
   );
 }

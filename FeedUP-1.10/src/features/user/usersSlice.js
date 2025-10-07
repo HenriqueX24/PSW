@@ -3,12 +3,39 @@ import { createSlice, createAsyncThunk, createEntityAdapter  } from '@reduxjs/to
 const usersAdapter = createEntityAdapter();
 
 export const addNewUser = createAsyncThunk('users/addNewUser', async (newUser) => {
+  const response = await fetch('http://localhost:3001/users', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(newUser),
+  });
+  const data = await response.json();
+  return data;
 });
+export const deleteUser = createAsyncThunk('users/deleteUser', async (userId) => {
+  await fetch(`http://localhost:3001/users/${userId}`, {
+    method: 'DELETE',
+  });
+  return userId; // Retorna o ID do usuário deletado
+});
+
+
+export const updateUser = createAsyncThunk('users/updateUser', async (userAtualizado) => {
+  const { id } = userAtualizado;
+  const response = await fetch(`http://localhost:3001/users/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(userAtualizado),
+  });
+  const data = await response.json();
+  return data;
+});
+
 
 const initialState = usersAdapter.getInitialState({
   status: 'idle',
   error: null,
 });
+
 export const fetchUsers = createAsyncThunk(
   'users/fetchUsers', 
   async () => {
@@ -17,6 +44,7 @@ export const fetchUsers = createAsyncThunk(
     return data;
   }
 );
+
 export const usersSlice = createSlice({
   name: 'users',
   initialState,
@@ -38,7 +66,9 @@ export const usersSlice = createSlice({
       });
   },
 });
+
 export const { addUser } = usersSlice.actions;
+
 export const {
   selectAll: selectAllUsers, 
   selectById: selectUserById, 

@@ -2,19 +2,11 @@
   "users": [
     {
       "id": "1",
-      "nome": "Pedro Teste",
+      "nome": "Pedro",
       "cpf": "111.222.333-44",
       "email": "pedro@teste.com",
       "senha": "123456",
       "cargo": "funcionario"
-    },
-    {
-      "id": "2",
-      "nome": "Gestor",
-      "cpf": "555.666.777-88",
-      "email": "a@gestor.com",
-      "senha": "senha",
-      "cargo": "gestor"
     },
     {
       "id": "6470",
