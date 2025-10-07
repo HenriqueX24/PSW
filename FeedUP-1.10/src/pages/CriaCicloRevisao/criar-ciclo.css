@@ -10,6 +10,9 @@ body {
   flex-direction: column;
   justify-content: space-between;
 }
+.conteiner-avaliados{
+
+}
 .header {
   display: flex;
   align-items: center;

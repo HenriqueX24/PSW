@@ -107,9 +107,10 @@ export default function CriarCiclo() {
             </div>
             {errors.avaliadores && <p className="error-message">{errors.avaliadores.message}</p>}
           </div>
-
+              
           <div className="form-group">
             <label>Avaliados</label>
+            <div className='conteiner-avaliados'>    
             <div className="checkbox-group">
               {userList.map(user => (
                 <label key={user.id}>
@@ -120,7 +121,7 @@ export default function CriarCiclo() {
             </div>
             {errors.avaliados && <p className="error-message">{errors.avaliados.message}</p>}
           </div>
-
+  </div>
           <button type="submit" className="main-btn" disabled={isSubmitting}>
             {isSubmitting ? 'Salvando...' : 'Salvar Ciclo'}
           </button>
