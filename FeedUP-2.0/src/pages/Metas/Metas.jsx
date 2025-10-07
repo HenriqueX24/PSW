@@ -8,6 +8,7 @@ import { Typography, Grid, Box, Container } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchMetas, selectAllMetas } from "../../features/user/metaSlice.js";
 import Title from "../../Components/Title.jsx";
+import ButtonCreate from "../../Components/ButtonCreate.jsx";
 
 export default function Metas() {
   const navigate = useNavigate();
@@ -104,7 +105,7 @@ export default function Metas() {
           </button>
         )}
       </main>
-
+        <ButtonCreate nameButton={"Criar Meta"} onClick={() => navigate("/criar-meta")}/>
       {/* Bottom nav */}
       <NavBar />
       </Box>

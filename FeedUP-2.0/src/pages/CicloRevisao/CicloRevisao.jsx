@@ -94,7 +94,7 @@ export default function CicloRevisao() {
           onClick={() => navigate("/criar-ciclo")} 
         />
       )}
-      
+      <ButtonCreate nameButton={"Criar Ciclo"} onClick={() => navigate("/criar-ciclo")}/>
       </main>
       
       <NavBar />

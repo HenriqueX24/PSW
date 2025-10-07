@@ -16,6 +16,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ListaCardAvaliacao from "../../Components/ListaCardAvaliacao.jsx";
 import Title from "../../Components/Title.jsx";
+import ButtonCreate from "../../Components/ButtonCreate.jsx";
 
 const NavLinks = () => (
   <Box
@@ -183,9 +184,7 @@ function Avaliacao() {
           {/* LISTA */}
           <AppBar position="static" color="default" elevation={1}>
             <ListaCardAvaliacao />
-            <Link className="add-avaliacao-btn" to="/criar-avaliacao">
-              <span className="plus-icon">+</span> Nova Avaliação
-            </Link>
+            <ButtonCreate nameButton={"Criar Avaliação"} onClick={() => navigate("/criar-avaliacao")}/>
           </AppBar>
           {/* FIM LISTA */}
         </div>
