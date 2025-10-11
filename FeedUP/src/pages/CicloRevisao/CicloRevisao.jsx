@@ -8,7 +8,8 @@ import NavBar from "../../Components/NavBar";
 import MenuNav from "../../Components/MenuNav";
 import CardCiclo from "../../Components/CardCiclo";
 import ButtonCreate from "../../Components/ButtonCreate";
-import { Grid } from "@mui/material";
+import { Grid, Box, Container } from "@mui/material";
+import Title from "../../Components/Title";
 
 export default function CicloRevisao() {
   const navigate = useNavigate();
@@ -59,8 +60,17 @@ export default function CicloRevisao() {
   }
 
   return (
-    <>
-      <header className="header">
+    <Box sx={{ backgroundColor: "white", minHeight: "100vh" }}>
+      <Container
+        maxWidth="lg"
+        sx={{
+          display: "flex", // Habilita Flexbox
+          alignItems: "center", // Centraliza verticalmente
+          justifyContent: "flex-start", // Alinha ao início (esquerda)
+          gap: 60, // Adiciona um pequeno espaço entre a seta e o título
+          py: 3, // Padding vertical
+        }}
+      >
         <button
           type="button"
           className="back-btn"
@@ -77,21 +87,21 @@ export default function CicloRevisao() {
             />
           </svg>
         </button>
-        <h1>Ciclo de Revisão</h1>
-      </header>
+        <Title titulo="Ciclos de Revisão" />
+      </Container>
 
-      <MenuNav />
+      <MenuNav label={"Ciclo de Revisão"} />
       <main className="ciclo-main">
         {content}
         {currentUser && currentUser.cargo === "gestor" && (
           <ButtonCreate
-            nameButton="Novo Ciclo"
+            nameButton={"Criar Ciclo"}
             onClick={() => navigate("/criar-ciclo")}
           />
         )}
       </main>
 
       <NavBar />
-    </>
+    </Box>
   );
 }

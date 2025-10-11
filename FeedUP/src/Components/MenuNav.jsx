@@ -13,6 +13,7 @@ import React, { useState } from "react"; // 1. Importar useState
 import { NavLink } from "react-router-dom";
 // 2. Importar o componente Drawer
 import PersistentDrawerRight from "./PersistentDrawerRight.jsx";
+import HorizontalLinearStepper from "./HorizontalLinearStepper.jsx";
 
 // Componente para agrupar e centralizar os links de navegação do menu principal
 const NavLinks = () => (
@@ -27,10 +28,11 @@ const NavLinks = () => (
   >
     {/* Links de Navegação */}
     {[
-      { to: "/sobre-app", label: "Sobre" },
+      { to: "/ciclo-revisao", label: "Ciclos de Revisão" },
+      { to: "/ciclo-funcionarios", label:"Lista de Funcionários"},
       { to: "/avaliacao/:id", label: "Avaliações" },
       { to: "/metas", label: "Metas" },
-      { to: "/ciclo-revisao", label: "Ciclos de Revisão" },
+      { to: "/sobre-app", label: "Sobre" },
     ].map((item) => (
       <NavLink
         key={item.to}
@@ -71,8 +73,9 @@ export default function MenuNav() {
       <AppBar position="static" color="default" elevation={1}>
         <Container maxWidth="lg" disableGutters={isMobile}>
           <Toolbar disableGutters>
-            {/* Links de Navegação (Desktop) */}
-            <NavLinks />
+            <HorizontalLinearStepper />
+            {/* Links de Navegação (Desktop) 
+            <NavLinks />*/}
 
             {/* Ações à Direita e Toggle Button */}
             <Box

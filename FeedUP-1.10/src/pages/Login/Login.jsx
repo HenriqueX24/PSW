@@ -4,7 +4,7 @@ import styles from "./loginstyle.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { loginSuccess, loginFailure } from "../../features/user/loginSlice";
 import { selectAllUsers } from "../../features/user/usersSlice";
-import Box from '@mui/material/Box'
+import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import ButtonSubmit from "../../Components/ButtonSubmit.jsx";
@@ -22,13 +22,13 @@ export default function Login() {
       alert("Preencha todos os campos!");
       return;
     }
-    const foundUser = userList.find(user => 
-      (user.email === identifier || user.cpf === identifier)
+    const foundUser = userList.find(
+      (user) => user.email === identifier || user.cpf === identifier
     );
     if (foundUser && foundUser.senha === senha) {
       dispatch(loginSuccess(foundUser));
       alert(`Bem-vindo, ${foundUser.nome}!`);
-      navigate("/home");
+      navigate("/sobre-app");
     } else {
       const errorMessage = "E-mail/CPF ou senha inválidos.";
       dispatch(loginFailure(errorMessage));
@@ -50,8 +50,8 @@ export default function Login() {
       }}
     >
       <Container className={styles.loginPageWrapper} maxWidth={360}>
-    <div className={styles.loginConteiner} >
-      <Typography
+        <div className={styles.loginConteiner}>
+          <Typography
             component="h1"
             variant="h4"
             sx={{
@@ -60,35 +60,35 @@ export default function Login() {
               fontWeight: "bold",
             }}
           >
-        Bem-vindo ao FeedUp!
-      </Typography>
-      <form className={styles.loginForm} onSubmit={handleSubmit}>
-        <label htmlFor="login">E-mail ou CPF</label>
-        <input
-          id="login"
-          value={identifier}
-          onChange={(e) => setIdentifier(e.target.value)}
-          placeholder="Digite seu e-mail ou CPF"
-        />
+            Bem-vindo ao FeedUp!
+          </Typography>
+          <form className={styles.loginForm} onSubmit={handleSubmit}>
+            <label htmlFor="login">E-mail ou CPF</label>
+            <input
+              id="login"
+              value={identifier}
+              onChange={(e) => setIdentifier(e.target.value)}
+              placeholder="Digite seu e-mail ou CPF"
+            />
 
-        <label htmlFor="senha">Senha</label>
-        <input
-          id="senha"
-          type="password"
-          value={senha}
-          onChange={(e) => setSenha(e.target.value)}
-          placeholder="Digite sua senha"
-        />
-        <ButtonSubmit texto="Entrar" />
+            <label htmlFor="senha">Senha</label>
+            <input
+              id="senha"
+              type="password"
+              value={senha}
+              onChange={(e) => setSenha(e.target.value)}
+              placeholder="Digite sua senha"
+            />
+            <ButtonSubmit texto="Entrar" />
 
-        <div style={{ marginTop: 12 }}>
-          <Link to="/criar-conta" className={styles.forgot}>
-            Novo aqui? Criar conta
-          </Link>
+            <div style={{ marginTop: 12 }}>
+              <Link to="/criar-conta" className={styles.forgot}>
+                Novo aqui? Criar conta
+              </Link>
+            </div>
+          </form>
         </div>
-      </form>
-    </div>
-    </Container>
+      </Container>
     </Box>
   );
 }

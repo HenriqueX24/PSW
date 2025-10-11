@@ -15,6 +15,9 @@ import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import HomeIcon from "@mui/icons-material/Home";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ListaCardAvaliacao from "../../Components/ListaCardAvaliacao.jsx";
+import Title from "../../Components/Title.jsx";
+import ButtonCreate from "../../Components/ButtonCreate.jsx";
+import MenuNav from "../../Components/MenuNav.jsx";
 
 const NavLinks = () => (
   <Box
@@ -142,65 +145,21 @@ function Avaliacao() {
           </button>
 
           {/* Título Avaliações */}
-          <Container maxWidth="lg" sx={{ textAlign: "center", py: 3 }}>
-            <Typography
-              variant="h1"
-              sx={{
-                lineHeight: 1.2,
-                color: "var(--brand)",
-                fontSize: "2.5rem",
-                fontWeight: 300,
-                margin: 0 /* remove o hack do margin negativo */,
-              }}
-            >
-              Avaliações
-            </Typography>
-          </Container>
+
+          <Title titulo="Avaliações" />
         </Container>
 
         {/* NAVBAR REACT */}
-        <AppBar position="static" color="default" elevation={1}>
-          <Container maxWidth="lg" disableGutters={isMobile}>
-            <Toolbar disableGutters>
-              {/* Links de Navegação (Desktop) */}
-              <NavLinks />
-
-              {/* Logo e Marca */}
-              <Link
-                component={RouterLink}
-                to="/sobre-app"
-                style={{ textDecoration: "none" }}
-              ></Link>
-
-              {/* Ações à Direita e Toggle Button */}
-              <Box
-                sx={{
-                  flexGrow: 1,
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  alignItems: "center",
-                }}
-              >
-                <IconButton
-                  color="inherit"
-                  aria-label="open drawer"
-                  onClick={() => console.log("Abrir Drawer/Menu Mobile")}
-                  sx={{ display: { xs: "flex", lg: "none" } }}
-                >
-                  <MenuIcon sx={{ color: "var(--brand)" }} />
-                </IconButton>
-              </Box>
-            </Toolbar>
-          </Container>
-        </AppBar>
+        <MenuNav />
 
         <div className="avaliacao-container">
           {/* LISTA */}
           <AppBar position="static" color="default" elevation={1}>
             <ListaCardAvaliacao />
-            <Link className="add-avaliacao-btn" to="/criar-avaliacao">
-              <span className="plus-icon">+</span> Nova Avaliação
-            </Link>
+            <ButtonCreate
+              nameButton={"Criar Avaliação"}
+              onClick={() => navigate("/criar-avaliacao")}
+            />
           </AppBar>
           {/* FIM LISTA */}
         </div>

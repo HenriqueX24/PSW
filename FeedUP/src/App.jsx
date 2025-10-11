@@ -16,7 +16,6 @@ import CicloFuncionarios from "./pages/CicloFuncionarios/CicloFuncionarios.jsx";
 import Avaliacao from "./pages/Avaliacao/Avaliacao.jsx";
 import Autoavaliacao from "./pages/Autoavaliacao/Autoavaliacao.jsx";
 import CriarAutoavalicao from "./pages/CriarAutoavaliacao/CriarAutoavalicao.jsx";
-import SobreApp from "../../FeedUP/src/pages/SobreApp/SobreApp.jsx";
 
 function App() {
   const dispatch = useDispatch();
