@@ -3,6 +3,7 @@ import "./autoavaliacao.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import ButtonSubmit from "../../Components/ButtonSubmit";
 import NavBar from "../../Components/NavBar";
+import MenuNav from "../../Components/MenuNav";
 import { Input, Typography } from "@mui/material";
 import SurveyForm from "../../Components/SurveyForm";
 import Slider from "../../Components/Slider";
@@ -70,6 +71,8 @@ function Autoavaliacao() {
   return (
     // Fragmento do React para permitir dois elementos de nível superior (Container e Nav)
     <>
+      {/* Menu superior com stepper */}
+      
       <header className="autoavaliacao-header">
         <button
           type="button"
@@ -89,13 +92,15 @@ function Autoavaliacao() {
         </button>
         <h1>Autoavaliação</h1>
       </header>
-
+          <MenuNav />
       <main>
         <form className="autoavaliacao-form" onSubmit={handleSubmit}>
+          {/*
           <ButtonCreate
             nameButton="Criar autoavaliacão"
             onClick={handleButtonCreate}
           />
+           */}
           <div className="form-section">
             <h2>Performance Review</h2>
             {/* Pass the handler and new props to SurveyForm */}

@@ -10,6 +10,8 @@ const steps = [
   { label: "Ciclo de Revisão", route: "/ciclo-revisao" },
   { label: "Funcionários", route: "/ciclo-funcionarios" },
   { label: "Avaliações", route: "/avaliacao" },
+  // usar a mesma rota com hífen conforme definido em App.jsx
+  { label: "Fazer Avaliação", route: "/auto-avaliacao" },
 ];
 
 export default function HorizontalLinearStepper() {

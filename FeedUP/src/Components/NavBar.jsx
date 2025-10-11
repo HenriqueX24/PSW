@@ -25,8 +25,8 @@ const BottomNav = ({ navigate }) => (
     {/* Botões de Navegação */}
     {[
       {
-        path: "/auto-avaliacao/:id",
-        label: "Autoavaliação",
+        path: "/metas",
+        label: "Metas",
         Icon: CheckBoxIcon,
         color: "var(--icon)",
       },
