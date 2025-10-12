@@ -10,7 +10,7 @@ const steps = [
   { label: "Ciclo de Revisão", route: "/ciclo-revisao" },
   { label: "Funcionários", route: "/ciclo-funcionarios" },
   { label: "Avaliações", route: "/avaliacao" },
-  // usar a mesma rota com hífen conforme definido em App.jsx
+  { label: "Metas", route: "/metas" },
   { label: "Fazer Avaliação", route: "/auto-avaliacao" },
 ];
 
@@ -25,7 +25,10 @@ export default function HorizontalLinearStepper() {
 
   // Navega para a rota do step clicado
   const handleStepClick = (index) => {
-    navigate(steps[index].route);
+    const target = steps[index].route;
+
+    const finalRoute = fallbackMap[target] || target;
+    navigate(finalRoute);
   };
 
   return (

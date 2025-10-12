@@ -98,6 +98,13 @@ export default function CicloFuncionarios() {
                       >
                         Ver Avaliação
                       </button>
+                      <button
+                        type="button"
+                        className="ver-avaliacao-btn"
+                        onClick={() => navigate(`/metas`)}
+                      >
+                        Metas
+                      </button>
                     </>
                   ) : (
                     <span className="status-label pendente">
