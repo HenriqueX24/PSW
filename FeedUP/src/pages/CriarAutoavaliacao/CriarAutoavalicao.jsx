@@ -55,8 +55,29 @@ function CriarAutoavaliacao() {
     // dispatch(salvarAutoavaliacao(dadosDaAvaliacao)); 
   };
 
+  const handleVoltar = (e) => {
+    navigate("/avaliacao/:id");
+  };
+
   return (
     <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
+      <button
+          type="button"
+          className="voltar"
+          aria-label="Voltar"
+          onClick={handleVoltar}
+        >
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+            <path
+              d="M15 18l-6-6 6-6"
+              stroke="var(--brand)"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+
       <Typography variant="h4" component="h1" gutterBottom>
         Criar Autoavaliação
       </Typography>

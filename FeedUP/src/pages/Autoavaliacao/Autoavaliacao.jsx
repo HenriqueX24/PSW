@@ -28,7 +28,7 @@ function Autoavaliacao() {
   const isActive = (path) => pathname === path;
 
   const handleVoltar = (e) => {
-    navigate("/sobre-app");
+    navigate("/avaliacao/:id");
   };
 
   const handleButtonCreate = (e) => {

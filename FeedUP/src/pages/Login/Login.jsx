@@ -26,7 +26,7 @@ export default function Login() {
     if (foundUser && foundUser.senha === senha) {
       dispatch(loginSuccess(foundUser));
       alert(`Bem-vindo, ${foundUser.nome}!`);
-      navigate("/sobre-app");
+      navigate("/ciclo-revisao");
     } else {
       const errorMessage = "E-mail/CPF ou senha inválidos.";
       dispatch(loginFailure(errorMessage));
