@@ -10,6 +10,7 @@ import {
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import CardQuestao from "../../Components/CardQuestao"; // Iremos criar este componente
 import ButtonCreate from "../../Components/ButtonCreate";
+import NavBar from "../../Components/NavBar";
 // import { useDispatch, useSelector } from 'react-redux'; // Preparado para Redux
 
 function CriarAutoavaliacao() {
@@ -68,6 +69,7 @@ function CriarAutoavaliacao() {
   };
 
   return (
+    <>
     <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
       <button
         type="button"
@@ -87,7 +89,7 @@ function CriarAutoavaliacao() {
       </button>
 
       <Typography variant="h4" component="h1" gutterBottom>
-        Criar Autoavaliação
+        Criar Avaliação
       </Typography>
 
       <form onSubmit={handleSubmit} className="autoavaliacao-form">
@@ -140,6 +142,8 @@ function CriarAutoavaliacao() {
         </Box>
       </form>
     </Container>
+    <NavBar />
+    </>
   );
 }
 

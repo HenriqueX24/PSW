@@ -28,7 +28,7 @@ function FazerAvaliacao() {
   const isActive = (path) => pathname === path;
 
   const handleVoltar = (e) => {
-    navigate("/avaliacao/:id");
+    navigate("/ciclo-revisao");
   };
 
   const handleButtonCreate = (e) => {
