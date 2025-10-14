@@ -14,7 +14,7 @@ import CriarAvaliacao from "./pages/CriarAvaliacao/CriarAvaliacao.jsx";
 import CicloRevisao from "./pages/CicloRevisao/CicloRevisao.jsx";
 import CicloFuncionarios from "./pages/CicloFuncionarios/CicloFuncionarios.jsx";
 import Avaliacao from "./pages/Avaliacao/Avaliacao.jsx";
-import Autoavaliacao from "./pages/Autoavaliacao/Autoavaliacao.jsx";
+import FazerAvaliacao from "./pages/FazerAvaliacao/Autoavaliacao.jsx";
 import CriarAutoavalicao from "./pages/CriarAutoavaliacao/CriarAutoavalicao.jsx";
 import SobreApp from "../../FeedUP/src/pages/SobreApp/SobreApp.jsx";
 
@@ -52,7 +52,7 @@ function App() {
       <Route path="/ciclo-revisao" element={<CicloRevisao />} />
       <Route path="/ciclo-funcionarios/:id" element={<CicloFuncionarios />} />
       <Route path="/avaliacao/:id" element={<Avaliacao />} />
-      <Route path="/auto-avaliacao/:id" element={<Autoavaliacao />} />
+      <Route path="/auto-avaliacao/:id" element={<FazerAvaliacao />} />
       <Route path="/criar-autoavaliacao/" element={<CriarAutoavalicao />} />
       <Route path="*" element={<Navigate to="/login" replace />} />
       <Route path="/ciclo-revisao" element={<CicloRevisao />} />

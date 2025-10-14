@@ -31,7 +31,7 @@ export default function Perfil() {
   }, [isAuthenticated, navigate]);
 
   const handleVoltar = () => {
-    navigate("/sobre-app");
+    navigate(-1);
   };
   const handleEdit = () => {
     navigate("/perfil/editar");
@@ -147,7 +147,7 @@ export default function Perfil() {
               sx={{ display: "flex", align: "left" }}
             >
               <Button
-                onClick={handleClickOpenDeleteDialog}
+                onClick={()=>navigate("/login")}
                 color="error"
                 variant="outlined"
               >
@@ -159,6 +159,7 @@ export default function Perfil() {
       </main>
 
       <NavBar />
+      {/* Tirando a ideia de encerrar para virar logout
       <Dialog open={openDeleteDialog} onClose={handleCloseDeleteDialog}>
         <DialogTitle>{"Encerrar sua conta?"}</DialogTitle>
         <DialogContent>
@@ -174,6 +175,7 @@ export default function Perfil() {
           </Button>
         </DialogActions>
       </Dialog>
+       */}
     </div>
   );
 }

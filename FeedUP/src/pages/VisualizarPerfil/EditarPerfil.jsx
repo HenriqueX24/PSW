@@ -1,18 +1,17 @@
 import React from "react";
 import SimpleContainer from "../../Components/SimpleContainer";
 import Forms from "../../Components/Forms";
-import "./Criarconta.css";
 import Title from "../../Components/Title";
 
-function CriarConta() {
+function EditarPerfil() {
 
   return (
     <SimpleContainer>
       {/*<h1>Criar conta</h1>*/}
-      <Title titulo='Criar conta' />
+      <Title titulo='Editar conta' />
       <Forms />
     </SimpleContainer>
   );
 }
 
-export default CriarConta;
+export default EditarPerfil;

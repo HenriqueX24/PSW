@@ -25,7 +25,8 @@ const satisfactionOptions = [
   { value: "neutro", label: "Neutro" },
   { value: "insatisfeito", label: "Insatisfeito" },
 ];
-{/* 
+{
+  /* 
 const handleDeadlineChange = (event, newValue) => {
   console.log(`Nova avaliação de prazo: ${newValue}`);
 };
@@ -33,7 +34,8 @@ const handleDeadlineChange = (event, newValue) => {
 const handleSatisfactionChange = (event, newValue) => {
   console.log(`Nova avaliação de satisfação: ${newValue}`);
 };
-*/}
+*/
+}
 export default function SurveyForm({ onQ1Change, onQ2Change, onQ3Change }) {
   return (
     <div>
@@ -42,7 +44,7 @@ export default function SurveyForm({ onQ1Change, onQ2Change, onQ3Change }) {
         groupLabel={q1.title}
         options={deadlineOptions}
         name="deadline-evaluation-1" // Unique name for Q1
-        onChange={onQ1Change} // Passed from Autoavaliacao
+        onChange={onQ1Change} // Passed from FazerAvaliacao
       />
 
       <hr style={{ margin: "20px 0" }} />
@@ -52,7 +54,7 @@ export default function SurveyForm({ onQ1Change, onQ2Change, onQ3Change }) {
         groupLabel={q2.title}
         options={satisfactionOptions}
         name="project-satisfaction"
-        onChange={onQ2Change} // Passed from Autoavaliacao
+        onChange={onQ2Change} // Passed from FazerAvaliacao
       />
 
       <hr style={{ margin: "20px 0" }} />
@@ -61,7 +63,7 @@ export default function SurveyForm({ onQ1Change, onQ2Change, onQ3Change }) {
         groupLabel={q3.title}
         options={deadlineOptions}
         name="deadline-evaluation-3" // Unique name for Q3
-        onChange={onQ3Change} // Passed from Autoavaliacao
+        onChange={onQ3Change} // Passed from FazerAvaliacao
       />
 
       <hr style={{ margin: "20px 0" }} />

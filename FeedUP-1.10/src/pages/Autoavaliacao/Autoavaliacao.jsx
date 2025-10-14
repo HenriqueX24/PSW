@@ -8,7 +8,7 @@ import SurveyForm from "../../Components/SurveyForm";
 import Slider from "../../Components/Slider";
 import ButtonCreate from "../../Components/ButtonCreate";
 
-function Autoavaliacao() {
+function FazerAvaliacao() {
   const [nome, setNome] = useState("");
   const [departamento, setDepartamento] = useState("");
   const [email, setEmail] = useState("");
@@ -135,4 +135,4 @@ function Autoavaliacao() {
   );
 }
 
-export default Autoavaliacao;
+export default FazerAvaliacao;

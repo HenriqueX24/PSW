@@ -9,7 +9,7 @@ import SurveyForm from "../../Components/SurveyForm";
 import Slider from "../../Components/Slider";
 import ButtonCreate from "../../Components/ButtonCreate";
 
-function Autoavaliacao() {
+function FazerAvaliacao() {
   const [nome, setNome] = useState("");
   const [departamento, setDepartamento] = useState("");
   const [email, setEmail] = useState("");
@@ -72,7 +72,7 @@ function Autoavaliacao() {
     // Fragmento do React para permitir dois elementos de nível superior (Container e Nav)
     <>
       {/* Menu superior com stepper */}
-      
+
       <header className="autoavaliacao-header">
         <button
           type="button"
@@ -92,7 +92,7 @@ function Autoavaliacao() {
         </button>
         <h1>Autoavaliação</h1>
       </header>
-          <MenuNav />
+      <MenuNav />
       <main>
         <form className="autoavaliacao-form" onSubmit={handleSubmit}>
           {/*
@@ -140,4 +140,4 @@ function Autoavaliacao() {
   );
 }
 
-export default Autoavaliacao;
+export default FazerAvaliacao;

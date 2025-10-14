@@ -31,8 +31,8 @@ const BottomNav = ({ navigate }) => (
         color: "var(--icon)",
       },
       {
-        path: "/sobre-app",
-        label: "SobreApp",
+        path: "/ciclo-revisao",
+        label: "CicloRevisao",
         Icon: HomeIcon,
         color: "var(--brand)",
       },

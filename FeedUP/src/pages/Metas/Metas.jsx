@@ -73,7 +73,7 @@ export default function Metas() {
             type="button"
             className="back-btn"
             aria-label="Voltar"
-            onClick={() => navigate("/sobre-app")}
+            onClick={() => navigate(-1)}
           >
             <svg width="24" height="24" fill="none">
               <path
