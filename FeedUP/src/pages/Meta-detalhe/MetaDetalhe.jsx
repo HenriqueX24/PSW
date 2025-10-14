@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-import React, { useState } from "react";
-import "./meta-detalhe.css";
-import { useNavigate, useParams } from "react-router-dom";
-
-export default function MetaDetalhe() {
-  const [comentario, setComentario] = useState("");
-  const [range, setRange] = useState(0);
-
-  const navigate = useNavigate();
-  const { id } = useParams(); // /meta-detalhe/:id
-
-=======
 import React, { useState, useEffect } from "react";
 import "./meta-detalhe.css";
 import { useNavigate, useParams } from "react-router-dom";
@@ -73,7 +60,6 @@ export default function MetaDetalhe() {
     );
   }
   const currentStatus = STATUS_MAP[range];
->>>>>>> RefazendoFront
   return (
     <>
       {/* Header */}
@@ -96,19 +82,6 @@ export default function MetaDetalhe() {
         </button>
         <h1>Meta</h1>
       </header>
-<<<<<<< HEAD
-
-      {/* Conteúdo */}
-      <main>
-        <section className="goal-detail">
-          {/* Se quiser, use o id na UI */}
-          {/* <small className="goal-id">ID: {id}</small> */}
-
-          <h2 className="goal-title">Aumentar vendas em 10%</h2>
-
-          <div className="range">
-            <div className="goal-status pendente">Pendente</div>
-=======
       <main>
         <section className="goal-detail">
           <h2 className="goal-title">{meta.titulo}</h2>
@@ -116,40 +89,18 @@ export default function MetaDetalhe() {
             <div className={`goal-status ${currentStatus.className}`}>
               {currentStatus.label}
             </div>
->>>>>>> RefazendoFront
 
             <label htmlFor="customRange2" className="form-label" />
             <input
               type="range"
               className="form-range"
               min="0"
-<<<<<<< HEAD
-              max="5"
-=======
               max={STATUS_MAP.length - 1}
->>>>>>> RefazendoFront
               id="customRange2"
               value={range}
               onChange={(e) => setRange(Number(e.target.value))}
             />
           </div>
-<<<<<<< HEAD
-
-          <div className="goal-desc">
-            <strong>Descrição:</strong>
-            <p>
-              Alcançar um aumento de 10% nas vendas totais do trimestre,
-              comparado ao mesmo período do ano anterior.
-            </p>
-          </div>
-
-          <div className="goal-meta">
-            <span>
-              <strong>Período:</strong> 01/07/2025 - 30/09/2025
-            </span>
-            <span>
-              <strong>Responsável:</strong> João Silva
-=======
           <div className="goal-desc">
             <strong>Descrição:</strong>
             <p>{meta.descricao}</p>
@@ -160,7 +111,6 @@ export default function MetaDetalhe() {
             </span>
             <span>
               <strong>Responsável:</strong> {meta.responsavel}
->>>>>>> RefazendoFront
             </span>
           </div>
 
@@ -177,24 +127,10 @@ export default function MetaDetalhe() {
           </div>
         </section>
 
-<<<<<<< HEAD
-        <button
-          type="button"
-          className="edit-goal-btn"
-          // exemplo: ir para edição (ajuste a rota real se existir)
-          onClick={() => navigate(`/criar-meta?from=${id ?? ""}`)}
-        >
-          <span className="edit-icon">&#9998;</span> Editar Meta
-        </button>
-      </main>
-
-      {/* Bottom nav */}
-=======
         <button type="button" className="edit-goal-btn" onClick={handleUpdate}>
           <span className="edit-icon">&#9998;</span> Confirmar Edição
         </button>
       </main>
->>>>>>> RefazendoFront
       <nav className="bottom-nav">
         <button
           type="button"
@@ -239,15 +175,9 @@ export default function MetaDetalhe() {
 
         <button
           type="button"
-<<<<<<< HEAD
-          className="nav-icon btn-plain home"
-          onClick={() => navigate("/home")}
-          aria-label="Home"
-=======
           className="nav-icon btn-plain sobre-app"
           onClick={() => navigate("/sobre-app")}
           aria-label="SobreApp"
->>>>>>> RefazendoFront
         >
           <svg viewBox="0 0 24 24" width="32" height="32" fill="#5cc6ba">
             <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />

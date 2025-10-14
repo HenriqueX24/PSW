@@ -16,7 +16,7 @@ import CicloFuncionarios from "./pages/CicloFuncionarios/CicloFuncionarios.jsx";
 import Avaliacao from "./pages/Avaliacao/Avaliacao.jsx";
 import FazerAvaliacao from "./pages/FazerAvaliacao/FazerAvaliacao.jsx";
 import CriarAutoavalicao from "./pages/CriarAutoavaliacao/CriarAutoavalicao.jsx";
-import EditarPerfil from "./pages/VisualizarPerfil/EditarPerfil.jsx"
+import EditarPerfil from "./pages/VisualizarPerfil/EditarPerfil.jsx";
 
 function App() {
   const dispatch = useDispatch();

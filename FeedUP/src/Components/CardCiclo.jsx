@@ -8,13 +8,12 @@ export default function CardCiclo({ ciclo }) {
   }
 
   return (
-    <div className="review-card-btn"> 
+    <div className="review-card-btn">
       <div className="review-info">
         <span className="review-title">{ciclo.titulo}</span>
         <div className="review-meta">
           <span className="icon-calendar">
-            <svg width="20" height="20" fill="none">
-            </svg>
+            <svg width="20" height="20" fill="none"></svg>
           </span>
           <span className="review-date">Início: {ciclo.inicio}</span>
           <span className="review-date">Término: {ciclo.termino}</span>

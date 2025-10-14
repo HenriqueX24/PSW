@@ -142,8 +142,6 @@ main {
 .icon-link svg {
   vertical-align: middle;
 }
-<<<<<<< HEAD
-=======
 .card-link {
   text-decoration: none;
   color: inherit; 
@@ -152,7 +150,6 @@ main {
   width: 100%;
   margin-bottom: 1.5rem;
 }
->>>>>>> RefazendoFront
 
 @media (max-width: 600px) {
   main {

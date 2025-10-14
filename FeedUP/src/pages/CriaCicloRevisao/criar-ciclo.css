@@ -2,7 +2,7 @@ body {
   margin: 0;
   padding: 0;
   background: #fff;
-  font-family: 'Roboto', Arial, sans-serif;
+  font-family: "Roboto", Arial, sans-serif;
 }
 .container {
   min-height: 100vh;
@@ -77,12 +77,14 @@ main {
   margin-right: 10px;
   accent-color: #5cc6ba;
 }
-.avaliacao-cards, .funcionarios-cards {
+.avaliacao-cards,
+.funcionarios-cards {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-.avaliacao-card, .funcionario-card {
+.avaliacao-card,
+.funcionario-card {
   background: #fff;
   border: 1.5px solid #e0e0e0;
   border-radius: 12px;
@@ -97,12 +99,14 @@ main {
 .funcionario-card input[type="checkbox"]:checked + div {
   font-weight: 600;
 }
-.avaliacao-title, .funcionario-nome {
+.avaliacao-title,
+.funcionario-nome {
   font-weight: 600;
   color: #444;
   font-size: 1.05rem;
 }
-.avaliacao-desc, .funcionario-depto {
+.avaliacao-desc,
+.funcionario-depto {
   color: #999;
   font-size: 0.98rem;
   margin-left: 8px;

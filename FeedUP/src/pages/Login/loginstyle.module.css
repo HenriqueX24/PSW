@@ -1,9 +1,5 @@
 body {
-<<<<<<< HEAD
-  background: #f6f6f6;
-=======
   background: #ffffff;
->>>>>>> RefazendoFront
   min-height: 100vh;
   display: contents;
   align-items: center;
@@ -11,14 +7,6 @@ body {
   font-family: "Inter", Arial, sans-serif;
 }
 
-<<<<<<< HEAD
-h1 {
-  color: #5cc6ba;
-  font-size: 2rem;
-  margin-bottom: 32px;
-  font-weight: 700;
-  text-align: center;
-=======
 /* Novo wrapper para centralizar o contêiner de login */
 .loginPageWrapper {
   background: #ffffff; /* Cor de fundo desejada para a página de login #f6f6f6*/
@@ -30,7 +18,6 @@ h1 {
   justify-content: center; /* Centraliza horizontalmente o .
   loginContainer */
   /* Remove a dependência das regras globais do body no index.css para centralização */
->>>>>>> RefazendoFront
 }
 
 .camp {

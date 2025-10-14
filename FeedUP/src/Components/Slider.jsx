@@ -46,9 +46,9 @@ export default function DiscreteSliderLabel({
   onChange = handleChange, // Adiciona um handler de mudança (opcional)
 }) {
   const defaultMarks = [
-  { value: 1, label: "Baixa" },
-  { value: 5, label: "Alta" },
-];
+    { value: 1, label: "Baixa" },
+    { value: 5, label: "Alta" },
+  ];
   return (
     <>
       <Typography id="input-slider" gutterBottom>

@@ -3,12 +3,6 @@ import CardAvaliacao from "./CardAvaliacao"; // Supondo que você salvou o compo
 
 const ListaCardAvaliacao = () => {
   // 1. Dados do card original
-<<<<<<< HEAD
-  const avaliacaoOriginal = {
-    titulo: "Avaliação 360",
-    data: "18/08/2025",
-    link: "https://docs.google.com/forms/d/e/1FAIpQLSeac0NDz1hlTsUdRy33boOPd1rP6zB6VBTmeDx55P5fugkIdg/viewform?usp=header",
-=======
   // Observação: não chame `navigate()` durante o render — isso tenta navegar imediatamente e
   // `navigate(...)` retorna undefined. Passe uma string de rota (ex: "/auto-avaliacao/1") ou
   // use um callback/onClick ou o componente <Link /> para navegação interna.
@@ -17,20 +11,13 @@ const ListaCardAvaliacao = () => {
     data: "18/08/2025",
     // Insira o id real no lugar de `1` quando tiver o valor dinâmico
     link: "/auto-avaliacao/1",
->>>>>>> RefazendoFront
   };
 
   // 2. Novo cadastro de card
   const novaAvaliacao = {
-<<<<<<< HEAD
-    titulo: "Avaliação PCH",
-    data: "05/09/2025",
-    link: "",
-=======
     titulo: "Avaliação 360",
     data: "05/09/2025",
     link: "https://docs.google.com/forms/d/e/1FAIpQLSeac0NDz1hlTsUdRy33boOPd1rP6zB6VBTmeDx55P5fugkIdg/viewform?usp=header",
->>>>>>> RefazendoFront
   };
 
   return (

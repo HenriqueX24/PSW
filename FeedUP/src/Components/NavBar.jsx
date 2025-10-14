@@ -25,14 +25,6 @@ const BottomNav = ({ navigate }) => (
     {/* Botões de Navegação */}
     {[
       {
-<<<<<<< HEAD
-        path: "/auto-avaliacao/:id",
-        label: "Autoavaliação",
-        Icon: CheckBoxIcon,
-        color: "var(--icon)",
-      },
-      { path: "/home", label: "Home", Icon: HomeIcon, color: "var(--brand)" },
-=======
         path: "/metas",
         label: "Metas",
         Icon: CheckBoxIcon,
@@ -44,7 +36,6 @@ const BottomNav = ({ navigate }) => (
         Icon: HomeIcon,
         color: "var(--brand)",
       },
->>>>>>> RefazendoFront
       {
         path: "/perfil",
         label: "Perfil",

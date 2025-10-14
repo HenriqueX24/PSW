@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-import { createSlice } from '@reduxjs/toolkit';
-
-const initialState = {
-  // O estado para esta funcionalidade será uma lista de usuários
-  userList: [], 
-};
-=======
 import { createSlice, createAsyncThunk, createEntityAdapter  } from '@reduxjs/toolkit';
 
 const usersAdapter = createEntityAdapter();
@@ -52,26 +44,10 @@ export const fetchUsers = createAsyncThunk(
     return data;
   }
 );
->>>>>>> RefazendoFront
 
 export const usersSlice = createSlice({
   name: 'users',
   initialState,
-<<<<<<< HEAD
-  // O redutor que define a ação de adicionar um novo usuário
-  reducers: {
-    addUser: (state, action) => {
-      // action.payload será o objeto do novo usuário vindo do seu formulário
-      state.userList.push(action.payload);
-    },
-  },
-});
-
-// Exporta a ação 'addUser' para que o componente 'CriarConta' possa usá-la
-export const { addUser } = usersSlice.actions;
-
-// Exporta o redutor para a gente registrar na store
-=======
   reducers: {
     addUser: usersAdapter.addOne,
   },
@@ -97,5 +73,4 @@ export const {
   selectAll: selectAllUsers, 
   selectById: selectUserById, 
 } = usersAdapter.getSelectors(state => state.users);
->>>>>>> RefazendoFront
 export default usersSlice.reducer;

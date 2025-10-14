@@ -24,11 +24,7 @@ export default defineConfig([
     },
     rules: {
       'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
-<<<<<<< HEAD
-      //'no-dupe-keys': "off",
-=======
       'no-dupe-keys': off,
->>>>>>> RefazendoFront
     },
   },
 ])

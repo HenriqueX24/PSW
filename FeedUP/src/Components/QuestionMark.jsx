@@ -1,10 +1,9 @@
-import React from 'react'
+import React from "react";
 
 export default function QuestionMark() {
   return (
     <>
-        <TextField id="standard-basic" label="Standard" variant="standard" />
-        
+      <TextField id="standard-basic" label="Standard" variant="standard" />
     </>
-  )
+  );
 }

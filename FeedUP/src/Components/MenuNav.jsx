@@ -13,19 +13,12 @@ import React, { useState } from "react"; // 1. Importar useState
 import { NavLink } from "react-router-dom";
 // 2. Importar o componente Drawer
 import PersistentDrawerRight from "./PersistentDrawerRight.jsx";
-<<<<<<< HEAD
-=======
 import HorizontalLinearStepper from "./HorizontalLinearStepper.jsx";
->>>>>>> RefazendoFront
 
 // Componente para agrupar e centralizar os links de navegação do menu principal
 const NavLinks = () => (
   <Box
     sx={{
-<<<<<<< HEAD
-      display: "flex-content",
-=======
->>>>>>> RefazendoFront
       justifyContent: "center",
       alignItems: "center",
       flexGrow: 1,
@@ -35,18 +28,11 @@ const NavLinks = () => (
   >
     {/* Links de Navegação */}
     {[
-<<<<<<< HEAD
-      { to: "/home", label: "Sobre" },
-      { to: "/avaliacao/:id", label: "Avaliações" },
-      { to: "/metas", label: "Metas" },
-      { to: "/ciclo-revisao", label: "Ciclos de Revisão" },
-=======
       { to: "/ciclo-revisao", label: "Ciclos de Revisão" },
       { to: "/ciclo-funcionarios", label:"Lista de Funcionários"},
       { to: "/avaliacao/:id", label: "Avaliações" },
       { to: "/metas", label: "Metas" },
       { to: "/sobre-app", label: "Sobre" },
->>>>>>> RefazendoFront
     ].map((item) => (
       <NavLink
         key={item.to}
@@ -87,14 +73,9 @@ export default function MenuNav() {
       <AppBar position="static" color="default" elevation={1}>
         <Container maxWidth="lg" disableGutters={isMobile}>
           <Toolbar disableGutters>
-<<<<<<< HEAD
-            {/* Links de Navegação (Desktop) */}
-            <NavLinks />
-=======
             <HorizontalLinearStepper />
             {/* Links de Navegação (Desktop) 
             <NavLinks />*/}
->>>>>>> RefazendoFront
 
             {/* Ações à Direita e Toggle Button */}
             <Box
