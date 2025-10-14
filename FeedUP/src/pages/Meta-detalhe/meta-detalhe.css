@@ -1,5 +1,9 @@
 body {
+<<<<<<< HEAD
   font-family: 'Roboto', Arial, sans-serif;
+=======
+  font-family: "Roboto", Arial, sans-serif;
+>>>>>>> RefazendoFront
   background: #fff;
   margin: 0;
   color: #444;
@@ -29,7 +33,11 @@ body {
   flex: 1;
   text-align: center;
   font-size: 1.5rem;
+<<<<<<< HEAD
   color: #7ED6C0;
+=======
+  color: #7ed6c0;
+>>>>>>> RefazendoFront
   font-weight: 500;
   margin: 0 32px 0 0;
 }
@@ -41,7 +49,11 @@ main {
 }
 
 .goal-detail {
+<<<<<<< HEAD
   background: #F3F8F7;
+=======
+  background: #f3f8f7;
+>>>>>>> RefazendoFront
   border-radius: 20px;
   padding: 24px 20px;
   margin-bottom: 24px;
@@ -69,6 +81,7 @@ main {
 }
 
 .goal-status.aprovado {
+<<<<<<< HEAD
   background: #E6FAF4;
   color: #3DC9A7;
 }
@@ -81,6 +94,25 @@ main {
 .goal-status.em-analise {
   background: #E6F0FA;
   color: #42A5F5;
+=======
+  background: #e6faf4;
+  color: #3dc9a7;
+}
+
+.goal-status.pendente {
+  background: #fff6e6;
+  color: #ffa726;
+}
+
+.goal-status.em-analise {
+  background: #e6f0fa;
+  color: #42a5f5;
+}
+
+.goal-status.cancelado {
+  background-color: #ffcdd2;
+  color: #b71c1c;
+>>>>>>> RefazendoFront
 }
 
 .goal-desc {
@@ -100,7 +132,11 @@ main {
   display: flex;
   align-items: center;
   gap: 8px;
+<<<<<<< HEAD
   background: #7ED6C0;
+=======
+  background: #7ed6c0;
+>>>>>>> RefazendoFront
   color: #fff;
   border: none;
   border-radius: 24px;
@@ -114,7 +150,11 @@ main {
 }
 
 .edit-goal-btn:hover {
+<<<<<<< HEAD
   background: #3DC9A7;
+=======
+  background: #3dc9a7;
+>>>>>>> RefazendoFront
 }
 
 .edit-icon {
@@ -151,7 +191,11 @@ main {
   fill: #e0e0e0;
 }
 
+<<<<<<< HEAD
 .nav-icon.home svg path {
+=======
+.nav-icon.sobre-app svg path {
+>>>>>>> RefazendoFront
   fill: #e0e0e0;
 }
 
@@ -182,4 +226,8 @@ main {
     gap: 18px;
     margin-top: 20px;
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> RefazendoFront

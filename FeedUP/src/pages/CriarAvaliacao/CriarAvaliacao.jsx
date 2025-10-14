@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import "./criar-avaliacao.css";
 import { useNavigate, useLocation } from "react-router-dom";
+<<<<<<< HEAD
 import NavBar from '../../Components/NavBar.jsx'
+=======
+import NavBar from "../../Components/NavBar.jsx";
+>>>>>>> RefazendoFront
 
 export default function CriarAvaliacao() {
   const [titulo, setTitulo] = useState("");
@@ -89,7 +93,10 @@ export default function CriarAvaliacao() {
         </form>
       </main>
       <NavBar />
+<<<<<<< HEAD
       
+=======
+>>>>>>> RefazendoFront
     </div>
   );
 }

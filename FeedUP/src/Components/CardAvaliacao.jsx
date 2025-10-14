@@ -1,5 +1,9 @@
 import React from "react";
 import "./CardAvaliacao.css";
+<<<<<<< HEAD
+=======
+import { Link } from "react-router-dom";
+>>>>>>> RefazendoFront
 
 /**
  * Componente de Card Reutilizável para uma Avaliação.
@@ -49,6 +53,11 @@ const CardAvaliacao = ({ titulo, data, link }) => {
     </svg>
   );
 
+<<<<<<< HEAD
+=======
+  const isExternal = typeof link === "string" && /^(https?:)?\/\//.test(link);
+
+>>>>>>> RefazendoFront
   return (
     <div className="avaliacao-item">
       <div className="item-nome">{titulo}</div>
@@ -57,6 +66,7 @@ const CardAvaliacao = ({ titulo, data, link }) => {
           {IconeCalendario}
           {data}
         </span>
+<<<<<<< HEAD
         {/* Usando o componente Link com as props */}
         <a
           href={link}
@@ -67,6 +77,25 @@ const CardAvaliacao = ({ titulo, data, link }) => {
           {IconeLink}
           Link
         </a>
+=======
+        {/* Renderiza Link (react-router) para rotas internas e <a> para links externos */}
+        {isExternal ? (
+          <a
+            href={link}
+            className="item-link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {IconeLink}
+            Link
+          </a>
+        ) : (
+          <Link to={link} className="item-link">
+            {IconeLink}
+            Link
+          </Link>
+        )}
+>>>>>>> RefazendoFront
       </div>
     </div>
   );

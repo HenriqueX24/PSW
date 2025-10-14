@@ -15,11 +15,14 @@ import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import HomeIcon from "@mui/icons-material/Home";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ListaCardAvaliacao from "../../Components/ListaCardAvaliacao.jsx";
+import Title from "../../Components/Title.jsx";
+import ButtonCreate from "../../Components/ButtonCreate.jsx";
+import MenuNav from "../../Components/MenuNav.jsx";
 
 const NavLinks = () => (
   <Box
     sx={{
-      display: "flex",
+      //display: "flex",
       justifyContent: "center",
       alignItems: "center",
       flexGrow: 1,
@@ -29,7 +32,7 @@ const NavLinks = () => (
   >
     {/* Links de Navegação */}
     {[
-      { to: "/home", label: "Sobre" },
+      { to: "/sobre-app", label: "Sobre" },
       { to: "/avaliacao/:id", label: "Avaliações" },
       { to: "/metas", label: "Metas" },
       { to: "/ciclo-revisao", label: "Ciclos de Revisão" },
@@ -77,7 +80,12 @@ const BottomNav = ({ navigate }) => (
         Icon: CheckBoxIcon,
         color: "#e0e0e0",
       },
-      { path: "/home", label: "Home", Icon: HomeIcon, color: "var(--brand)" },
+      {
+        path: "/sobre-app",
+        label: "SobreApp",
+        Icon: HomeIcon,
+        color: "var(--brand)",
+      },
       {
         path: "/perfil",
         label: "Perfil",
@@ -123,7 +131,9 @@ function Avaliacao() {
             type="button"
             className="voltar"
             aria-label="Voltar"
-            onClick={() => navigate("/home")} /* ou navigate(-1) */
+            onClick={() =>
+              navigate(-1)
+            } /* ou navigate(-1) */
           >
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
               <path
@@ -137,66 +147,21 @@ function Avaliacao() {
           </button>
 
           {/* Título Avaliações */}
-          <Container maxWidth="lg" sx={{ textAlign: "center", py: 3 }}>
-            <Typography
-              variant="h1"
-              sx={{
-                lineHeight: 1.2,
-                margin: 0,
-                color: "var(--brand)",
-                fontSize: "2.5rem",
-                fontWeight: 300,
-                margin: 0 /* remove o hack do margin negativo */,
-              }}
-            >
-              Avaliações
-            </Typography>
-          </Container>
+
+          <Title titulo="Avaliações" />
         </Container>
 
         {/* NAVBAR REACT */}
-        <AppBar position="static" color="default" elevation={1}>
-          <Container maxWidth="lg" disableGutters={isMobile}>
-            <Toolbar disableGutters>
-              {/* Links de Navegação (Desktop) */}
-              <NavLinks />
-
-              {/* Logo e Marca */}
-              <Link
-                component={RouterLink}
-                to="/home"
-                style={{ textDecoration: "none" }}
-              ></Link>
-
-              {/* Ações à Direita e Toggle Button */}
-              <Box
-                sx={{
-                  flexGrow: 1,
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  alignItems: "center",
-                }}
-              >
-                <IconButton
-                  color="inherit"
-                  aria-label="open drawer"
-                  onClick={() => console.log("Abrir Drawer/Menu Mobile")}
-                  sx={{ display: { xs: "flex", lg: "none" } }}
-                >
-                  <MenuIcon sx={{ color: "var(--brand)" }} />
-                </IconButton>
-              </Box>
-            </Toolbar>
-          </Container>
-        </AppBar>
+        <MenuNav />
 
         <div className="avaliacao-container">
           {/* LISTA */}
           <AppBar position="static" color="default" elevation={1}>
             <ListaCardAvaliacao />
-            <Link className="add-avaliacao-btn" to="/criar-avaliacao">
-              <span className="plus-icon">+</span> Nova Avaliação
-            </Link>
+            <ButtonCreate
+              nameButton={"Criar Avaliação"}
+              onClick={() => navigate("/criar-autoavaliacao")}
+            />
           </AppBar>
           {/* FIM LISTA */}
         </div>

@@ -227,7 +227,11 @@ body {
   fill: #5cc6ba;
 }
 
+<<<<<<< HEAD
 .nav-icon.home svg path {
+=======
+.nav-icon.sobre-app svg path {
+>>>>>>> RefazendoFront
   fill: #e0e0e0;
 }
 

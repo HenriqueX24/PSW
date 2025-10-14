@@ -1,25 +1,68 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./perfilstyle.css";
-import { useNavigate, NavLink, useLocation, Link } from "react-router-dom";
-import NavBar from '../../Components/NavBar'
+import { useNavigate } from "react-router-dom";
+import NavBar from "../../Components/NavBar";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../features/user/loginSlice";
+import { deleteUser } from "../../features/user/usersSlice";
+import Button from "@mui/material/Button";
+import EditIcon from "@mui/icons-material/Edit";
+import {
+  IconButton,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Stack,
+} from "@mui/material";
 
 export default function Perfil() {
   const navigate = useNavigate();
-  const { pathname } = useLocation();
+  const dispatch = useDispatch();
 
-  const handleVoltar = (e) => {
-    e.preventDefault();
-    // volte uma página OU vá direto para /home
-    // navigate(-1);
-    navigate("/home");
+  const { isAuthenticated, currentUser } = useSelector((state) => state.login);
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/login");
+    }
+  }, [isAuthenticated, navigate]);
+
+  const handleVoltar = () => {
+    navigate(-1);
+  };
+  const handleEdit = () => {
+    navigate("/perfil/editar");
+  };
+  const handleClickOpenDeleteDialog = () => {
+    setOpenDeleteDialog(true);
+  };
+  const handleCloseDeleteDialog = () => {
+    setOpenDeleteDialog(false);
   };
 
-  const isActive = (path) => pathname === path;
+  const handleConfirmDelete = async () => {
+    try {
+      await dispatch(deleteUser(currentUser.id)).unwrap();
+      dispatch(logout());
+      handleCloseDeleteDialog();
+      navigate("/login");
+    } catch (err) {
+      alert("Falha ao encerrar a conta.");
+      console.error("Falha ao deletar usuário:", err);
+      handleCloseDeleteDialog();
+    }
+  };
+
+  if (!currentUser) {
+    return <div>Carregando perfil...</div>;
+  }
 
   return (
     <div className="perfil-container">
       <header className="perfil-header">
-        {/* Use button/Link para não recarregar a página */}
         <button
           type="button"
           className="voltar"
@@ -36,11 +79,16 @@ export default function Perfil() {
             />
           </svg>
         </button>
+        <IconButton
+          onClick={handleEdit}
+          aria-label="Editar Perfil"
+          style={{ color: "#5cc6ba" }}
+        >
+          <EditIcon />
+        </IconButton>
         <h1>Meu Perfil</h1>
       </header>
-
       <hr className="divider" />
-
       <main className="perfil-main">
         <div className="perfil-avatar">
           <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
@@ -55,39 +103,79 @@ export default function Perfil() {
         <div className="perfil-info">
           <div className="perfil-campo">
             <span className="perfil-label">Nome</span>
-            <span className="perfil-valor">Heber Stein Mazutti</span>
+            <span className="perfil-valor">{currentUser?.nome}</span>
           </div>
           <div className="perfil-campo">
             <span className="perfil-label">E-mail</span>
-            <span className="perfil-valor">heber@empresa.com.br</span>
+            <span className="perfil-valor">{currentUser?.email}</span>
           </div>
           <div className="perfil-campo">
             <span className="perfil-label">Departamento</span>
-            <span className="perfil-valor">Marketing</span>
+            <span className="perfil-valor">Marketing</span>{" "}
+            {/* (Este pode ser um valor fixo ou vir do usuário no futuro) */}
           </div>
           <div className="perfil-campo">
             <span className="perfil-label">CPF</span>
-            <span className="perfil-valor">123456789-01</span>
+            <span className="perfil-valor">{currentUser?.cpf}</span>
           </div>
 
           <div className="perfil-campo perfil-radio">
             <label>
-              <input type="radio" name="tipo" />
+              <input
+                type="radio"
+                name="tipo"
+                checked={currentUser?.cargo === "funcionario"}
+              />
               <span className="radio-custom" />
               Funcionário
             </label>
             <label>
-              <input type="radio" name="tipo" defaultChecked />
+              <input
+                type="radio"
+                name="tipo"
+                checked={currentUser?.cargo === "gestor"}
+              />
               <span className="radio-custom" />
               Gestor
             </label>
           </div>
+          <div></div>
+          <div>
+            <Stack
+              direction="row"
+              spacing={1}
+              sx={{ display: "flex", align: "left" }}
+            >
+              <Button
+                onClick={()=>navigate("/login")}
+                color="error"
+                variant="outlined"
+              >
+                Encerrar Conta
+              </Button>
+            </Stack>
+          </div>
         </div>
       </main>
 
-      {/* Bottom Nav (SPA) */}
       <NavBar />
-      
+      {/* Tirando a ideia de encerrar para virar logout
+      <Dialog open={openDeleteDialog} onClose={handleCloseDeleteDialog}>
+        <DialogTitle>{"Encerrar sua conta?"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Esta ação é permanente. Todos os seus dados serão removidos. Tem
+            certeza que deseja continuar?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDeleteDialog}>Cancelar</Button>
+          <Button onClick={handleConfirmDelete} color="error" autoFocus>
+            Encerrar Conta
+          </Button>
+        </DialogActions>
+      </Dialog>
+       */}
     </div>
   );
 }

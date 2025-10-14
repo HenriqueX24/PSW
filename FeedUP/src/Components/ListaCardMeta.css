@@ -3,4 +3,11 @@
   flex-direction: column;
   gap: 16px;
   margin-bottom: 24px;
+<<<<<<< HEAD
+=======
+}
+.goal-card-link {
+  text-decoration: none;
+  color: inherit;
+>>>>>>> RefazendoFront
 }

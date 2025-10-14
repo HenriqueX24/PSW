@@ -1,5 +1,5 @@
-// src/main.jsx
 import React from "react";
+<<<<<<< HEAD
 import ReactDOM from 'react-dom/client'; // Apenas uma importação é necessária
 import "./index.css";
 
@@ -26,10 +26,22 @@ import Avaliacao from "./pages/Avaliacao/Avaliacao.jsx";
 import Autoavaliacao from "./pages/Autoavaliacao/Autoavaliacao.jsx";
 
 // A única chamada de renderização, agora corrigida e mesclada
+=======
+import ReactDOM from 'react-dom/client';
+import "./index.css";
+import store from './app/store';
+import { Provider } from 'react-redux';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import App from './App.jsx';
+
+>>>>>>> RefazendoFront
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
+<<<<<<< HEAD
         <Routes>
           <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path="/login" element={<Login />} />
@@ -47,6 +59,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="/auto-avaliacao/:id" element={<Autoavaliacao />} />
           <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
+=======
+          <App />
+>>>>>>> RefazendoFront
       </BrowserRouter>
     </Provider>
   </React.StrictMode>

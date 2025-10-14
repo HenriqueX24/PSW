@@ -1,5 +1,9 @@
 body {
+<<<<<<< HEAD
   font-family: 'Roboto', Arial, sans-serif;
+=======
+  font-family: "Roboto", Arial, sans-serif;
+>>>>>>> RefazendoFront
   background: #fff;
   margin: 0;
   color: #444;
@@ -29,7 +33,11 @@ body {
   flex: 1;
   text-align: center;
   font-size: 1.5rem;
+<<<<<<< HEAD
   color: #7ED6C0;
+=======
+  color: #7ed6c0;
+>>>>>>> RefazendoFront
   font-weight: 500;
   margin: 0 32px 0 0;
 }
@@ -47,7 +55,11 @@ main {
 }
 
 .employee-card {
+<<<<<<< HEAD
   background: #F3F8F7;
+=======
+  background: #f3f8f7;
+>>>>>>> RefazendoFront
   border-radius: 18px;
   padding: 16px 18px;
   display: flex;
@@ -123,7 +135,11 @@ main {
 .nav-icon.active svg path {
   fill: #e0e0e0;
 }
+<<<<<<< HEAD
 .nav-icon.home svg path {
+=======
+.nav-icon.sobre-app svg path {
+>>>>>>> RefazendoFront
   fill: #e0e0e0;
 }
 .nav-icon.active img {
@@ -175,4 +191,8 @@ main {
     width: 100%;
     margin-top: 2px;
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> RefazendoFront
