@@ -3,12 +3,17 @@ import "./meta-detalhe.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { selectMetaById, updateMeta } from "../../features/user/metaSlice";
+import { Container, Box, Grid, Typography } from "@mui/material";
+import Title from "../../Components/Title";
+import NavBar from "../../Components/NavBar";
+
 const STATUS_MAP = [
   { label: "Pendente", className: "pendente" },
   { label: "aprovado", className: "aprovado" },
   { label: "em-analise", className: "em-analise" },
   { label: "Cancelado", className: "cancelado" },
 ];
+
 export default function MetaDetalhe() {
   const [comentario, setComentario] = useState("");
   const [range, setRange] = useState(0);
@@ -63,12 +68,30 @@ export default function MetaDetalhe() {
   return (
     <>
       {/* Header */}
-      <header className="header">
+      <Container
+        maxWidth="sm"
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "flex-start",
+          gap: 20, // Gap reduzido para aproximar a seta do título
+          py: 3,
+        }}
+      >
         <button
           type="button"
           className="back-btn"
           aria-label="Voltar"
-          onClick={() => navigate("/metas")}
+          onClick={() => navigate(-1)}
+          style={{
+            marginRight: 0,
+            padding: 0,
+            minWidth: 32,
+            minHeight: 32,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
         >
           <svg width="24" height="24" fill="none">
             <path
@@ -80,11 +103,14 @@ export default function MetaDetalhe() {
             />
           </svg>
         </button>
-        <h1>Meta</h1>
-      </header>
+        <Title titulo={"Metas"} />
+      </Container>
+
       <main>
-        <section className="goal-detail">
-          <h2 className="goal-title">{meta.titulo}</h2>
+        <Container className="goal-detail">
+          <Typography variant="h5" textAlign="center" className="goal-title">
+            {meta.titulo}
+          </Typography>
           <div className="range">
             <div className={`goal-status ${currentStatus.className}`}>
               {currentStatus.label}
@@ -125,76 +151,13 @@ export default function MetaDetalhe() {
               onChange={(e) => setComentario(e.target.value)}
             />
           </div>
-        </section>
+        </Container>
 
         <button type="button" className="edit-goal-btn" onClick={handleUpdate}>
           <span className="edit-icon">&#9998;</span> Confirmar Edição
         </button>
       </main>
-      <nav className="bottom-nav">
-        <button
-          type="button"
-          className="nav-icon btn-plain active"
-          onClick={() => navigate("/auto-avaliacao/1")} // use o id real se tiver
-          aria-label="Autoavaliação"
-        >
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-            <rect
-              x="6"
-              y="6"
-              width="20"
-              height="20"
-              rx="4"
-              fill="#fff"
-              stroke="#e0e0e0"
-              strokeWidth="2"
-            />
-            <path
-              d="M12 17l4 4 6-8"
-              stroke="#bdbdbd"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <circle
-              cx="26"
-              cy="8"
-              r="4"
-              fill="none"
-              stroke="#e0e0e0"
-              strokeWidth="2"
-            />
-            <path
-              d="M28.5 5.5a4 4 0 0 1 0 5.66"
-              stroke="#e0e0e0"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-          </svg>
-        </button>
-
-        <button
-          type="button"
-          className="nav-icon btn-plain sobre-app"
-          onClick={() => navigate("/sobre-app")}
-          aria-label="SobreApp"
-        >
-          <svg viewBox="0 0 24 24" width="32" height="32" fill="#5cc6ba">
-            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-          </svg>
-        </button>
-
-        <button
-          type="button"
-          className="nav-icon btn-plain"
-          onClick={() => navigate("/perfil")}
-          aria-label="Perfil"
-        >
-          <svg viewBox="0 0 24 24" width="32" height="32" fill="#e0e0e0">
-            <path d="M12 12c2.7 0 8 1.34 8 4v2H4v-2c0-2.66 5.3-4 8-4zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" />
-          </svg>
-        </button>
-      </nav>
+      <NavBar />
     </>
   );
 }
