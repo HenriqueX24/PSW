@@ -151,7 +151,7 @@ export default function Perfil() {
                 color="error"
                 variant="outlined"
               >
-                Encerrar Conta
+                Sair 
               </Button>
             </Stack>
           </div>
