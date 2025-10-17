@@ -21,7 +21,7 @@ export default function NativeSelectDemo({ options, value, onChange }) {
     <div>
       <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
         {/* O rótulo foi alterado para "Situação" */}
-        <InputLabel id="status-select-label">Situação</InputLabel>
+        <InputLabel id="status-select-label">Status</InputLabel>
         <Select
           labelId="status-select-label"
           id="status-select"
