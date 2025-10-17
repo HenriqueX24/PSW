@@ -30,6 +30,7 @@ export const addNewMeta = createAsyncThunk(
     return data;
   }
 );
+
 export const updateMeta = createAsyncThunk(
   "metas/updateMeta",
   async (metaAtualizada) => {

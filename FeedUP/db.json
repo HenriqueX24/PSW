@@ -22,15 +22,31 @@
       "id": "1",
       "titulo": "Aumentar vendas em 10%",
       "descricao": "Meta para o trimestre atual",
-      "status": "aprovado",
-      "responsavel": "Usuário de Teste"
+      "status": "Pendente",
+      "responsavel": "Usuário de Teste",
+      "comentarios": [
+        {
+          "texto": "jjjjjjjjjjjjjjjj",
+          "data": 1760732415300
+        },
+        {
+          "texto": "Muito bem! Meta cumprida",
+          "data": 1760732499478
+        }
+      ]
     }
   ],
   "ciclos": [
     {
       "id": "e4cb",
-      "avaliadores": ["a@gestora.com"],
-      "avaliados": ["a@gestora.com", "pedro@teste.com", "gestor@gmail.com"],
+      "avaliadores": [
+        "a@gestora.com"
+      ],
+      "avaliados": [
+        "a@gestora.com",
+        "pedro@teste.com",
+        "gestor@gmail.com"
+      ],
       "titulo": "teste",
       "tipo": "Mensal",
       "inicio": "2025-10-08",
