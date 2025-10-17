@@ -47,23 +47,28 @@ export default function Forms() {
     setValue('cpf', v, { shouldValidate: true });
   };
 
-  const onSubmit = async (data) => {
+ const onSubmit = async (data) => {
     try {
       if (isEditMode) {
+        // Lógica de edição (já usa await)
         await dispatch(updateUser({ ...currentUser, ...data })).unwrap();
         alert('Perfil atualizado com sucesso!');
         navigate('/perfil');
       } else {
+        // Lógica de criação
+        // 1. 'await' pausa a execução aqui...
         await dispatch(addNewUser(data)).unwrap();
+        // 2. ...até que a ação termine. Só então o código continua.
+        
         alert('Conta criada com sucesso!');
+        // 3. A navegação agora acontece com a store do Redux já atualizada.
         navigate('/login');
       }
     } catch (err) {
-      alert('Ocorreu uma falha.');
+      alert('Ocorreu uma falha ao salvar os dados.');
       console.error('Falha ao salvar:', err);
     }
   };
-
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.loginForm}>
       
