@@ -14,6 +14,8 @@ export default function Login() {
   const dispatch = useDispatch();
   const userList = useSelector(selectAllUsers);
 
+  console.log("Usuários disponíveis para login:", userList);
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!identifier || !senha) {
