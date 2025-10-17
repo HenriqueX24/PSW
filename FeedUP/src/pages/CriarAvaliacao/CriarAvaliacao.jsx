@@ -1,94 +1,153 @@
 import React, { useState } from "react";
-import "./criar-avaliacao.css";
-import { useNavigate, useLocation } from "react-router-dom";
-import NavBar from "../../Components/NavBar.jsx";
+import { useNavigate } from "react-router-dom";
+import {
+  Container,
+  Typography,
+  TextField,
+  Button,
+  Box,
+  Divider,
+} from "@mui/material";
+import './CriarAvaliacao.css'
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import CardQuestao from "../../Components/CardQuestao"; // Iremos criar este componente
+import ButtonCreate from "../../Components/ButtonCreate";
+import NavBar from "../../Components/NavBar";
+// import { useDispatch, useSelector } from 'react-redux'; // Preparado para Redux
 
-export default function CriarAvaliacao() {
+function CriarAvaliacao() {
+  // const dispatch = useDispatch(); // Exemplo de uso do Redux
+  // const questions = useSelector(state => state.autoavaliacao.questions); // Exemplo de uso do Redux
+
   const [titulo, setTitulo] = useState("");
-  const [data, setData] = useState("");
-  const [link, setLink] = useState("");
+  const [questoes, setQuestoes] = useState([]);
 
-  const navigate = useNavigate();
-  const { pathname } = useLocation();
-  const isActive = (p) => pathname === p;
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (!titulo.trim() || !data || !link.trim()) {
-      alert("Preencha todos os campos!");
-      return;
-    }
-
-    alert("Avaliação salva com sucesso!");
-    navigate("/avaliacao/:id", { replace: true });
+  // Função para adicionar uma nova questão
+  const adicionarQuestao = () => {
+    const novaQuestao = {
+      id: Date.now(), // ID único para a chave no React
+      enunciado: "",
+      tipo: "multipla_escolha", // 'multipla_escolha' ou 'slider'
+      opcoes: [
+        { id: 1, texto: "" },
+        { id: 2, texto: "" },
+        { id: 3, texto: "" },
+        { id: 4, texto: "" },
+      ], // Padrão 4 alternativas
+      slider: { min: 0, max: 10, step: 1, labelMin: "Baixo", labelMax: "Alto" },
+    };
+    setQuestoes([...questoes, novaQuestao]);
   };
 
+  // Função para remover uma questão
+  const removerQuestao = (id) => {
+    setQuestoes(questoes.filter((q) => q.id !== id));
+  };
+
+  // Função para atualizar os dados de uma questão específica
+  const atualizarQuestao = (id, novosDados) => {
+    setQuestoes(
+      questoes.map((q) => (q.id === id ? { ...q, ...novosDados } : q))
+    );
+  };
+
+  // Função de submissão do formulário (simulada)
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const dadosDaAvaliacao = {
+      titulo,
+      questoes,
+    };
+    console.log(
+      "Dados da Avaliação Prontos para o Redux/API:",
+      dadosDaAvaliacao
+    );
+    // Em um app Redux, você faria:
+    // dispatch(salvarAutoavaliacao(dadosDaAvaliacao));
+  };
+
+  const navigate = useNavigate();
+
+  const handleVoltar = () => {
+    navigate(-1);
+  }
+
   return (
-    <div className="avaliacao-container">
-      <header className="avaliacao-header">
+    <>
+      <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
         <button
           type="button"
           className="voltar"
           aria-label="Voltar"
-          onClick={() => navigate("/avaliacao/:id")}
+          onClick={handleVoltar}
         >
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
             <path
               d="M15 18l-6-6 6-6"
-              stroke="#5cc6ba"
+              stroke="var(--brand)"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
             />
           </svg>
         </button>
-        <h1>Criar Avaliação</h1>
-      </header>
 
-      <main className="avaliacao-main">
-        <form className="criar-avaliacao-form" onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="titulo">Título</label>
-            <input
-              type="text"
-              id="titulo"
-              placeholder="Digite o título da avaliação"
-              value={titulo}
-              onChange={(e) => setTitulo(e.target.value)}
-              required
-            />
-          </div>
+        <Typography variant="h4" component="h1" gutterBottom>
+          Criar Avaliação
+        </Typography>
 
-          <div className="form-group">
-            <label htmlFor="data">Data da Avaliação</label>
-            <input
-              type="date"
-              id="data"
-              value={data}
-              onChange={(e) => setData(e.target.value)}
-              required
-            />
-          </div>
+        <form onSubmit={handleSubmit} className="autoavaliacao-form">
+          {/* Campo para o Título da Avaliação */}
+          <TextField
+            fullWidth
+            label="Título da Avaliação"
+            variant="outlined"
+            value={titulo}
+            onChange={(e) => setTitulo(e.target.value)}
+            margin="normal"
+            required
+          />
 
-          <div className="form-group">
-            <label htmlFor="link">Link do Formulário</label>
-            <input
-              type="url"
-              id="link"
-              placeholder="Cole o link do formulário"
-              value={link}
-              onChange={(e) => setLink(e.target.value)}
-              required
-            />
-          </div>
+          <Divider sx={{ mt: 3, mb: 3 }} />
 
-          <button type="submit" className="main-btn">
-            Salvar Avaliação
-          </button>
+          {/* Lista de Questões */}
+          <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+            {questoes.map((questao, index) => (
+              <CardQuestao
+                key={questao.id}
+                questao={questao}
+                index={index}
+                atualizarQuestao={atualizarQuestao}
+                removerQuestao={removerQuestao}
+              />
+            ))}
+          </Box>
+
+          {/* Botão Adicionar Questão */}
+          <Box sx={{ mt: 3, textAlign: "center" }}>
+            <ButtonCreate
+              variant="contained"
+              onClick={adicionarQuestao}
+              startIcon={<AddCircleIcon />}
+              sx={{ p: 1.5 }}
+              nameButton="Questão"
+            ></ButtonCreate>
+          </Box>
+
+          <Box sx={{ mt: 4, textAlign: "right" }}>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              disabled={!titulo || questoes.length === 0}
+            >
+              Salvar Avaliação
+            </Button>
+          </Box>
         </form>
-      </main>
-      <NavBar />
-    </div>
+      </Container>
+    </>
   );
 }
+
+export default CriarAvaliacao;

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./autoavaliacao.css";
+import "./FazerAvaliacao.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import ButtonSubmit from "../../Components/ButtonSubmit";
 import NavBar from "../../Components/NavBar";
@@ -46,7 +46,7 @@ function FazerAvaliacao() {
     }
     // Note: Slider values are numbers (1-5) and will always have a value, so no need to check them unless the initial state was undefined.
     alert("Autoavaliação enviada com sucesso!");
-    navigate("/sobre-app"); // volta pra SobreApp sem recarregar
+    navigate(-1); // volta pra SobreApp sem recarregar
   };
 
   // Handler for SurveyForm Radio Questions

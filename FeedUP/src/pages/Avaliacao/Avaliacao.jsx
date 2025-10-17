@@ -75,14 +75,14 @@ const BottomNav = ({ navigate }) => (
     {/* Botões de Navegação */}
     {[
       {
-        path: "/auto-avaliacao/:id",
-        label: "Autoavaliação",
+        path: "/metas",
+        label: "Metas",
         Icon: CheckBoxIcon,
         color: "#e0e0e0",
       },
       {
-        path: "/sobre-app",
-        label: "SobreApp",
+        path: "/ciclo-revisao",
+        label: "CicloRevisao",
         Icon: HomeIcon,
         color: "var(--brand)",
       },
@@ -158,7 +158,7 @@ function Avaliacao() {
             <ListaCardAvaliacao />
             <ButtonCreate
               nameButton={"Criar Avaliação"}
-              onClick={() => navigate("/criar-autoavaliacao")}
+              onClick={() => navigate("/criar-avaliacao")}
             />
           </AppBar>
           {/* FIM LISTA */}

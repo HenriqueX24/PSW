@@ -128,7 +128,7 @@ function Avaliacao() {
             type="button"
             className="voltar"
             aria-label="Voltar"
-            onClick={() => navigate("/sobre-app")} /* ou navigate(-1) */
+            onClick={() => navigate(-1)} /* ou navigate(-1) */
           >
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
               <path

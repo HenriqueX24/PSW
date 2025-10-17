@@ -10,7 +10,7 @@ const ListaCardAvaliacao = () => {
     titulo: "Performance Review",
     data: "18/08/2025",
     // Insira o id real no lugar de `1` quando tiver o valor dinâmico
-    link: "/auto-avaliacao/1",
+    link: "/fazer-avaliacao/1",
   };
 
   // 2. Novo cadastro de card

@@ -15,7 +15,6 @@ import CicloRevisao from "./pages/CicloRevisao/CicloRevisao.jsx";
 import CicloFuncionarios from "./pages/CicloFuncionarios/CicloFuncionarios.jsx";
 import Avaliacao from "./pages/Avaliacao/Avaliacao.jsx";
 import FazerAvaliacao from "./pages/FazerAvaliacao/FazerAvaliacao.jsx";
-import CriarAutoavalicao from "./pages/CriarAutoavaliacao/CriarAutoavalicao.jsx";
 import EditarPerfil from "./pages/VisualizarPerfil/EditarPerfil.jsx";
 
 function App() {
@@ -52,8 +51,7 @@ function App() {
       <Route path="/ciclo-revisao" element={<CicloRevisao />} />
       <Route path="/ciclo-funcionarios/:id" element={<CicloFuncionarios />} />
       <Route path="/avaliacao/:id" element={<Avaliacao />} />
-      <Route path="/auto-avaliacao/:id" element={<FazerAvaliacao />} />
-      <Route path="/criar-autoavaliacao/" element={<CriarAutoavalicao />} />
+      <Route path="/fazer-avaliacao/:id" element={<FazerAvaliacao />} />
       <Route path="*" element={<Navigate to="/login" replace />} />
       <Route path="/ciclo-revisao" element={<CicloRevisao />} />
       <Route path="/editar-meta/:id" element={<Metas />} />

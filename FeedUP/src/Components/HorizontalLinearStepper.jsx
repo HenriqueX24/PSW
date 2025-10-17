@@ -11,7 +11,7 @@ const steps = [
   { label: "Funcionários", route: "/ciclo-funcionarios" },
   { label: "Avaliações", route: "/avaliacao" },
   { label: "Metas", route: "/metas" },
-  { label: "Fazer Avaliação", route: "/auto-avaliacao" },
+  { label: "Fazer Avaliação", route: "/fazer-avaliacao" },
 ];
 
 export default function HorizontalLinearStepper() {
