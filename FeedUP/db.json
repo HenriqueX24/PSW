@@ -65,6 +65,19 @@
       "tipo": "Mensal",
       "inicio": "2025-10-08",
       "termino": "2025-11-12"
+    },
+    {
+      "id": "e6c9",
+      "avaliadores": [
+        "gestor@gmail.com"
+      ],
+      "avaliados": [
+        "pedro@teste.com"
+      ],
+      "titulo": "Ciclo do Departamento de Marketing",
+      "tipo": "Mensal",
+      "inicio": "2025-10-18",
+      "termino": "2025-11-18"
     }
   ]
 }

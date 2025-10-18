@@ -1,6 +1,6 @@
 // src/CriarCiclo.jsx
-import React from 'react';
-import { useForm, Controller } from "react-hook-form";
+import React, { useState } from 'react';
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +10,7 @@ import NavBar from "../../Components/NavBar";
 import { selectAllUsers } from "../../features/user/usersSlice";
 import { useSelector, useDispatch } from "react-redux";
 import Title from "../../Components/Title";
-import { Container, Box } from "@mui/material";
+import { Container, Box, Chip, Stack } from "@mui/material";
 import NativeSelectDemo from "../../Components/NativeSelectDemo";
 
 const validationSchema = Yup.object().shape({
@@ -18,8 +18,9 @@ const validationSchema = Yup.object().shape({
   tipo: Yup.string().required("Tipo de ciclo é obrigatório"),
   inicio: Yup.string().required("Data de início é obrigatória"),
   termino: Yup.string().required("Data de término é obrigatória"),
+  // Ambos, Avaliadores e Avaliados, são arrays de emails
   avaliadores: Yup.array().min(1, "Selecione ao menos um avaliador").required(),
-  avaliados: Yup.string().required("Selecione um avaliado"), 
+  avaliados: Yup.array().min(1, "Selecione ao menos um avaliado").required(), 
 });
 
 export default function CriarCiclo() {
@@ -27,40 +28,79 @@ export default function CriarCiclo() {
   const navigate = useNavigate();
   const userList = useSelector(selectAllUsers);
   
-  // Lista de gestores para a seção 'Avaliadores' (Checkbox)
+  // Listas filtradas por cargo
   const gestoresList = userList.filter((user) => user.cargo === "gestor");
-
-  // NOVO: Lista de funcionários para a seção 'Avaliados' (Seletor)
   const funcionariosList = userList.filter((user) => user.cargo === "funcionario");
 
-  // Prepara as opções no formato {label: nome, value: email} usando APENAS funcionariosList
+  // Estados locais para controlar o seletor e permitir o reset
+  const [selectedAvaliadoEmail, setSelectedAvaliadoEmail] = useState(""); 
+  const [selectedAvaliadorEmail, setSelectedAvaliadorEmail] = useState(""); // NOVO ESTADO
+
+  // Prepara as opções no formato {label: nome, value: email}
   const avaliadosOptions = funcionariosList.map((user) => ({
     label: user.nome,
     value: user.email,
   }));
 
+  const avaliadoresOptions = gestoresList.map((user) => ({ // NOVO: Opções de Avaliadores
+    label: user.nome,
+    value: user.email,
+  }));
+
   const {
-    register,
     handleSubmit,
-    control,
+    setValue,
+    watch,
+    register, // Mantido para campos simples
     formState: { errors, isSubmitting },
   } = useForm({
     resolver: yupResolver(validationSchema),
     defaultValues: {
-      avaliadores: [],
-      avaliados: "",
+      avaliadores: [], // Array de emails de gestores
+      avaliados: [],   // Array de emails de funcionários
     },
   });
 
+  // Observa os arrays de emails selecionados no estado do formulário
+  const avaliados = watch("avaliados"); 
+  const avaliadores = watch("avaliadores"); // NOVO: Observa avaliadores
+
+  // Função auxiliar para obter o nome do usuário a partir do email para o label do Chip
+  const getUsernameByEmail = (email) => {
+    const user = userList.find(u => u.email === email);
+    return user ? user.nome : email;
+  }
+
+  // Lógica para Avaliados (Funcionários)
+  const handleAvaliadoSelect = (newEmail) => {
+    if (newEmail && !avaliados.includes(newEmail)) {
+        setValue("avaliados", [...avaliados, newEmail], { shouldValidate: true });
+    }
+    setSelectedAvaliadoEmail("");
+  };
+
+  const handleDeleteAvaliado = (emailToDelete) => {
+    const newAvaliados = avaliados.filter((email) => email !== emailToDelete);
+    setValue("avaliados", newAvaliados, { shouldValidate: true });
+  };
+  
+  // NOVO: Lógica para Avaliadores (Gestores)
+  const handleAvaliadorSelect = (newEmail) => {
+    if (newEmail && !avaliadores.includes(newEmail)) {
+        setValue("avaliadores", [...avaliadores, newEmail], { shouldValidate: true });
+    }
+    setSelectedAvaliadorEmail("");
+  };
+
+  const handleDeleteAvaliador = (emailToDelete) => {
+    const newAvaliadores = avaliadores.filter((email) => email !== emailToDelete);
+    setValue("avaliadores", newAvaliadores, { shouldValidate: true });
+  };
+
   const onSubmit = async (data) => {
     try {
-      // O campo avaliados (string) é convertido para array antes de enviar
-      const cicloData = {
-        ...data,
-        avaliados: [data.avaliados], 
-      };
-      
-      await dispatch(addNewCiclo(cicloData)).unwrap();
+      // data.avaliados e data.avaliadores já são arrays, prontos para envio.
+      await dispatch(addNewCiclo(data)).unwrap();
 
       alert("Ciclo criado com sucesso!");
       navigate("/ciclo-revisao");
@@ -106,6 +146,7 @@ export default function CriarCiclo() {
           className="ciclo-form"
           onSubmit={handleSubmit(onSubmit)}
         >
+          {/* ... (Campos Título, Tipo, Início, Término) ... */}
           <div className="form-group">
             <label>Título do Ciclo de Revisão</label>
             <input
@@ -143,45 +184,60 @@ export default function CriarCiclo() {
             )}
           </div>
           
-          {/* Seção de Avaliados com NativeSelectDemo - Agora lista apenas funcionários */}
+          {/* NOVO: Seção de Avaliadores (Gestores) com Seletor e Chips */}
           <div className="form-group">
-            
-            <Controller
-              name="avaliados"
-              control={control}
-              render={({ field }) => (
-                <NativeSelectDemo
-                  options={avaliadosOptions}
-                  value={field.value}
-                  onChange={field.onChange}
-                  selectLabel="Avaliados"
-                />
-              )}
+            <label>Avaliadores</label>
+            <NativeSelectDemo
+              options={avaliadoresOptions}
+              value={selectedAvaliadorEmail}
+              onChange={handleAvaliadorSelect}
+              selectLabel="Adicionar Avaliador"
             />
+            
+            <Stack direction="row" spacing={1} sx={{ mt: 2, flexWrap: 'wrap', gap: 1 }}>
+              {avaliadores.map((email) => (
+                <Chip
+                  key={email}
+                  label={getUsernameByEmail(email)}
+                  onDelete={() => handleDeleteAvaliador(email)}
+                  color="secondary" // Cor diferente para distinção
+                  variant="outlined"
+                />
+              ))}
+            </Stack>
+            
+            {errors.avaliadores && (
+              <p className="error-message">{errors.avaliadores.message}</p>
+            )}
+          </div>
+
+          {/* Seção de Avaliados (Funcionários) com Seletor e Chips */}
+          <div className="form-group">
+            <label>Avaliados</label>
+            <NativeSelectDemo
+              options={avaliadosOptions}
+              value={selectedAvaliadoEmail}
+              onChange={handleAvaliadoSelect}
+              selectLabel="Adicionar Avaliado"
+            />
+            
+            <Stack direction="row" spacing={1} sx={{ mt: 2, flexWrap: 'wrap', gap: 1 }}>
+              {avaliados.map((email) => (
+                <Chip
+                  key={email}
+                  label={getUsernameByEmail(email)}
+                  onDelete={() => handleDeleteAvaliado(email)}
+                  color="primary"
+                  variant="outlined"
+                />
+              ))}
+            </Stack>
+            
             {errors.avaliados && (
               <p className="error-message">{errors.avaliados.message}</p>
             )}
           </div>
           
-          {/* Seção de Avaliadores mantida com checkbox para multi-seleção */}
-          <div className="form-group">
-            <label>Avaliadores</label>
-            <div className="checkbox-group">
-              {gestoresList.map((user) => (
-                <label key={user.id}>
-                  <input
-                    type="checkbox"
-                    value={user.email}
-                    {...register("avaliadores")}
-                  />
-                  {user.nome}
-                </label>
-              ))}
-            </div>
-            {errors.avaliadores && (
-              <p className="error-message">{errors.avaliadores.message}</p>
-            )}
-          </div>
 
           <button type="submit" className="main-btn" disabled={isSubmitting}>
             {isSubmitting ? "Salvando..." : "Salvar Ciclo"}
