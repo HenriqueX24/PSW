@@ -1,5 +1,6 @@
-// src/CriarCiclo.jsximport React from 'react';
-import { useForm } from "react-hook-form";
+// src/CriarCiclo.jsx
+import React from 'react';
+import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +11,7 @@ import { selectAllUsers } from "../../features/user/usersSlice";
 import { useSelector, useDispatch } from "react-redux";
 import Title from "../../Components/Title";
 import { Container, Box } from "@mui/material";
+import NativeSelectDemo from "../../Components/NativeSelectDemo";
 
 const validationSchema = Yup.object().shape({
   titulo: Yup.string().required("Título é obrigatório"),
@@ -17,30 +19,48 @@ const validationSchema = Yup.object().shape({
   inicio: Yup.string().required("Data de início é obrigatória"),
   termino: Yup.string().required("Data de término é obrigatória"),
   avaliadores: Yup.array().min(1, "Selecione ao menos um avaliador").required(),
-  avaliados: Yup.array().min(1, "Selecione ao menos um avaliado").required(),
+  avaliados: Yup.string().required("Selecione um avaliado"), 
 });
 
 export default function CriarCiclo() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userList = useSelector(selectAllUsers);
+  
+  // Lista de gestores para a seção 'Avaliadores' (Checkbox)
   const gestoresList = userList.filter((user) => user.cargo === "gestor");
+
+  // NOVO: Lista de funcionários para a seção 'Avaliados' (Seletor)
+  const funcionariosList = userList.filter((user) => user.cargo === "funcionario");
+
+  // Prepara as opções no formato {label: nome, value: email} usando APENAS funcionariosList
+  const avaliadosOptions = funcionariosList.map((user) => ({
+    label: user.nome,
+    value: user.email,
+  }));
 
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors, isSubmitting },
   } = useForm({
     resolver: yupResolver(validationSchema),
     defaultValues: {
       avaliadores: [],
-      avaliados: [],
+      avaliados: "",
     },
   });
 
   const onSubmit = async (data) => {
     try {
-      await dispatch(addNewCiclo(data)).unwrap();
+      // O campo avaliados (string) é convertido para array antes de enviar
+      const cicloData = {
+        ...data,
+        avaliados: [data.avaliados], 
+      };
+      
+      await dispatch(addNewCiclo(cicloData)).unwrap();
 
       alert("Ciclo criado com sucesso!");
       navigate("/ciclo-revisao");
@@ -52,15 +72,14 @@ export default function CriarCiclo() {
 
   return (
     <Box sx={{ backgroundColor: "white", minHeight: "100vh" }}>
-      {/* 1. TÍTULO 'Menu' (Movido para cima da AppBar) */}
       <Container
         maxWidth="lg"
         sx={{
-          display: "flex", // Habilita Flexbox
-          alignItems: "center", // Centraliza verticalmente
-          justifyContent: "flex-start", // Alinha ao início (esquerda)
-          gap: 60, // Adiciona um pequeno espaço entre a seta e o título
-          py: 3, // Padding vertical
+          display: "flex", 
+          alignItems: "center", 
+          justifyContent: "flex-start", 
+          gap: 60, 
+          py: 3, 
         }}
       >
         <button
@@ -84,7 +103,7 @@ export default function CriarCiclo() {
 
       <main className="form-container">
         <form
-          className="criar-avaliacao-form"
+          className="ciclo-form"
           onSubmit={handleSubmit(onSubmit)}
         >
           <div className="form-group">
@@ -123,7 +142,28 @@ export default function CriarCiclo() {
               <p className="error-message">{errors.termino.message}</p>
             )}
           </div>
-
+          
+          {/* Seção de Avaliados com NativeSelectDemo - Agora lista apenas funcionários */}
+          <div className="form-group">
+            
+            <Controller
+              name="avaliados"
+              control={control}
+              render={({ field }) => (
+                <NativeSelectDemo
+                  options={avaliadosOptions}
+                  value={field.value}
+                  onChange={field.onChange}
+                  selectLabel="Avaliados"
+                />
+              )}
+            />
+            {errors.avaliados && (
+              <p className="error-message">{errors.avaliados.message}</p>
+            )}
+          </div>
+          
+          {/* Seção de Avaliadores mantida com checkbox para multi-seleção */}
           <div className="form-group">
             <label>Avaliadores</label>
             <div className="checkbox-group">
@@ -140,25 +180,6 @@ export default function CriarCiclo() {
             </div>
             {errors.avaliadores && (
               <p className="error-message">{errors.avaliadores.message}</p>
-            )}
-          </div>
-
-          <div className="form-group">
-            <label>Avaliados</label>
-            <div className="checkbox-group">
-              {userList.map((user) => (
-                <label key={user.id}>
-                  <input
-                    type="checkbox"
-                    value={user.email}
-                    {...register("avaliados")}
-                  />
-                  {user.nome}
-                </label>
-              ))}
-            </div>
-            {errors.avaliados && (
-              <p className="error-message">{errors.avaliados.message}</p>
             )}
           </div>
 

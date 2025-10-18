@@ -34,6 +34,20 @@
           "data": 1760732499478
         }
       ]
+    },
+    {
+      "id": "c9ad",
+      "titulo": "Aumentar vendas no mês",
+      "descricao": "A escala de horário diária passará de 3h para 5h de trabalho.",
+      "periodo": "07/02/2025 - 08/03/2025",
+      "responsavel": "Rafael",
+      "status": "Pendente",
+      "comentarios": [
+        {
+          "texto": "Muito bem! Meta cumprida",
+          "data": 1760807830469
+        }
+      ]
     }
   ],
   "ciclos": [
