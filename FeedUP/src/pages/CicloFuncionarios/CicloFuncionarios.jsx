@@ -1,6 +1,7 @@
+// fileName: CicloFuncionarios.jsx (Atualizado para incluir Gestores)
 import "./ciclo-funcionarios.css";
 import React, { useEffect } from "react";
-import "./ciclo-funcionarios.css";
+import CardFuncionario from "../../Components/CardFuncionario"; 
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectCicloById } from "../../features/user/ciclosSlice";
@@ -12,7 +13,7 @@ import { Container, Box } from "@mui/material";
 
 export default function CicloFuncionarios() {
   const navigate = useNavigate();
-  const { id: cicloId } = useParams(); // _ vindo de /ciclo-funcionarios/:id (ex.: 1)
+  const { id: cicloId } = useParams(); 
   const ciclo = useSelector((state) => selectCicloById(state, cicloId));
   const allUsers = useSelector(selectAllUsers);
   const { isAuthenticated } = useSelector((state) => state.login);
@@ -27,6 +28,8 @@ export default function CicloFuncionarios() {
     return <div>Carregando dados do ciclo...</div>;
   }
   
+  // CORREÇÃO: Filtra APENAS os usuários que estão no ciclo. 
+  // Não há mais filtro por cargo (gestores e funcionários são incluídos).
   const employeesInCycle = allUsers.filter(user => 
     ciclo.avaliados.includes(user.email)
   );
@@ -36,11 +39,11 @@ export default function CicloFuncionarios() {
       <Container 
        maxWidth="lg"
         sx={{
-          display: "flex", // Habilita Flexbox
-          alignItems: "center", // Centraliza verticalmente
-          justifyContent: "flex-start", // Alinha ao início (esquerda)
-          gap: 60, // Adiciona um pequeno espaço entre a seta e o título
-          py: 3, // Padding vertical
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "flex-start",
+          gap: 60,
+          py: 3,
         }}>
         <button
           type="button"
@@ -58,7 +61,6 @@ export default function CicloFuncionarios() {
             />
           </svg>
         </button>
-        {/*<h1>Funcionários do Ciclo: {ciclo.titulo}</h1>*/}
         <Title titulo={ciclo.titulo}/>
       </Container>
       
@@ -66,53 +68,21 @@ export default function CicloFuncionarios() {
         <main>
         <section className="employee-list">
           {employeesInCycle.map((emp) => {
-            // Lógica de exemplo para o status da avaliação
-            // Em uma aplicação real, este 'status' viria do objeto 'ciclo' ou 'emp'
-            const avaliacaoStatus = emp.cargo === "gestor" ? "realizado" : "pendente";
-            const avaliacaoId = emp.cargo === "gestor" ? 101 : null;
+            
+            // SIMULAÇÃO: Definindo todos como "pendente" para que o botão "Ver Avaliação"
+            // apareça tanto para Pedro quanto para o Gestor, conforme o requisito.
+            const avaliacaoStatus = "pendente"; 
+            const avaliacaoId = 101; 
+
+            // Nota: O botão "Metas" sempre aparecerá, pois não há condição limitando-o no CardFuncionario.
 
             return (
-              // ======================================================================
-              // A ESTRUTURA CORRETA DO CARD ESTÁ AQUI
-              // ======================================================================
-              <div key={emp.id} className="employee-card">
-                
-                {/* Caixa da Esquerda: Informações */}
-                <div className="employee-info">
-                  <span className="employee-name">{emp.nome}</span>
-                  <span className="employee-email">{emp.email}</span>
-                  <span className="employee-dept">Departamento: Marketing</span>
-                </div>
-
-                {/* Caixa da Direita: Ações e Status */}
-                <div className="employee-actions">
-                  {avaliacaoStatus === "realizado" ? (
-                    <>
-                      <span className="status-label realizado">
-                        Avaliação realizada
-                      </span>
-                      <button
-                        type="button"
-                        className="ver-avaliacao-btn"
-                        onClick={() => navigate(`/avaliacao/${avaliacaoId}`)}
-                      >
-                        Ver Avaliação
-                      </button>
-                      <button
-                        type="button"
-                        className="ver-avaliacao-btn"
-                        onClick={() => navigate(`/metas`)}
-                      >
-                        Metas
-                      </button>
-                    </>
-                  ) : (
-                    <span className="status-label pendente">
-                      Avaliação pendente
-                    </span>
-                  )}
-                </div>
-              </div>
+              <CardFuncionario
+                key={emp.id}
+                employee={emp}
+                avaliacaoStatus={avaliacaoStatus} // "pendente" para todos
+                avaliacaoId={avaliacaoId} 
+              />
             );
           })}
         </section>

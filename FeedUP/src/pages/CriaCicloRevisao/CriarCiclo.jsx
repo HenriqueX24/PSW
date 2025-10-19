@@ -186,7 +186,7 @@ export default function CriarCiclo() {
           
           {/* NOVO: Seção de Avaliadores (Gestores) com Seletor e Chips */}
           <div className="form-group">
-            <label>Avaliadores</label>
+            <label>Avaliador</label>
             <NativeSelectDemo
               options={avaliadoresOptions}
               value={selectedAvaliadorEmail}
