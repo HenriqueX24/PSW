@@ -34,6 +34,12 @@ export default function CicloFuncionarios() {
     ciclo.avaliados.includes(user.email)
   );
 
+  // NOVO: Adicione uma propriedade ao ciclo que aponta para o ID da avaliação.
+  // Se você não tiver um campo `avaliacaoTemplateId` no ciclo, use um ID
+  // de avaliação que você sabe que existe no seu db.json (ex: '1').
+  // CORRIGINDO O ID FIXO 101 para um ID que provavelmente existe ('1') ou um obtido do ciclo.
+  const avaliacaoTemplateId = ciclo.avaliacaoTemplateId || '1'; // Usando '1' como fallback/mock
+
   return (
     <Box sx={{ backgroundColor: "white", minHeight: "100vh" }}>
       <Container 
@@ -72,7 +78,7 @@ export default function CicloFuncionarios() {
             // SIMULAÇÃO: Definindo todos como "pendente" para que o botão "Ver Avaliação"
             // apareça tanto para Pedro quanto para o Gestor, conforme o requisito.
             const avaliacaoStatus = "pendente"; 
-            const avaliacaoId = 101; 
+            const avaliacaoId = ciclo.avaliacaoTemplateId || '1';
 
             // Nota: O botão "Metas" sempre aparecerá, pois não há condição limitando-o no CardFuncionario.
 
@@ -81,7 +87,7 @@ export default function CicloFuncionarios() {
                 key={emp.id}
                 employee={emp}
                 avaliacaoStatus={avaliacaoStatus} // "pendente" para todos
-                avaliacaoId={avaliacaoId} 
+                avaliacaoId={avaliacaoId} // PASSA O ID VÁLIDO
               />
             );
           })}

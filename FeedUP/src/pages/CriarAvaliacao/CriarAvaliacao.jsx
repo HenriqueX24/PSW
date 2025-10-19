@@ -10,14 +10,15 @@ import {
 } from "@mui/material";
 import './CriarAvaliacao.css'
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import CardQuestao from "../../Components/CardQuestao"; // Iremos criar este componente
+import CardQuestao from "../../Components/CardQuestao"; 
 import ButtonCreate from "../../Components/ButtonCreate";
 import NavBar from "../../Components/NavBar";
-// import { useDispatch, useSelector } from 'react-redux'; // Preparado para Redux
+import { useDispatch } from 'react-redux'; // NOVO: Importação do useDispatch
+import { addNewAvaliacao } from "../../features/user/avaliacaoSlice"; // NOVO: Importação da ação Redux
 
 function CriarAvaliacao() {
-  // const dispatch = useDispatch(); // Exemplo de uso do Redux
-  // const questions = useSelector(state => state.autoavaliacao.questions); // Exemplo de uso do Redux
+  const dispatch = useDispatch(); // NOVO: Hook para despachar ações
+  const navigate = useNavigate();
 
   const [titulo, setTitulo] = useState("");
   const [questoes, setQuestoes] = useState([]);
@@ -25,15 +26,15 @@ function CriarAvaliacao() {
   // Função para adicionar uma nova questão
   const adicionarQuestao = () => {
     const novaQuestao = {
-      id: Date.now(), // ID único para a chave no React
+      id: Date.now(),
       enunciado: "",
-      tipo: "multipla_escolha", // 'multipla_escolha' ou 'slider'
+      tipo: "multipla_escolha",
       opcoes: [
         { id: 1, texto: "" },
         { id: 2, texto: "" },
         { id: 3, texto: "" },
         { id: 4, texto: "" },
-      ], // Padrão 4 alternativas
+      ],
       slider: { min: 0, max: 10, step: 1, labelMin: "Baixo", labelMax: "Alto" },
     };
     setQuestoes([...questoes, novaQuestao]);
@@ -51,22 +52,29 @@ function CriarAvaliacao() {
     );
   };
 
-  // Função de submissão do formulário (simulada)
+  // Função de submissão do formulário (agora salva via Redux)
   const handleSubmit = (event) => {
     event.preventDefault();
-    const dadosDaAvaliacao = {
+
+    const novaAvaliacao = {
       titulo,
       questoes,
+      // Adiciona uma data de criação para mock no Card (opcional)
+      dataCriacao: new Date().toISOString(), 
     };
-    console.log(
-      "Dados da Avaliação Prontos para o Redux/API:",
-      dadosDaAvaliacao
-    );
-    // Em um app Redux, você faria:
-    // dispatch(salvarAutoavaliacao(dadosDaAvaliacao));
-  };
 
-  const navigate = useNavigate();
+    // NOVO: Despacha a ação assíncrona para salvar a avaliação
+    dispatch(addNewAvaliacao(novaAvaliacao))
+      .unwrap() // Lida com a promise do thunk
+      .then(() => {
+        alert("Avaliação criada com sucesso!");
+        navigate("/avaliacao"); // Volta para a Lista de Avaliações
+      })
+      .catch((error) => {
+        console.error("Erro ao salvar avaliação:", error);
+        alert("Erro ao salvar avaliação. Tente novamente.");
+      });
+  };
 
   const handleVoltar = () => {
     navigate(-1);
