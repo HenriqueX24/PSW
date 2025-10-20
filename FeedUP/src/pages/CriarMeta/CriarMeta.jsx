@@ -2,52 +2,57 @@ import React from "react";
 import "./criar-meta.css"; // use o C/caixa certo aqui
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import NavBar from '../../Components/NavBar'
+import NavBar from "../../Components/NavBar";
 import { useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as Yup from 'yup';
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
 import { addNewMeta } from "../../features/user/metaSlice";
+import Title from "../../Components/Title";
+import { Container, Box } from "@mui/material";
 
 const validationSchema = Yup.object().shape({
-  titulo: Yup.string()
-    .required('O título da meta é obrigatório.'),
+  titulo: Yup.string().required("O título da meta é obrigatório."),
   descricao: Yup.string()
-    .required('A descrição é obrigatória.')
-    .min(10, 'A descrição deve ter pelo menos 10 caracteres.'),
-  periodo: Yup.string()
-    .required('O período é obrigatório.'),
-  responsavel: Yup.string()
-    .required('O nome do responsável é obrigatório.'),
+    .required("A descrição é obrigatória.")
+    .min(10, "A descrição deve ter pelo menos 10 caracteres."),
+  periodo: Yup.string().required("O período é obrigatório."),
+  responsavel: Yup.string().required("O nome do responsável é obrigatório."),
 });
 
 export default function CriarMeta() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
- const { 
-    register, 
-    handleSubmit, 
-    formState: { errors, isSubmitting } 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
   } = useForm({
-    resolver: yupResolver(validationSchema) 
+    resolver: yupResolver(validationSchema),
   });
-    const onSubmit = async (data) => {
+  const onSubmit = async (data) => {
     try {
-      await dispatch(addNewMeta({ ...data, status: 'Pendente' })).unwrap();
+      await dispatch(addNewMeta({ ...data, status: "Pendente" })).unwrap();
       alert("Meta salva com sucesso!");
       navigate("/metas");
     } catch (err) {
-      console.error('Falha ao salvar a meta: ', err);
+      console.error("Falha ao salvar a meta: ", err);
       alert("Falha ao salvar a meta.");
     }
   };
 
   return (
-    <div className="container">
-      <header className="header">
+    <Box sx={{ backgroundColor: "white", minHeight: "100vh" }}>
+      <Container
+        maxWidth="lg"
+        className="cabecalho"
+        sx={{
+          py: 3,
+        }}
+      >
         <button
           type="button"
-          className="back-btn"
+          className="botao-voltar"
           aria-label="Voltar"
           onClick={() => navigate("/metas")}
         >
@@ -61,20 +66,22 @@ export default function CriarMeta() {
             />
           </svg>
         </button>
-        <h1>Criar Meta</h1>
-      </header>
+        <Title titulo="Criar Meta" className="titulo-pagina" />
+      </Container>
 
-      <hr className="divider" />
       <main>
-       <form className="goal-form" onSubmit={handleSubmit(onSubmit)}>
+        <form className="goal-form" onSubmit={handleSubmit(onSubmit)}>
           <div className="form-group">
             <label htmlFor="titulo">Título da Meta</label>
             <input
               type="text"
               id="titulo"
               placeholder="Ex: Aumentar vendas em 10%"
-              {...register("titulo")} 
+              {...register("titulo")}
             />
+            {errors.titulo && (
+              <p className="error-message">{errors.titulo.message}</p>
+            )}
           </div>
 
           <div className="form-group">
@@ -83,9 +90,11 @@ export default function CriarMeta() {
               id="descricao"
               rows={3}
               placeholder="Descreva a meta..."
-              {...register("descricao")} 
+              {...register("descricao")}
             />
-            {errors.descricao && <p className="error-message">{errors.descricao.message}</p>}
+            {errors.descricao && (
+              <p className="error-message">{errors.descricao.message}</p>
+            )}
           </div>
 
           <div className="form-group">
@@ -94,31 +103,33 @@ export default function CriarMeta() {
               type="text"
               id="periodo"
               placeholder="01/07/2025 - 30/09/2025"
-              {...register("periodo")} 
+              {...register("periodo")}
             />
-            {errors.periodo && <p className="error-message">{errors.periodo.message}</p>}
+            {errors.periodo && (
+              <p className="error-message">{errors.periodo.message}</p>
+            )}
           </div>
 
-            <div className="form-group">
+          <div className="form-group">
             <label htmlFor="responsavel">Responsável</label>
             <input
               type="text"
               id="responsavel"
               placeholder="Nome do responsável"
-              {...register("responsavel")} 
+              {...register("responsavel")}
             />
-            {errors.responsavel && <p className="error-message">{errors.responsavel.message}</p>}
+            {errors.responsavel && (
+              <p className="error-message">{errors.responsavel.message}</p>
+            )}
           </div>
 
           <button type="submit" className="main-btn" disabled={isSubmitting}>
-             {isSubmitting ? 'Salvando...' : 'Salvar Meta'}
+            {isSubmitting ? "Salvando..." : "Salvar Meta"}
           </button>
         </form>
       </main>
 
-      {/* Bottom nav fora do <form> */}
       <NavBar />
-      
-    </div>
+    </Box>
   );
 }
