@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Typography, Box, TextField, Divider, RadioGroup, FormControlLabel, Radio, Slider } from '@mui/material';
 
-export default function FormsAvaliacao({ avaliacao }) {
+export default function FormsAvaliacao({ avaliacao, onRespostasChange }) {
   
   if (!avaliacao || !avaliacao.questoes) {
     return <Typography variant="h6">Avaliação não encontrada ou em formato inválido.</Typography>;
@@ -13,10 +13,17 @@ export default function FormsAvaliacao({ avaliacao }) {
   const handleRespostaChange = (idQuestao, valor) => {
     setRespostas(prev => ({
       ...prev,
-      [idQuestao]: valor
+      [String(idQuestao)]: valor
     }));
   };
   
+  // Notifica o componente pai sobre as respostas atuais
+  useEffect(() => {
+      if (onRespostasChange) {
+          onRespostasChange(respostas);
+      }
+  }, [respostas, onRespostasChange]);
+
   const renderQuestaoInput = (questao) => {
       const valorAtual = respostas[questao.id] || (questao.tipo === 'slider' ? (questao.slider?.min || 0) : '');
 

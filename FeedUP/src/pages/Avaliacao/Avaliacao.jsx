@@ -76,8 +76,8 @@ const BottomNav = ({ navigate }) => (
     {/* Botões de Navegação */}
     {[
       {
-        path: "/metas",
-        label: "Metas",
+        path: "/registro-atividades",
+        label: "RegistroAtividades",
         Icon: CheckBoxIcon,
         color: "#e0e0e0",
       },
@@ -113,7 +113,7 @@ function Avaliacao() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const RouterLink = Link;
-  const user = useSelector((state) => state.auth?.currentUser);
+  const user = useSelector((state) => state.login?.currentUser);
   const isGestor = user && user.cargo === "gestor";
 
   return (
