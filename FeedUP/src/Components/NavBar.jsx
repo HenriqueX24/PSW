@@ -25,7 +25,7 @@ const BottomNav = ({ navigate }) => (
     {/* Botões de Navegação */}
     {[
       {
-        path: "/metas",
+        path: "/registro-atividades",
         label: "Metas",
         Icon: CheckBoxIcon,
         color: "var(--icon)",

@@ -1,17 +1,16 @@
-// src/Components/Forms.jsx
 import React from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
-
 import { addNewUser, updateUser } from '../features/user/usersSlice';
-
-import { FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, Input } from '@mui/material';
+import { FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, Input, InputAdornment, IconButton } from '@mui/material';
 import ButtonSubmit from "./ButtonSubmit";
 import styles from "./Forms.module.css";
-
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff'; 
 
 const validationSchema = Yup.object().shape({
   nome: Yup.string().required('Nome é obrigatório'),
@@ -26,6 +25,7 @@ const validationSchema = Yup.object().shape({
 });
 
 export default function Forms() {
+  const [showSenha, setShowSenha] = useState(false); // Novo estado
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -45,6 +45,10 @@ export default function Forms() {
     else if (v.length > 6) v = v.replace(/^(\d{3})(\d{3})(\d{0,3}).*/, "$1.$2.$3");
     else if (v.length > 3) v = v.replace(/^(\d{3})(\d{0,3}).*/, "$1.$2");
     setValue('cpf', v, { shouldValidate: true });
+  };
+
+  const handleClickShowSenha = () => { 
+    setShowSenha((show) => !show);
   };
 
  const onSubmit = async (data) => {
@@ -69,6 +73,7 @@ export default function Forms() {
       console.error('Falha ao salvar:', err);
     }
   };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.loginForm}>
       
@@ -93,7 +98,23 @@ export default function Forms() {
       {!isEditMode && (
         <div className="form-group">
           <label>Senha</label>
-          <Input fullWidth type="password" {...register("senha")} />
+          <Input 
+          fullWidth 
+          // Usa o estado showSenha para alternar o tipo
+          type={showSenha ? "text" : "password"}
+          {...register("senha")} 
+          endAdornment={ // Adiciona o ícone no final do Input
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowSenha}
+                  edge="end"
+                >
+                  {showSenha ? <VisibilityOff /> : <Visibility />}
+                </IconButton>                
+              </InputAdornment>
+          }
+          />
           {errors.senha && <p className="error-message">{errors.senha.message}</p>}
         </div>
       )}

@@ -63,7 +63,8 @@ export const usersSlice = createSlice({
       .addCase(fetchUsers.rejected, (state, action) => {
         state.status = 'failed'; 
         state.error = action.error.message;
-      });
+      })
+      .addCase(addNewUser.fulfilled, usersAdapter.addOne); // Adiciona o novo usuário ao estado local
   },
 });
 
