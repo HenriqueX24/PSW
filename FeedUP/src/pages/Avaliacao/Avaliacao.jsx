@@ -122,19 +122,16 @@ function Avaliacao() {
         {/* 1. TÍTULO 'Menu' (Movido para cima da AppBar) */}
         <Container
           maxWidth="lg"
+          className="cabecalho"
           sx={{
-            display: "flex", // Habilita Flexbox
-            alignItems: "center", // Centraliza verticalmente
-            justifyContent: "flex-start", // Alinha ao início (esquerda)
-            gap: 60, // Adiciona um pequeno espaço entre a seta e o título
             py: 3, // Padding vertical
           }}
         >
           <button
             type="button"
-            className="voltar"
+            className="botao-voltar"
             aria-label="Voltar"
-            onClick={() => navigate(-1)} /*  navigate(-1) volta para a última página acessada*/
+            onClick={() => navigate(-1)} /* navigate(-1) volta para a última página acessada*/
           >
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
               <path
@@ -149,7 +146,7 @@ function Avaliacao() {
 
           {/* Título Avaliações */}
 
-          <Title titulo="Avaliações" />
+          <Title titulo="Avaliações" className="titulo-pagina" />
         </Container>
 
         {/* NAVBAR REACT */}
