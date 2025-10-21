@@ -8,23 +8,22 @@ import {
   Box,
   Divider,
 } from "@mui/material";
-import './CriarAvaliacao.css'
+import "./CriarAvaliacao.css";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import CardQuestao from "../../Components/CardQuestao"; 
+import CardQuestao from "../../Components/CardQuestao";
 import ButtonCreate from "../../Components/ButtonCreate";
 import NavBar from "../../Components/NavBar";
-import { useDispatch } from 'react-redux'; // NOVO: Importação do useDispatch
-import { addNewAvaliacao } from "../../features/user/avaliacaoSlice"; // NOVO: Importação da ação Redux
-import Title from "../../Components/Title"
+import { useDispatch } from "react-redux";
+import { addNewAvaliacao } from "../../features/user/avaliacaoSlice";
+import Title from "../../Components/Title";
 
 function CriarAvaliacao() {
-  const dispatch = useDispatch(); // NOVO: Hook para despachar ações
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [titulo, setTitulo] = useState("");
   const [questoes, setQuestoes] = useState([]);
 
-  // Função para adicionar uma nova questão
   const adicionarQuestao = () => {
     const novaQuestao = {
       id: Date.now(),
@@ -41,35 +40,30 @@ function CriarAvaliacao() {
     setQuestoes([...questoes, novaQuestao]);
   };
 
-  // Função para remover uma questão
   const removerQuestao = (id) => {
     setQuestoes(questoes.filter((q) => q.id !== id));
   };
 
-  // Função para atualizar os dados de uma questão específica
   const atualizarQuestao = (id, novosDados) => {
     setQuestoes(
       questoes.map((q) => (q.id === id ? { ...q, ...novosDados } : q))
     );
   };
 
-  // Função de submissão do formulário (agora salva via Redux)
   const handleSubmit = (event) => {
     event.preventDefault();
 
     const novaAvaliacao = {
       titulo,
       questoes,
-      // Adiciona uma data de criação para mock no Card (opcional)
-      dataCriacao: new Date().toISOString(), 
+      dataCriacao: new Date().toISOString(),
     };
 
-    // NOVO: Despacha a ação assíncrona para salvar a avaliação
     dispatch(addNewAvaliacao(novaAvaliacao))
-      .unwrap() // Lida com a promise do thunk
+      .unwrap()
       .then(() => {
         alert("Avaliação criada com sucesso!");
-        navigate("/avaliacao/:id"); // Volta para a Lista de Avaliações
+        navigate("/avaliacao");
       })
       .catch((error) => {
         console.error("Erro ao salvar avaliação:", error);
@@ -79,13 +73,16 @@ function CriarAvaliacao() {
 
   const handleVoltar = () => {
     navigate(-1);
-  }
+  };
 
   return (
-    <Box sx={{ minHeight: "100vh" }}>
-      <Container 
-      className="cabecalho" 
-      maxWidth="md" sx={{ mt: 4, mb: 4 }}
+    <Box sx={{ backgroundColor: "white", minHeight: "100vh" }}>
+      <Container
+        maxWidth="lg"
+        className="cabecalho"
+        sx={{
+          py: 3,
+        }}
       >
         <button
           type="button"
@@ -105,8 +102,9 @@ function CriarAvaliacao() {
         </button>
 
         <Title titulo="Criar Avaliação" className="titulo-pagina" />
-        </Container>
-        <Container
+      </Container>
+
+      <Container
         maxWidth="md"
         sx={{
           mt: 4,
@@ -116,7 +114,6 @@ function CriarAvaliacao() {
         }}
       >
         <form onSubmit={handleSubmit} className="autoavaliacao-form">
-          {/* Campo para o Título da Avaliação */}
           <TextField
             fullWidth
             label="Título da Avaliação"
@@ -129,7 +126,6 @@ function CriarAvaliacao() {
 
           <Divider sx={{ mt: 3, mb: 3 }} />
 
-          {/* Lista de Questões */}
           <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
             {questoes.map((questao, index) => (
               <CardQuestao
@@ -142,7 +138,6 @@ function CriarAvaliacao() {
             ))}
           </Box>
 
-          {/* Botão Adicionar Questão */}
           <Box sx={{ mt: 3, textAlign: "center" }}>
             <ButtonCreate
               variant="contained"
