@@ -181,7 +181,10 @@ export default function MetaDetalhe() {
           </div>
           <div className="goal-meta">
             <span>
-              <strong>Período:</strong> {meta.periodo}
+              <strong>Data de Início:</strong> {meta.inicio || meta.periodo}
+            </span>
+            <span>
+              <strong>Data de Término:</strong> {meta.termino || 'N/A'} 
             </span>
             <span>
               <strong>Responsável:</strong> {meta.responsavel}
