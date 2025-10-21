@@ -128,7 +128,7 @@ export default function RegistroAtividades() {
 
       <Box sx={{ mt: 4 }}>
         <Typography variant="h5" gutterBottom>
-          Histórico de Metas e Avaliações
+          Histórico de Avaliações Feitas
         </Typography>
         {content}
       </Box>
