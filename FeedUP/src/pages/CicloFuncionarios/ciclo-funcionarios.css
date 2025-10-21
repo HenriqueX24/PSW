@@ -5,39 +5,48 @@ body {
   color: #444;
 }
 
-.header {
+.cabecalho {
+  position: relative;
   display: flex;
   align-items: center;
-  padding: 0 16px;
-  height: 56px;
-  border-bottom: 1px solid #f0f0f0;
-  background: #fff;
-  position: sticky;
-  top: 0;
-  z-index: 10;
+  justify-content: center;
+  width: 100%;
 }
 
-.header .back-btn {
-  background: none;
-  border: none;
-  margin-right: 8px;
-  cursor: pointer;
-  padding: 0;
-}
-
-.header h1 {
-  flex: 1;
+.titulo-pagina {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
   text-align: center;
-  font-size: 1.5rem;
-  color: #7ed6c0;
-  font-weight: 500;
-  margin: 0 32px 0 0;
+  z-index: 0;
 }
 
-main {
-  padding: 16px 12px 80px 12px;
-  max-width: 480px;
-  margin: 0 auto;
+.botao-voltar {
+  background: transparent;
+  border: none;
+  padding: 6px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 16px;
+  z-index: 1;
+}
+.botao-voltar:focus {
+  outline: none;
+}
+
+.mainCiclo {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0px 12px 80px 12px;
+    max-width: 480px;
+    margin: 20px auto; 
 }
 
 .employee-list {
@@ -198,10 +207,6 @@ main {
     align-items: flex-start;
     gap: 10px;
   }
-  .header h1 {
-    font-size: 1.2rem;
-    margin-right: 16px;
-  }
   .employee-actions {
     align-items: flex-start;
     width: 100%;
@@ -210,4 +215,12 @@ main {
     width: 100%;
     margin-top: 2px;
   }
+}
+
+@media (min-width: 600px) {
+    .css-1u9o2lj-MuiToolbar-root {
+        min-height: 64px;
+        display: flex !important;
+        flex-direction: column !important;
+    }
 }

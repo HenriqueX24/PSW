@@ -31,7 +31,7 @@ export default function CicloFuncionarios() {
   // CORREÇÃO: Filtra APENAS os usuários que estão no ciclo. 
   // Não há mais filtro por cargo (gestores e funcionários são incluídos).
   const employeesInCycle = allUsers.filter(user => 
-    ciclo.avaliados.includes(user.email)
+    ciclo.avaliados.includes(user.nome)
   );
 
   // NOVO: Adicione uma propriedade ao ciclo que aponta para o ID da avaliação.
@@ -71,7 +71,7 @@ export default function CicloFuncionarios() {
       </Container>
       
         <MenuNav />
-        <main>
+        <main className="mainCiclo">
         <section className="employee-list">
           {employeesInCycle.map((emp) => {
             
