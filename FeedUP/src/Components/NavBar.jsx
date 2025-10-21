@@ -1,4 +1,4 @@
-import { Box, IconButton } from "@mui/material";
+import { Box, IconButton, Tooltip } from "@mui/material";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import HomeIcon from "@mui/icons-material/Home";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -26,7 +26,7 @@ const BottomNav = ({ navigate }) => (
     {[
       {
         path: "/registro-atividades",
-        label: "Metas",
+        label: "Atividades",
         Icon: CheckBoxIcon,
         color: "var(--icon)",
       },
@@ -43,6 +43,7 @@ const BottomNav = ({ navigate }) => (
         color: "var(--icon)",
       },
     ].map((item) => (
+      <Tooltip title={item.label}>
       <IconButton
         key={item.path}
         onClick={() => navigate(item.path)}
@@ -51,6 +52,7 @@ const BottomNav = ({ navigate }) => (
       >
         <item.Icon sx={{ color: item.color }} fontSize="large" />
       </IconButton>
+      </Tooltip>
     ))}
   </Box>
 );
