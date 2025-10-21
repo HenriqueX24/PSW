@@ -69,7 +69,7 @@ export default function CicloFuncionarios() {
       </Container>
 
       <MenuNav />
-      <main>
+      <main className="mainCiclo">
         <section className="employee-list">
           {employeesInCycle.map((emp) => {
             // SIMULAÇÃO: Definindo todos como "pendente" para que o botão "Ver Avaliação"
