@@ -15,152 +15,49 @@
       "email": "gestor@gmail.com",
       "senha": "123456",
       "cargo": "gestor"
+    },
+    {
+      "id": "3df4",
+      "cargo": "gestor",
+      "nome": "Rafael Henrique",
+      "cpf": "111.222.444-33",
+      "email": "rafael@teste.com",
+      "senha": "123456"
     }
   ],
   "metas": [
     {
-      "id": "1",
-      "titulo": "Aumentar vendas em 10%",
-      "descricao": "Meta para o trimestre atual",
-      "status": "Pendente",
-      "responsavel": "Usuário de Teste",
-      "comentarios": [
-        {
-          "texto": "jjjjjjjjjjjjjjjj",
-          "data": 1760732415300
-        },
-        {
-          "texto": "Muito bem! Meta cumprida",
-          "data": 1760732499478
-        }
-      ]
-    },
-    {
-      "id": "c9ad",
+      "id": "5910",
       "titulo": "Aumentar vendas no mês",
-      "descricao": "A escala de horário diária passará de 3h para 5h de trabalho.",
-      "periodo": "07/02/2025 - 08/03/2025",
-      "responsavel": "Rafael",
-      "status": "Pendente",
+      "descricao": "Aumentar carga horária de trabalho",
+      "responsavel": "pedro@teste.com",
+      "inicio": "2025-10-21",
+      "termino": "2025-10-22",
+      "status": "Aprovado",
       "comentarios": [
         {
           "texto": "Muito bem! Meta cumprida",
-          "data": 1760807830469
+          "data": 1761055912732
         }
       ]
     }
   ],
   "avaliacoes": [
-    {
-      "id": "9257",
-      "titulo": "Performance Review",
-      "questoes": [
-        {
-          "id": 1760903770693,
-          "enunciado": "Como você se sente no seu trabalho?",
-          "tipo": "multipla_escolha",
-          "opcoes": [
-            {
-              "id": 1,
-              "texto": "Feliz"
-            },
-            {
-              "id": 2,
-              "texto": "Triste"
-            },
-            {
-              "id": 3,
-              "texto": "Satisfeito"
-            },
-            {
-              "id": 4,
-              "texto": "Insatisfeio"
-            }
-          ],
-          "slider": {
-            "min": 0,
-            "max": 10,
-            "step": 1,
-            "labelMin": "Baixo",
-            "labelMax": "Alto"
-          }
-        },
-        {
-          "id": 1760903828723,
-          "enunciado": "Qual é o seu interesse em permanecer na empresa?",
-          "tipo": "slider",
-          "opcoes": [
-            {
-              "id": 1,
-              "texto": ""
-            },
-            {
-              "id": 2,
-              "texto": ""
-            },
-            {
-              "id": 3,
-              "texto": ""
-            },
-            {
-              "id": 4,
-              "texto": ""
-            }
-          ],
-          "slider": {
-            "min": 0,
-            "max": 5,
-            "step": 1,
-            "labelMin": "",
-            "labelMax": ""
-          }
-        }
-      ],
-      "dataCriacao": "2025-10-19T19:58:32.629Z"
-    }
+    
   ],
   "ciclos": [
     {
-      "id": "e4cb",
-      "avaliacaoTemplateId": "ID_DA_AVALIACAO_REAL_SALVA",
+      "id": "4d27",
       "avaliadores": [
-        "a@gestora.com"
-      ],
-      "avaliados": [
-        "a@gestora.com",
-        "pedro@teste.com",
-        "gestor@gmail.com"
-      ],
-      "titulo": "teste",
-      "tipo": "Mensal",
-      "inicio": "2025-10-08",
-      "termino": "2025-11-12"
-    },
-    {
-      "id": "e6c9",
-      "avaliadores": [
-        "gestor@gmail.com"
-      ],
-      "avaliados": [
-        "pedro@teste.com"
-      ],
-      "titulo": "Ciclo do Departamento de Marketing",
-      "tipo": "Mensal",
-      "inicio": "2025-10-18",
-      "termino": "2025-11-18"
-    },
-    {
-      "id": "53a9",
-      "avaliadores": [
-        "gestor@gmail.com"
+        "rafael_henrique@teste.com"
       ],
       "avaliados": [
         "pedro@teste.com"
       ],
       "titulo": "Avaliação de Desempenho Q1",
       "tipo": "Mensal",
-      "inicio": "2025-10-18",
-      "termino": "2025-11-18"
+      "inicio": "2025-10-21",
+      "termino": "2025-10-30"
     }
   ]
 }
