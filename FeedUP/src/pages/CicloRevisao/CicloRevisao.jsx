@@ -10,6 +10,7 @@ import CardCiclo from "../../Components/CardCiclo";
 import ButtonCreate from "../../Components/ButtonCreate";
 import { Grid, Box, Container } from "@mui/material";
 import Title from "../../Components/Title";
+import SetaVoltar from "../../Components/SetaVoltar";
 
 export default function CicloRevisao() {
   const navigate = useNavigate();
@@ -71,22 +72,7 @@ export default function CicloRevisao() {
           py: 3, // Padding vertical
         }}
       >
-        <button
-          type="button"
-          className="back-btn"
-          aria-label="Voltar"
-          onClick={() => navigate(-1)}
-        >
-          <svg width="24" height="24" fill="none">
-            <path
-              d="M15 18l-6-6 6-6"
-              stroke="#7ED6C0"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </button>
+        <SetaVoltar destino='/login'/>
         <Title titulo="Ciclos de Revisão" />
       </Container>
 

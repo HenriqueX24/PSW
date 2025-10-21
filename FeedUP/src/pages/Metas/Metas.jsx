@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchMetas, selectAllMetas } from "../../features/user/metaSlice.js";
 import Title from "../../Components/Title.jsx";
 import ButtonCreate from "../../Components/ButtonCreate.jsx";
+import SetaVoltar from "../../Components/SetaVoltar.jsx";
 
 export default function Metas() {
   const navigate = useNavigate();
@@ -69,22 +70,7 @@ export default function Metas() {
             py: 3, // Padding vertical
           }}
         >
-          <button
-            type="button"
-            className="back-btn"
-            aria-label="Voltar"
-            onClick={() => navigate(-1)}
-          >
-            <svg width="24" height="24" fill="none">
-              <path
-                d="M15 18l-6-6 6-6"
-                stroke="#7ED6C0"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
+          <SetaVoltar />
 
           <Title titulo={"Metas"} />
         </Container>
