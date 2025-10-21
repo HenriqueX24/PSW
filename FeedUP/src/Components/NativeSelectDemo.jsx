@@ -53,7 +53,7 @@ export default function NativeSelectDemo({ options, value, onChange, selectLabel
           {options.map((option, index) => (
             <MenuItem 
               key={option.label} 
-              value={index} // <--- CORREÇÃO: Usa o índice do array como o valor
+              value={option.value} // <--- CORREÇÃO: Usa o índice do array como o valor
             >
               {option.label}
             </MenuItem>
