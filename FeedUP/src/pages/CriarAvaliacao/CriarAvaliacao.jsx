@@ -15,6 +15,7 @@ import ButtonCreate from "../../Components/ButtonCreate";
 import NavBar from "../../Components/NavBar";
 import { useDispatch } from 'react-redux'; // NOVO: Importação do useDispatch
 import { addNewAvaliacao } from "../../features/user/avaliacaoSlice"; // NOVO: Importação da ação Redux
+import Title from "../../Components/Title"
 
 function CriarAvaliacao() {
   const dispatch = useDispatch(); // NOVO: Hook para despachar ações
@@ -68,7 +69,7 @@ function CriarAvaliacao() {
       .unwrap() // Lida com a promise do thunk
       .then(() => {
         alert("Avaliação criada com sucesso!");
-        navigate("/avaliacao"); // Volta para a Lista de Avaliações
+        navigate("/avaliacao/:id"); // Volta para a Lista de Avaliações
       })
       .catch((error) => {
         console.error("Erro ao salvar avaliação:", error);
@@ -81,11 +82,14 @@ function CriarAvaliacao() {
   }
 
   return (
-    <>
-      <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
+    <Box sx={{ minHeight: "100vh" }}>
+      <Container 
+      className="cabecalho" 
+      maxWidth="md" sx={{ mt: 4, mb: 4 }}
+      >
         <button
           type="button"
-          className="voltar"
+          className="botao-voltar"
           aria-label="Voltar"
           onClick={handleVoltar}
         >
@@ -100,10 +104,17 @@ function CriarAvaliacao() {
           </svg>
         </button>
 
-        <Typography variant="h4" component="h1" gutterBottom>
-          Criar Avaliação
-        </Typography>
-
+        <Title titulo="Criar Avaliação" className="titulo-pagina" />
+        </Container>
+        <Container
+        maxWidth="md"
+        sx={{
+          mt: 4,
+          mb: 4,
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
         <form onSubmit={handleSubmit} className="autoavaliacao-form">
           {/* Campo para o Título da Avaliação */}
           <TextField
@@ -154,7 +165,7 @@ function CriarAvaliacao() {
           </Box>
         </form>
       </Container>
-    </>
+    </Box>
   );
 }
 

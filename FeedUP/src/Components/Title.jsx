@@ -2,11 +2,12 @@ import React from "react";
 import "../pages/Avaliacao/avaliacaostyle.css";
 import { Container, Typography } from "@mui/material";
 
-export default function Title({ titulo }) {
+export default function Title({ titulo, className }) {
   return (
     <Typography
       // Você pode manter o variant como h2 por semântica, mas o estilo é controlado pelo sx
       variant="h2" 
+      className={className}
       sx={{
         lineHeight: 1.2,
         color: "var(--brand)",

@@ -53,7 +53,7 @@ export default function CicloFuncionarios() {
         }}>
         <button
           type="button"
-          className="back-btn"
+          className="botao-voltar"
           aria-label="Voltar"
           onClick={() => navigate("/ciclo-revisao")}
         >
@@ -67,7 +67,7 @@ export default function CicloFuncionarios() {
             />
           </svg>
         </button>
-        <Title titulo={ciclo.titulo}/>
+        <Title titulo={ciclo.titulo} className="titulo-pagina" />
       </Container>
       
         <MenuNav />

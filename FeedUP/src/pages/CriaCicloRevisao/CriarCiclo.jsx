@@ -11,7 +11,7 @@ import { selectAllUsers } from "../../features/user/usersSlice";
 import { useSelector, useDispatch } from "react-redux";
 import Title from "../../Components/Title";
 import { Container, Box, Chip, Stack } from "@mui/material";
-import NativeSelectDemo from "../../Components/NativeSelectDemo";
+import SelectUsers from "../../Components/SelectUsers";
 
 const validationSchema = Yup.object().shape({
   titulo: Yup.string().required("Título é obrigatório"),
@@ -113,6 +113,7 @@ export default function CriarCiclo() {
   return (
     <Box sx={{ backgroundColor: "white", minHeight: "100vh" }}>
       <Container
+        className="cabecalho"
         maxWidth="lg"
         sx={{
           display: "flex", 
@@ -124,7 +125,7 @@ export default function CriarCiclo() {
       >
         <button
           type="button"
-          className="back-btn"
+          className="botao-voltar"
           aria-label="Voltar"
           onClick={() => navigate("/ciclo-revisao")}
         >
@@ -138,7 +139,7 @@ export default function CriarCiclo() {
             />
           </svg>
         </button>
-        <Title titulo={"Criar Ciclo"} />
+        <Title className="titulo-pagina" titulo={"Criar Ciclo"} />
       </Container>
 
       <main className="form-container">
@@ -187,7 +188,7 @@ export default function CriarCiclo() {
           {/* NOVO: Seção de Avaliadores (Gestores) com Seletor e Chips */}
           <div className="form-group">
             <label>Avaliador</label>
-            <NativeSelectDemo
+            <SelectUsers
               options={avaliadoresOptions}
               value={selectedAvaliadorEmail}
               onChange={handleAvaliadorSelect}
@@ -214,7 +215,7 @@ export default function CriarCiclo() {
           {/* Seção de Avaliados (Funcionários) com Seletor e Chips */}
           <div className="form-group">
             <label>Avaliados</label>
-            <NativeSelectDemo
+            <SelectUsers
               options={avaliadosOptions}
               value={selectedAvaliadoEmail}
               onChange={handleAvaliadoSelect}

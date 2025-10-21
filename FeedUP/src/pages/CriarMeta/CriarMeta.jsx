@@ -9,6 +9,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { addNewMeta } from "../../features/user/metaSlice";
 import { selectAllUsers } from "../../features/user/usersSlice"; // Importado selectAllUsers
+import Title from "../../Components/Title";
+import { Container, Box } from "@mui/material";
 
 // O campo 'responsavel' agora será um select que deve ter um valor (email)
 const validationSchema = Yup.object().shape({
@@ -85,11 +87,17 @@ export default function CriarMeta() {
   };
 
   return (
-    <div className="container">
-      <header className="header">
+    <Box sx={{ backgroundColor: "white", minHeight: "100vh" }}>
+      <Container 
+      maxWidth="lg"
+        className="cabecalho"
+        sx={{
+          py: 3,
+        }}
+      >
         <button
           type="button"
-          className="back-btn"
+          className="botao-voltar"
           aria-label="Voltar"
           onClick={() => navigate("/metas")}
         >
@@ -103,8 +111,8 @@ export default function CriarMeta() {
             />
           </svg>
         </button>
-        <h1>Criar Meta</h1>
-      </header>
+        <Title titulo="Criar Meta" className="titulo-pagina" />
+      </Container>
 
       <hr className="divider" />
       <main>
@@ -177,6 +185,6 @@ export default function CriarMeta() {
       {/* Bottom nav fora do <form> */}
       <NavBar />
       
-    </div>
+    </Box>
   );
 }

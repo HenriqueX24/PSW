@@ -46,6 +46,41 @@ main {
   gap: 18px;
 }
 
+.cabecalho {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.titulo-pagina {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  text-align: center;
+  z-index: 0;
+}
+
+.botao-voltar {
+  background: transparent;
+  border: none;
+  padding: 6px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 16px;
+  z-index: 1;
+}
+.botao-voltar:focus {
+  outline: none;
+}
+
 .employee-card {
   background: #f3f8f7;
   border-radius: 18px;

@@ -122,6 +122,7 @@ function Avaliacao() {
         {/* 1. TÍTULO 'Menu' (Movido para cima da AppBar) */}
         <Container
           maxWidth="lg"
+          className="cabecalho"
           sx={{
             display: "flex", // Habilita Flexbox
             alignItems: "center", // Centraliza verticalmente
@@ -132,7 +133,7 @@ function Avaliacao() {
         >
           <button
             type="button"
-            className="voltar"
+            className="botao-voltar"
             aria-label="Voltar"
             onClick={() => navigate(-1)} /*  navigate(-1) volta para a última página acessada*/
           >
@@ -149,7 +150,7 @@ function Avaliacao() {
 
           {/* Título Avaliações */}
 
-          <Title titulo="Avaliações" />
+          <Title titulo="Avaliações" className="titulo-pagina"/>
         </Container>
 
         {/* NAVBAR REACT */}

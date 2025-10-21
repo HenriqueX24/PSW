@@ -63,6 +63,7 @@ export default function CicloRevisao() {
   return (
     <Box sx={{ backgroundColor: "white", minHeight: "100vh" }}>
       <Container
+        className="cabecalho"
         maxWidth="lg"
         sx={{
           display: "flex", // Habilita Flexbox
@@ -72,8 +73,8 @@ export default function CicloRevisao() {
           py: 3, // Padding vertical
         }}
       >
-        <SetaVoltar destino='/login'/>
-        <Title titulo="Ciclos de Revisão" />
+        
+        <Title className="titulo-pagina"  titulo="Ciclos de Revisão" />
       </Container>
 
       <MenuNav label={"Ciclo de Revisão"} />

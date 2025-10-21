@@ -70,9 +70,9 @@ export default function Metas() {
             py: 3, // Padding vertical
           }}
         >
-          <SetaVoltar />
+          <SetaVoltar destino="/ciclo-revisao" className="botao-voltar"/>
 
-          <Title titulo={"Metas"} />
+          <Title className="titulo-pagina" titulo={"Metas"} />
         </Container>
 
         {/* Navbar */}

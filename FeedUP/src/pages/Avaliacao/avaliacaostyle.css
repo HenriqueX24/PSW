@@ -13,6 +13,23 @@ body {
   padding-bottom: 72px; /* evita que a bottom-nav cubra conteúdo */
 }
 
+.cabecalho {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.titulo-pagina {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  text-align: center;
+  z-index: 0;
+}
+
 .avaliacao-container {
   min-height: 100vh;
   display: flex;
@@ -30,6 +47,34 @@ body {
   padding: 18px 16px 0 16px;
   background: #fff;
   border-bottom: 1px solid #ececec;
+}
+
+.botao-voltar {
+  background: transparent;
+
+
+
+
+
+  border: none;
+  padding: 6px;
+
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 16px;
+  z-index: 1;
+}
+.botao-voltar:focus {
+  outline: none;
+
+
+
+
 }
 /*
 .avaliacao-header h1 {

@@ -12,7 +12,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import React, { useState } from "react"; // 1. Importar useState
 import { NavLink } from "react-router-dom";
 // 2. Importar o componente Drawer
-import PersistentDrawerRight from "./PersistentDrawerRight.jsx";
 import HorizontalLinearStepper from "./HorizontalLinearStepper.jsx";
 
 // Componente para agrupar e centralizar os links de navegação do menu principal
@@ -86,25 +85,12 @@ export default function MenuNav() {
                 alignItems: "center",
               }}
             >
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                onClick={handleDrawerOpen} // 4. Abrir o Drawer ao clicar
-                sx={{ display: { xs: "flex", lg: "none" } }}
-              >
-                <MenuIcon sx={{ color: "var(--brand)" }} />
-              </IconButton>
+              
             </Box>
           </Toolbar>
         </Container>
       </AppBar>
 
-      {/* 5. Colocar o PersistentDrawerRight aqui, fora do AppBar,
-             e passar as props para controlá-lo. */}
-      <PersistentDrawerRight
-        open={open}
-        handleDrawerClose={handleDrawerClose}
-      />
     </Box>
   );
 }

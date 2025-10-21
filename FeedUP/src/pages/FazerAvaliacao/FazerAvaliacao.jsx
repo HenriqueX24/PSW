@@ -4,11 +4,12 @@ import { useNavigate, useParams } from "react-router-dom"; // Importa useParams
 import ButtonSubmit from "../../Components/ButtonSubmit";
 import NavBar from "../../Components/NavBar";
 import MenuNav from "../../Components/MenuNav";
-import { Typography } from "@mui/material";
+import { Typography, Box, Container } from "@mui/material";
 // Componentes estáticos removidos: SurveyForm, Slider
 import { useSelector, useDispatch } from 'react-redux';
 import { selectAvaliacaoById, fetchAvaliacoes, updateAvaliacao } from "../../features/user/avaliacaoSlice";
 import FormsAvaliacao from "../../Components/FormsAvaliacao"; // Importa o FormsAvaliacao
+import Title from "../../Components/Title"
 
 function FazerAvaliacao() {
   const { id } = useParams(); // Obtém o ID da URL
@@ -88,6 +89,39 @@ function FazerAvaliacao() {
   return (
     <>
       {/* ... (Header e MenuNav) ... */}
+      <Box sx={{ backgroundColor: "white", minHeight: "100vh" }}>
+      {/* Bloco de cabeçalho com as classes para o CSS */}
+      <Container
+        maxWidth="lg"
+        className="cabecalho" //  Adicionada classe para o container
+        sx={{
+          // As propriedades de display e alinhamento foram movidas para o CSS
+          // para que a media query possa controlá-las.
+          py: 3,
+        }}
+      >
+        <button
+          type="button"
+          className="botao-voltar" // <-- ALTERAÇÃO: Classe para o botão
+          aria-label="Voltar"
+          onClick={() => navigate(-1)}
+        >
+          <svg width="24" height="24" fill="none">
+            <path
+              d="M15 18l-6-6 6-6"
+              stroke="#7ED6C0"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+        
+        <Title 
+            titulo={avaliacao.titulo || "Fazer Avaliação"} 
+            className="titulo-pagina" // <-- ALTERAÇÃO: Adicionada classe para o título
+        />
+      </Container>
       <MenuNav />
       <main>
         <form className="autoavaliacao-form" onSubmit={handleSubmit}>
@@ -100,6 +134,7 @@ function FazerAvaliacao() {
       </main>
 
       <NavBar />
+    </Box>
     </>
   );
 }
