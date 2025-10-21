@@ -43,14 +43,18 @@ export default function MetaDetalhe() {
         );
         if (initialIndex !== -1) {
           setRange(initialIndex);
+        } else {
+            setRange(0); // <-- CORREÇÃO: Força para o índice 0 se status for desconhecido
         }
       } 
       // 3. Se a meta NÃO TIVER um status, define como 'Pendente' (índice 0)
       else {
-          const pendenteIndex = STATUS_MAP.findIndex(s => s.label === "Pendente");
+        // Se a meta não tiver status, garante que seja 0.
+          setRange(0);
+          {/* const pendenteIndex = STATUS_MAP.findIndex(s => s.label === "Pendente");
           if (pendenteIndex !== -1) {
               setRange(pendenteIndex); 
-          }
+          } */}
       }
     }
   }, [meta]); 
@@ -100,7 +104,7 @@ export default function MetaDetalhe() {
       }
       
       alert("Meta atualizada com sucesso!");
-      navigate("/metas"); // Opcional: Se quiser manter na tela de detalhes, remova esta linha
+      //navigate("/metas"); // Opcional: Se quiser manter na tela de detalhes, remova esta linha
     } catch (err) {
       console.error("Falha ao atualizar a meta:", err);
       alert("Falha ao atualizar a meta.");
@@ -116,7 +120,7 @@ export default function MetaDetalhe() {
     );
   }
 
-  const currentStatus = STATUS_MAP[range];
+  const currentStatus = STATUS_MAP[range] || STATUS_MAP[0];
   const comentarios = meta.comentarios || []; // Garante que seja um array para iteração
 
   return (
@@ -173,6 +177,7 @@ export default function MetaDetalhe() {
               options={STATUS_MAP}
               value={range}
               onChange={(value) => setRange(Number(value))}
+              selectLabel="Status" // Adicione o label para o seletor
             />
           </div>
           <div className="goal-desc">
@@ -181,7 +186,10 @@ export default function MetaDetalhe() {
           </div>
           <div className="goal-meta">
             <span>
-              <strong>Período:</strong> {meta.periodo}
+              <strong>Data de Início:</strong> {meta.inicio || meta.periodo}
+            </span>
+            <span>
+              <strong>Data de Término:</strong> {meta.termino || 'N/A'} 
             </span>
             <span>
               <strong>Responsável:</strong> {meta.responsavel}

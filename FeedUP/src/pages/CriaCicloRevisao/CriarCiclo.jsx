@@ -65,8 +65,8 @@ export default function CriarCiclo() {
   });
 
   // Observa os arrays de emails selecionados no estado do formulário
-  const avaliados = watch("avaliados");
-  const avaliadores = watch("avaliadores"); // NOVO: Observa avaliadores
+  const avaliados = watch("avaliados"); 
+  const avaliadores = watch("avaliadores"); 
 
   // Função auxiliar para obter o nome do usuário a partir do email para o label do Chip
   const getUsernameByEmail = (email) => {

@@ -2,6 +2,7 @@ import {
   createSlice,
   createAsyncThunk,
   createEntityAdapter,
+  createSelector,
 } from "@reduxjs/toolkit";
 
 // O Entity Adapter nos ajuda a gerenciar dados normalizados (como um banco de dados em miniatura)
@@ -97,6 +98,14 @@ const avaliacaoSlice = createSlice({
 export const {
   selectAll: selectAllAvaliacoes,
   selectById: selectAvaliacaoById,
+  selectIds: selectAvaliacaoIds,
 } = avaliacoesAdapter.getSelectors((state) => state.avaliacoes);
+
+// Filtra as avaliações com status "Respondida"
+// Você pode precisar ajustar o status 'Respondida' para o valor real usado no seu banco de dados.
+export const selectAvaliacoesRespondidas = createSelector(
+  [selectAllAvaliacoes],
+  (avaliacoes) => avaliacoes.filter((avaliacao) => avaliacao.status === "Respondida")
+);
 
 export default avaliacaoSlice.reducer;

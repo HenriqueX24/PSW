@@ -7,8 +7,8 @@ import MenuNav from "../../Components/MenuNav";
 import { Typography, Box, Container } from "@mui/material";
 import Title from "../../Components/Title";
 import { useSelector, useDispatch } from 'react-redux';
-import { selectAvaliacaoById, fetchAvaliacoes } from "../../features/user/avaliacaoSlice";
-import FormsAvaliacao from "../../Components/FormsAvaliacao";
+import { selectAvaliacaoById, fetchAvaliacoes, updateAvaliacao } from "../../features/user/avaliacaoSlice";
+import FormsAvaliacao from "../../Components/FormsAvaliacao"; // Importa o FormsAvaliacao
 
 function FazerAvaliacao() {
   const { id } = useParams();
@@ -18,11 +18,20 @@ function FazerAvaliacao() {
   const avaliacao = useSelector(state => selectAvaliacaoById(state, String(id)));
   const avaliacaoStatus = useSelector(state => state.avaliacoes.status);
 
+  // Estado para armazenar as respostas
+  const [respostasAvaliacao, setRespostasAvaliacao] = useState({});
+
+  // Carrega as avaliações se necessário
   useEffect(() => {
     if (avaliacaoStatus === 'idle' || avaliacaoStatus === 'failed') {
       dispatch(fetchAvaliacoes());
     }
   }, [avaliacaoStatus, dispatch]);
+
+  // Callback para receber as respostas do FormsAvaliacao
+  const handleRespostasChange = (novasRespostas) => {
+      setRespostasAvaliacao(novasRespostas);
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,8 +39,34 @@ function FazerAvaliacao() {
       alert("Avaliação não carregada.");
       return;
     }
-    alert(`Avaliação "${avaliacao.titulo}" enviada com sucesso! (Simulação)`);
-    navigate(-1);
+    
+    // Lógica de Validação: Verifica se todas as questões foram respondidas
+    const totalQuestoes = avaliacao.questoes.length;
+    const totalRespostas = Object.keys(respostasAvaliacao).length;
+
+    if (totalRespostas < totalQuestoes) {
+        alert(`Por favor, responda todas as ${totalQuestoes} questões antes de enviar. (${totalRespostas} respondidas)`);
+        return;
+    }
+
+    // Preparar o objeto de atualização
+    const avaliacaoPreenchida = {
+        ...avaliacao,
+        respostas: respostasAvaliacao, // Salva o snapshot das respostas
+        status: "Respondida", // Marca como respondida
+        dataResposta: new Date().toISOString(), // Adiciona o timestamp para ordenação
+    };
+    
+    // Enviar a atualização via Thunk
+    dispatch(updateAvaliacao(avaliacaoPreenchida))
+        .unwrap() 
+        .then(() => {
+            alert(`Avaliação "${avaliacao.titulo}" enviada com sucesso e salva!`);
+            navigate(-1); 
+        })
+        .catch((error) => {
+            alert(`Erro ao salvar a avaliação: ${error.message}`);
+        }); 
   };
 
   if (avaliacaoStatus === 'loading' || avaliacaoStatus === 'idle') {
@@ -81,7 +116,8 @@ function FazerAvaliacao() {
       <main>
         <form className="autoavaliacao-form" onSubmit={handleSubmit}>
           <div className="form-section">
-            <FormsAvaliacao avaliacao={avaliacao} />
+            {/* NOVO: Usa o componente reutilizável FormsAvaliacao */}
+            <FormsAvaliacao avaliacao={avaliacao} onRespostasChange={handleRespostasChange}/> 
           </div>
           <ButtonSubmit />
         </form>

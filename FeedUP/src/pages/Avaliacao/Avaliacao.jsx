@@ -1,4 +1,5 @@
 import "./avaliacaostyle.css";
+import { useSelector } from "react-redux";
 import { useNavigate, useLocation, Link, NavLink } from "react-router-dom";
 import {
   AppBar,
@@ -29,7 +30,7 @@ const NavLinks = () => (
       // Esconde no mobile/tablet e mostra no desktop
       display: { xs: "none", lg: "flex" },
     }}
-  >
+  > 
     {/* Links de Navegação */}
     {[
       { to: "/sobre-app", label: "Sobre" },
@@ -75,8 +76,8 @@ const BottomNav = ({ navigate }) => (
     {/* Botões de Navegação */}
     {[
       {
-        path: "/metas",
-        label: "Metas",
+        path: "/registro-atividades",
+        label: "RegistroAtividades",
         Icon: CheckBoxIcon,
         color: "#e0e0e0",
       },
@@ -112,6 +113,8 @@ function Avaliacao() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const RouterLink = Link;
+  const user = useSelector((state) => state.login?.currentUser);
+  const isGestor = user && user.cargo === "gestor";
 
   return (
     <div>
@@ -153,10 +156,13 @@ function Avaliacao() {
           {/* LISTA */}
           <AppBar position="static" color="default" elevation={1}>
             <ListaCardAvaliacao />
+            {/*Condição para renderizar o botão SOMENTE se o usuário for um Gestor */}
+            {isGestor && (
             <ButtonCreate
               nameButton={"Criar Avaliação"}
               onClick={() => navigate("/criar-avaliacao")}
             />
+            )}
           </AppBar>
           {/* FIM LISTA */}
         </div>

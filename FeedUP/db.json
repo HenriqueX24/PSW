@@ -23,6 +23,14 @@
       "cpf": "123.456.789-10",
       "email": "oi@gmail.com",
       "senha": "123456"
+    },
+    {
+      "id": "7630",
+      "cargo": "gestor",
+      "nome": "Rafael Henrique",
+      "cpf": "123.456.789-12",
+      "email": "rafael@cefet.br",
+      "senha": "123456"
     }
   ],
   "metas": [

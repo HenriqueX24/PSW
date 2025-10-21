@@ -12,6 +12,7 @@ import Select from '@mui/material/Select';
  * @param {Function} props.onChange - A função a ser chamada quando o valor mudar.
  * @param {string} [props.selectLabel='Status'] - O rótulo a ser exibido no seletor.
  */
+
 export default function NativeSelectDemo({ options, value, onChange, selectLabel = 'Status' }) {
   // A função handleChange agora chama a função onChange passada pelo componente pai
   const handleChange = (event) => {
@@ -35,11 +36,24 @@ export default function NativeSelectDemo({ options, value, onChange, selectLabel
           onChange={handleChange}
           label={selectLabel}
         >
-          {/* Mapeia as opções para criar os itens do menu, usando option.value */}
+          {/* Mapeia as opções para criar os itens do menu, usando option.value 
           {selectOptions.map((option) => (
             <MenuItem 
               key={option.value || option.label} 
               value={option.value} // Agora usa o valor real (email)
+            >
+              {option.label}
+            </MenuItem>
+          ))}*/}
+          <MenuItem value="" disabled={true}>
+            Selecione um(a) {selectLabel}
+          </MenuItem>
+
+          {/* Mapeia as opções usando o ÍNDICE como o valor. */}
+          {options.map((option, index) => (
+            <MenuItem 
+              key={option.label} 
+              value={index} // <--- CORREÇÃO: Usa o índice do array como o valor
             >
               {option.label}
             </MenuItem>

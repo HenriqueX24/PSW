@@ -1,27 +1,46 @@
+// src/CriarMeta.jsx
 import React from "react";
-import "./criar-meta.css"; // use o C/caixa certo aqui
+import "./criar-meta.css";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import NavBar from "../../Components/NavBar";
+import { useDispatch, useSelector } from "react-redux"; // Adicionado useSelector
+import NavBar from '../../Components/NavBar'
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { addNewMeta } from "../../features/user/metaSlice";
 import Title from "../../Components/Title";
 import { Container, Box } from "@mui/material";
+import { selectAllUsers } from "../../features/user/usersSlice"; // Importado selectAllUsers
 
+// O campo 'responsavel' agora será um select que deve ter um valor (email)
 const validationSchema = Yup.object().shape({
   titulo: Yup.string().required("O título da meta é obrigatório."),
   descricao: Yup.string()
-    .required("A descrição é obrigatória.")
-    .min(10, "A descrição deve ter pelo menos 10 caracteres."),
-  periodo: Yup.string().required("O período é obrigatório."),
-  responsavel: Yup.string().required("O nome do responsável é obrigatório."),
+    .required('A descrição é obrigatória.')
+    .min(10, 'A descrição deve ter pelo menos 10 caracteres.'),
+  // O período usa o mesmo campo, mas o nome do input é 'periodo'. Vou assumir que 'periodo' é o campo de data de início
+  // e 'termino' para a data de término (corrigindo o input de término para usar um campo diferente).
+  inicio: Yup.string() // NOVO: Adicionei 'inicio'
+    .required('A data de início é obrigatória.'),
+  termino: Yup.string() // NOVO: Adicionei 'termino'
+    .required('A data de término é obrigatória.'),
+  responsavel: Yup.string() // Alterado para string simples (email do gestor)
+    .required('O nome do responsável é obrigatório.'), // Mensagem de erro mantida
 });
 
 export default function CriarMeta() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  
+  // NOVO: Busca e filtra a lista de usuários
+  const userList = useSelector(selectAllUsers);
+  const gestoresList = userList.filter((user) => user.cargo === "funcionario");
+
+  // NOVO: Prepara as opções de responsáveis (gestores) no formato <option value="email">Nome</option>
+  const responsavelOptions = gestoresList.map((user) => ({
+    label: user.nome,
+    value: user.email, // O valor será o email do gestor
+  }));
 
   const {
     register,
@@ -29,10 +48,35 @@ export default function CriarMeta() {
     formState: { errors, isSubmitting },
   } = useForm({
     resolver: yupResolver(validationSchema),
+    // NOVO: Default values para os novos campos
+    defaultValues: {
+      titulo: '',
+      descricao: '',
+      inicio: '', // NOVO
+      termino: '', // NOVO
+      responsavel: '', // Valor inicial vazio para o select
+    }
   });
-  const onSubmit = async (data) => {
+  
+    const onSubmit = async (data) => {
     try {
-      await dispatch(addNewMeta({ ...data, status: "Pendente" })).unwrap();
+      // Usando 'inicio' e 'termino' da validação, e adicionando 'periodo' no formato que a API pode esperar, 
+      // ou removendo 'periodo' (assumo que 'periodo' no seu json-server é o campo de início).
+      // Se 'periodo' for a data de início:
+      const metaData = { 
+        ...data, 
+        periodo: data.inicio, // Mapeia 'inicio' para 'periodo' (se for o caso)
+        status: 'Pendente' 
+      };
+      
+      // Ajuste: O form estava pegando 4 campos, mas 'periodo' era usado para dois. 
+      // Vou passar 'inicio' e 'termino' explicitamente, e remover 'periodo' dos inputs HTML.
+      // E remover 'periodo' dos campos do yup. A meta na store só precisa do que a API aceita.
+      
+      // Enviando todos os campos validados
+      const { inicio, termino, ...rest } = data; // Separando inicio e termino
+      await dispatch(addNewMeta({ ...rest, inicio, termino, status: 'Pendente' })).unwrap();
+
       alert("Meta salva com sucesso!");
       navigate("/metas");
     } catch (err) {
@@ -98,29 +142,41 @@ export default function CriarMeta() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="periodo">Período</label>
-            <input
-              type="text"
-              id="periodo"
-              placeholder="01/07/2025 - 30/09/2025"
-              {...register("periodo")}
+            <label htmlFor="inicio">Data de Início</label>
+            <input // Alterado id de 'inicio' para 'inicio' e usando 'inicio' no register
+              type="date"
+              id="inicio"
+              placeholder="Escolha uma data para início"
+              {...register("inicio")} 
             />
-            {errors.periodo && (
-              <p className="error-message">{errors.periodo.message}</p>
-            )}
+            {errors.inicio && <p className="error-message">{errors.inicio.message}</p>}
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="termino">Data de Término</label>
+            <input // Alterado id de 'inicio' para 'termino' e usando 'termino' no register
+              type="date"
+              id="termino"
+              placeholder="Escolha uma data para término"
+              {...register("termino")} 
+            />
+            {errors.termino && <p className="error-message">{errors.termino.message}</p>}
           </div>
 
           <div className="form-group">
             <label htmlFor="responsavel">Responsável</label>
-            <input
-              type="text"
+            <select // NOVO: Usando <select> para o responsável
               id="responsavel"
-              placeholder="Nome do responsável"
-              {...register("responsavel")}
-            />
-            {errors.responsavel && (
-              <p className="error-message">{errors.responsavel.message}</p>
-            )}
+              {...register("responsavel")} 
+            >
+              <option value="">Selecione um funcionário...</option>
+              {responsavelOptions.map(option => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+            {errors.responsavel && <p className="error-message">{errors.responsavel.message}</p>}
           </div>
 
           <button type="submit" className="main-btn" disabled={isSubmitting}>
