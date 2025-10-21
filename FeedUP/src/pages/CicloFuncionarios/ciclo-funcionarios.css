@@ -40,10 +40,13 @@ body {
   outline: none;
 }
 
-main {
-  padding: 16px 12px 80px 12px;
-  max-width: 480px;
-  margin: 0 auto;
+.mainCiclo {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0px 12px 80px 12px;
+    max-width: 480px;
+    margin: 20px auto; 
 }
 
 .employee-list {
@@ -212,4 +215,12 @@ main {
     width: 100%;
     margin-top: 2px;
   }
+}
+
+@media (min-width: 600px) {
+    .css-1u9o2lj-MuiToolbar-root {
+        min-height: 64px;
+        display: flex !important;
+        flex-direction: column !important;
+    }
 }
