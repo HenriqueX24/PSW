@@ -2,40 +2,41 @@
 import React from "react";
 import "./criar-meta.css";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import NavBar from "../../Components/NavBar";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { addNewMeta } from "../../features/user/metaSlice";
-import { selectAllUsers } from "../../features/user/usersSlice"; // Importado selectAllUsers
+import { selectAllUsers } from "../../features/user/usersSlice";
 import Title from "../../Components/Title";
 import { Container, Box } from "@mui/material";
 
-// O campo 'responsavel' agora será um select que deve ter um valor (email)
+// Validação com Yup
 const validationSchema = Yup.object().shape({
   titulo: Yup.string().required("O título da meta é obrigatório."),
   descricao: Yup.string()
     .required("A descrição é obrigatória.")
     .min(10, "A descrição deve ter pelo menos 10 caracteres."),
   periodo: Yup.string().required("O período é obrigatório."),
-  responsavel: Yup.string().required("O nome do responsável é obrigatório."),
+  responsavel: Yup.string().required("O responsável é obrigatório."),
 });
 
 export default function CriarMeta() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
-  // NOVO: Busca e filtra a lista de usuários
-  const userList = useSelector(selectAllUsers);
+
+  // ✅ Busca usuários da store
+  const userList = useSelector(selectAllUsers) || [];
   const gestoresList = userList.filter((user) => user.cargo === "funcionario");
 
-  // NOVO: Prepara as opções de responsáveis (gestores) no formato <option value="email">Nome</option>
+  // ✅ Prepara opções de responsáveis
   const responsavelOptions = gestoresList.map((user) => ({
     label: user.nome,
-    value: user.email, // O valor será o email do gestor
+    value: user.email,
   }));
 
+  // Configuração do formulário
   const {
     register,
     handleSubmit,
@@ -43,6 +44,7 @@ export default function CriarMeta() {
   } = useForm({
     resolver: yupResolver(validationSchema),
   });
+
   const onSubmit = async (data) => {
     try {
       await dispatch(addNewMeta({ ...data, status: "Pendente" })).unwrap();
@@ -56,13 +58,7 @@ export default function CriarMeta() {
 
   return (
     <Box sx={{ backgroundColor: "white", minHeight: "100vh" }}>
-      <Container
-        maxWidth="lg"
-        className="cabecalho"
-        sx={{
-          py: 3,
-        }}
-      >
+      <Container maxWidth="lg" className="cabecalho" sx={{ py: 3 }}>
         <button
           type="button"
           className="botao-voltar"
