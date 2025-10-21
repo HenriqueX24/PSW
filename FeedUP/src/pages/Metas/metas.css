@@ -61,6 +61,25 @@ body {
 .botao-voltar:focus {
   outline: none;
 }
+@media (min-width: 1200px) {
+    .css-j81c45-MuiContainer-root {
+        max-width: 1200px;
+        display: flex !important ; 
+        justify-content: space-between !important;
+    }
+}
+.css-j81c45-MuiContainer-root {
+    width: 100%;
+    margin-left: auto;
+    box-sizing: border-box;
+    margin-right: auto;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 24px;
+    padding-bottom: 24px;
+    display: flex !important;
+    justify-content: space-between !important;
+}
 /*
 .header h1 {
   flex: 1;
