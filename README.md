@@ -1,4 +1,7 @@
-# PSW
+# FeedUP - PSW
+
+Versão apenas Frontend com React e Redux
+
 Versão mais atual é **FeedUP**. Faça um clone e 
 * instale as dependêcias: *npm i*
 * instale o json-server: *npm install -g json-server*
