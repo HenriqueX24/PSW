@@ -15,7 +15,7 @@ export const deleteUser = createAsyncThunk('users/deleteUser', async (userId) =>
   await fetch(`http://localhost:3001/users/${userId}`, {
     method: 'DELETE',
   });
-  return userId; // Retorna o ID do usuário deletado
+  return userId; 
 });
 
 
@@ -64,7 +64,7 @@ export const usersSlice = createSlice({
         state.status = 'failed'; 
         state.error = action.error.message;
       })
-      .addCase(addNewUser.fulfilled, usersAdapter.addOne); // Adiciona o novo usuário ao estado local
+      .addCase(addNewUser.fulfilled, usersAdapter.addOne);
   },
 });
 

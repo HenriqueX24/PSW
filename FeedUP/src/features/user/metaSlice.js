@@ -86,8 +86,7 @@ export const {
   selectIds: selectMetaIds,
 } = metasAdapter.getSelectors((state) => state.metas);
 
-// Filtra as metas com status "Concluída"
-// Você pode precisar ajustar o status 'Concluída' para o valor real usado no seu banco de dados.
+
 export const selectMetasConcluidas = createSelector(
   [selectAllMetas],
   (metas) => metas.filter((meta) => meta.status === "Concluída")

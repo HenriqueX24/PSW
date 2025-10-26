@@ -14,9 +14,8 @@
       "cpf": "564.562.156-99",
       "email": "gestor@gmail.com",
       "senha": "123456",
-      "cargo": "funcionario"
+      "cargo": "gestor"
     }
-    
   ],
   "metas": [
     {
@@ -208,18 +207,17 @@
   ],
   "ciclos": [
     {
-      "id": "c8d8",
+      "id": "2c23",
       "avaliadores": [
-        "rafael@gmail.com",
-        "gestor@gmail.com"
+        "gestor1"
       ],
       "avaliados": [
-        "pedro@teste.com"
+        "Pedro"
       ],
-      "titulo": "Ciclo da empresa X",
+      "titulo": "Ciclo do Departamento de Marketing",
       "tipo": "Mensal",
-      "inicio": "2025-10-21",
-      "termino": "2025-11-21"
+      "inicio": "2025-10-26",
+      "termino": "2025-11-26"
     }
   ]
 }

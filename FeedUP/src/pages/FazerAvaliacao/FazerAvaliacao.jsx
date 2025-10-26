@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
-import "./FazerAvaliacao.css"; // <-- ALTERAÇÃO: Importa o arquivo CSS
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import "./FazerAvaliacao.css";
+import { useNavigate, useParams } from "react-router-dom"; // Importa useParams
 import ButtonSubmit from "../../Components/ButtonSubmit";
 import NavBar from "../../Components/NavBar";
 import MenuNav from "../../Components/MenuNav";
@@ -12,18 +12,28 @@ import FormsAvaliacao from "../../Components/FormsAvaliacao"; // Importa o Forms
 import Title from "../../Components/Title"
 
 function FazerAvaliacao() {
-  const { id } = useParams();
+  const { id } = useParams(); // Obtém o ID da URL
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-
+  
+  // Busca a avaliação pelo ID do estado do Redux
   const avaliacao = useSelector(state => selectAvaliacaoById(state, String(id)));
   const avaliacaoStatus = useSelector(state => state.avaliacoes.status);
 
+  // Estado para armazenar as respostas
+  const [respostasAvaliacao, setRespostasAvaliacao] = useState({});
+
+  const navigate = useNavigate();
+
+  // Carrega as avaliações se necessário
   useEffect(() => {
     if (avaliacaoStatus === 'idle' || avaliacaoStatus === 'failed') {
       dispatch(fetchAvaliacoes());
     }
   }, [avaliacaoStatus, dispatch]);
+  
+  const handleVoltar = () => {
+    navigate("/ciclo-revisao");
+  };
 
   // Callback para receber as respostas do FormsAvaliacao
   const handleRespostasChange = (novasRespostas) => {
@@ -32,18 +42,46 @@ function FazerAvaliacao() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
     if (!avaliacao) {
-      alert("Avaliação não carregada.");
-      return;
+        alert("Avaliação não carregada.");
+        return;
     }
-    alert(`Avaliação "${avaliacao.titulo}" enviada com sucesso! (Simulação)`);
-    navigate(-1);
+    
+    // Lógica de Validação: Verifica se todas as questões foram respondidas
+    const totalQuestoes = avaliacao.questoes.length;
+    const totalRespostas = Object.keys(respostasAvaliacao).length;
+
+    if (totalRespostas < totalQuestoes) {
+        alert(`Por favor, responda todas as ${totalQuestoes} questões antes de enviar. (${totalRespostas} respondidas)`);
+        return;
+    }
+
+    // Preparar o objeto de atualização
+    const avaliacaoPreenchida = {
+        ...avaliacao,
+        respostas: respostasAvaliacao, // Salva o snapshot das respostas
+        status: "Respondida", // Marca como respondida
+        dataResposta: new Date().toISOString(), // Adiciona o timestamp para ordenação
+    };
+    
+    // Enviar a atualização via Thunk
+    dispatch(updateAvaliacao(avaliacaoPreenchida))
+        .unwrap() 
+        .then(() => {
+            alert(`Avaliação "${avaliacao.titulo}" enviada com sucesso e salva!`);
+            navigate(-1); 
+        })
+        .catch((error) => {
+            alert(`Erro ao salvar a avaliação: ${error.message}`);
+        }); 
   };
 
+  // --- Renderização Condicional ---
   if (avaliacaoStatus === 'loading' || avaliacaoStatus === 'idle') {
     return <Typography sx={{ p: 4 }}>Carregando Avaliação...</Typography>;
   }
-
+  
   if (!avaliacao) {
     return <Typography sx={{ p: 4 }}>Avaliação com ID: {id} não encontrada.</Typography>;
   }
@@ -88,11 +126,13 @@ function FazerAvaliacao() {
       <main>
         <form className="autoavaliacao-form" onSubmit={handleSubmit}>
           <div className="form-section">
-            <FormsAvaliacao avaliacao={avaliacao} />
+            {/* NOVO: Usa o componente reutilizável FormsAvaliacao */}
+            <FormsAvaliacao avaliacao={avaliacao} onRespostasChange={handleRespostasChange}/> 
           </div>
           <ButtonSubmit />
         </form>
       </main>
+
       <NavBar />
     </Box>
     </>

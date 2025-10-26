@@ -16,7 +16,7 @@ import CicloFuncionarios from "./pages/CicloFuncionarios/CicloFuncionarios.jsx";
 import Avaliacao from "./pages/Avaliacao/Avaliacao.jsx";
 import FazerAvaliacao from "./pages/FazerAvaliacao/FazerAvaliacao.jsx";
 import EditarPerfil from "./pages/VisualizarPerfil/EditarPerfil.jsx";
-
+import RegistroAtividades from "./pages/RegistroAtividades/RegistroAtividades.jsx";
 
 function App() {
   const dispatch = useDispatch();
@@ -58,7 +58,7 @@ function App() {
       <Route path="/editar-meta/:id" element={<Metas />} />
       <Route path="/perfil" element={<CriarConta />} />
       <Route path="/perfil/editar" element={<EditarPerfil />} />
-     
+      <Route path="/registro-atividades" element={<RegistroAtividades />} />
     </Routes>
   );
 }

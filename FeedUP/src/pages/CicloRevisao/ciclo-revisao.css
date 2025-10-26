@@ -5,39 +5,33 @@ body {
   color: #444;
 }
 
-.cabecalho {
-  position: relative;
+.header {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 100%;
+  padding: 0 16px;
+  height: 56px;
+  border-bottom: 1px solid #f0f0f0;
+  background: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
-.titulo-pagina {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60%;
-  text-align: center;
-  z-index: 0;
-}
-
-.botao-voltar {
-  background: transparent;
+.header .back-btn {
+  background: none;
   border: none;
-  padding: 6px;
-  border-radius: 8px;
+  margin-right: 8px;
   cursor: pointer;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  left: 16px;
-  z-index: 1;
+  padding: 0;
 }
-.botao-voltar:focus {
-  outline: none;
+
+.header h1 {
+  flex: 1;
+  text-align: center;
+  font-size: 1.5rem;
+  color: #7ed6c0;
+  font-weight: 500;
+  margin: 0 32px 0 0;
 }
 
 .cabecalho {
@@ -185,7 +179,7 @@ main {
 }
 .card-link {
   text-decoration: none;
-  color: inherit;
+  color: inherit; 
 }
 .cycle-section {
   width: 100%;
@@ -201,6 +195,10 @@ main {
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
+  }
+  .header h1 {
+    font-size: 1.2rem;
+    margin-right: 16px;
   }
   .review-card-btn {
     padding: 14px 10px;

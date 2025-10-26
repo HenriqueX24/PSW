@@ -62,14 +62,17 @@ export default function Metas() {
       <Box sx={{ backgroundColor: "white", minHeight: "100vh" }}>
         <Container
           maxWidth="lg"
-          className="cabecalho"
           sx={{
+            display: "flex", // Habilita Flexbox
+            alignItems: "center", // Centraliza verticalmente
+            justifyContent: "flex-start", // Alinha ao início (esquerda)
+            gap: 60, // Adiciona um pequeno espaço entre a seta e o título
             py: 3, // Padding vertical
           }}
         >
           <SetaVoltar destino="/ciclo-revisao" className="botao-voltar"/>
 
-          <Title titulo={"Metas"} className="titulo-pagina" />
+          <Title className="titulo-pagina" titulo={"Metas"} />
         </Container>
 
         {/* Navbar */}

@@ -89,39 +89,23 @@ body {
 /* Botão voltar (reset + posição absoluta) */
 .avaliacao-header .voltar {
   vertical-align: text-top;
-.cabecalho {
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-}
-
-.titulo-pagina {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60%;
-  text-align: center;
-  z-index: 0;
-}
-
-.botao-voltar {
-  background: transparent;
+  background: transparent; /* zera estilo nativo */
   border: none;
-  padding: 6px;
+  margin-right: 8px;
+  padding: 0;
   border-radius: 8px;
   cursor: pointer;
   text-decoration: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  left: 16px;
-  z-index: 1;
 }
-.botao-voltar:focus {
+.avaliacao-header .voltar:focus {
   outline: none;
+  box-shadow: none;
+}
+.avaliacao-header .voltar:hover {
+  background: #f0f7f6;
 }
 
 /* Main */
@@ -294,6 +278,9 @@ body {
 
 /* Responsivo */
 @media (max-width: 700px) {
+  .avaliacao-header h1 {
+    font-size: 2rem;
+  }
   .criar-form {
     flex-direction: column;
     align-items: flex-start;
@@ -324,4 +311,4 @@ body {
     gap: 14px;
     flex-wrap: wrap;
   }
-}}
+}

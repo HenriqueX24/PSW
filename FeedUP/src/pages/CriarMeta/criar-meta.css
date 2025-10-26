@@ -4,6 +4,40 @@ body {
   background: #fff;
   font-family: "Roboto", Arial, sans-serif;
 }
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.header {
+  display: flex;
+  align-items: center;
+  padding: 24px 32px 0 32px;
+  background: #fff;
+  position: relative;
+}
+.header h1 {
+  flex: 1;
+  text-align: center;
+  color: #5cc6ba;
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 0 -24px;
+}
+.back-btn {
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-right: 8px;
+}
+.divider {
+  border: none;
+  border-top: 1px solid #ececec;
+  margin: 8px 0 0 0;
+}
 
 .cabecalho {
   position: relative;
@@ -97,13 +131,13 @@ main {
   transition: background 0.2s;
 }
 
-.error-message {
-  color: #d32f2f;
-  font-size: 0.75rem;
-  margin: 3px 0 0 0;
-}
-
 @media (max-width: 600px) {
+  .header {
+    padding: 18px 8px 0 8px;
+  }
+  .header h1 {
+    font-size: 1.3rem;
+  }
   main {
     padding: 16px 4px;
   }

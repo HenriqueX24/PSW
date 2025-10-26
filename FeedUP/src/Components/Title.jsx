@@ -1,27 +1,26 @@
-// No seu arquivo Title.jsx
-
 import React from "react";
-// Remova a importação do CSS se ele não for mais usado aqui
+import "../pages/Avaliacao/avaliacaostyle.css";
 import { Container, Typography } from "@mui/material";
 
-// Adicione "className" às props
-export default function Title({ titulo, className }) { 
+export default function Title({ titulo, className }) {
   return (
-    // Aplique a className recebida ao Typography
     <Typography
-      className={className} // <-- A MÁGICA ACONTECE AQUI
-      variant="h2"
+      // Você pode manter o variant como h2 por semântica, mas o estilo é controlado pelo sx
+      variant="h2" 
+      className={className}
       sx={{
         lineHeight: 1.2,
         color: "var(--brand)",
         fontWeight: 300,
         margin: 0,
-        whiteSpace: 'normal',
+        // Garante que o texto quebre a linha se for muito longo
+        whiteSpace: 'normal', 
         overflowWrap: 'break-word',
         wordBreak: 'break-word',
+        // Aplicação da responsividade no fontSize
         fontSize: {
-          xs: "1.5rem",
-          sm: "2rem",
+          xs: "1.5rem", 
+          sm: "2rem",    
           md: "2.5rem",
         },
       }}

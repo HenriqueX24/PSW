@@ -1,3 +1,4 @@
+/* base */
 :root {
   --icon: #e0e0e0;
   --brand: #5cc6ba;
@@ -10,7 +11,62 @@ body {
   padding: 0;
   background: #f6f6f6;
   font-family: "Roboto", Arial, sans-serif;
-  padding-bottom: 72px;
+  padding-bottom: 72px; /* evita que a bottom-nav cubra o conteúdo */
+}
+/*
+.autoavaliacao-container {
+  min-height: 100vh;
+  display: contents;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+  & .css-jncgsv {
+    background-color: #ffff;
+    height: 100vh;
+    min-width: 500px;
+  }
+}
+*/
+/* header */
+.autoavaliacao-header {
+  width: 100%;
+  padding: 32px 0 0 0;
+  text-align: center;
+  position: relative;
+  background: #fff;
+  border-bottom: 1px solid #ececec;
+}
+
+.autoavaliacao-header h1 {
+  color: #5cc6ba;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* ERA .avaliacao-header .voltar (não batia) */
+.autoavaliacao-header .voltar {
+  position: absolute;
+  left: 16px;
+  top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* reset de botão/link */
+  background: transparent;
+  border: none;
+  padding: 6px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.autoavaliacao-header .voltar:focus {
+  outline: none;
+  box-shadow: #fff;
+}
+.autoavaliacao-header .voltar:hover {
+  background: #fff;
 }
 
 .cabecalho {
@@ -18,7 +74,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
 }
 
 .titulo-pagina {
@@ -48,6 +103,7 @@ body {
   outline: none;
 }
 
+/* conteúdo */
 main {
   width: 100%;
   display: flex;
@@ -68,7 +124,7 @@ main {
   display: flex;
   flex-direction: column;
   gap: 28px;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04); /* acabamento suave */
 }
 
 .form-section {
@@ -106,6 +162,7 @@ input[type="email"]:focus {
   box-shadow: 0 0 0 2px rgba(92, 198, 186, 0.2);
 }
 
+/* radios */
 .radio-group {
   display: flex;
   flex-wrap: wrap;
@@ -123,6 +180,7 @@ input[type="radio"] {
   accent-color: #5cc6ba;
 }
 
+/* sliders */
 .slider-group {
   display: flex;
   align-items: center;
@@ -140,13 +198,14 @@ input[type="range"] {
 }
 .slider-labels {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* distribui as pontas */
   font-size: 0.95rem;
   color: #888;
   margin-top: -8px;
   padding: 0 4px;
 }
 
+/* botão enviar */
 .main-btn {
   background: #5cc6ba;
   color: #fff;
@@ -168,7 +227,14 @@ input[type="range"] {
   transform: translateY(1px);
 }
 
+/* responsivo */
 @media (max-width: 600px) {
+  .autoavaliacao-header {
+    padding-top: 18px;
+  }
+  .autoavaliacao-header h1 {
+    font-size: 1.3rem;
+  }
   .autoavaliacao-form {
     padding: 16px 12px 12px;
     max-width: 96vw;
@@ -176,5 +242,9 @@ input[type="range"] {
   }
   .slider-group input[type="range"] {
     width: 110px;
+  }
+  .autoavaliacao-header .voltar {
+    top: 12px;
+    left: 8px;
   }
 }

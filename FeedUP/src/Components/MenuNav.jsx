@@ -72,22 +72,14 @@ export default function MenuNav() {
       <AppBar position="static" color="default" elevation={1}>
         <Container maxWidth="lg" disableGutters={isMobile}>
           <Toolbar disableGutters>
-            <Box
-              sx={{
-                flexGrow: 1,
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              <HorizontalLinearStepper />
-            </Box>
-
+            <HorizontalLinearStepper />
             {/* Links de Navegação (Desktop) 
             <NavLinks />*/}
 
             {/* Ações à Direita e Toggle Button */}
             <Box
               sx={{
+                flexGrow: 1,
                 display: "flex",
                 justifyContent: "flex-end",
                 alignItems: "center",

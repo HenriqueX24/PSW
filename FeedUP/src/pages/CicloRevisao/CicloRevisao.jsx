@@ -66,11 +66,15 @@ export default function CicloRevisao() {
         className="cabecalho"
         maxWidth="lg"
         sx={{
+          display: "flex", // Habilita Flexbox
+          alignItems: "center", // Centraliza verticalmente
+          justifyContent: "flex-start", // Alinha ao início (esquerda)
+          gap: 60, // Adiciona um pequeno espaço entre a seta e o título
           py: 3, // Padding vertical
         }}
       >
-        <SetaVoltar />
-        <Title titulo="Ciclos de Revisão" className="titulo-pagina" />
+        
+        <Title className="titulo-pagina"  titulo="Ciclos de Revisão" />
       </Container>
 
       <MenuNav label={"Ciclo de Revisão"} />
