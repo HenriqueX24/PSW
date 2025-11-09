@@ -1,0 +1,71 @@
+.avaliacao-item {
+  background: #f6fafa;
+  border-radius: 28px;
+  padding: 16px 28px 16px 18px;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0 auto;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
+}
+.item-nome {
+  font-weight: 700;
+  color: #444;
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+  word-break: break-word;
+}
+.item-info {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.item-data,
+.item-link {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #5cc6ba;
+  font-size: 1.05rem;
+  font-weight: 500;
+  word-break: break-word;
+}
+
+.nav-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.nav-icon svg {
+  width: 32px;
+  height: 32px;
+}
+
+.nav-icon.active svg path {
+  fill: #5cc6ba;
+}
+
+.nav-icon.sobre-app svg path {
+  fill: #e0e0e0;
+}
+
+/* Responsivo */
+
+@media (max-width: 900px) {
+  .avaliacao-item {
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+  .item-info {
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+}
+

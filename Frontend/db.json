@@ -1,0 +1,223 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "nome": "Pedro",
+      "cpf": "111.222.333-44",
+      "email": "pedro@teste.com",
+      "senha": "123456",
+      "cargo": "funcionario"
+    },
+    {
+      "id": "6470",
+      "nome": "gestor1",
+      "cpf": "564.562.156-99",
+      "email": "gestor@gmail.com",
+      "senha": "123456",
+      "cargo": "gestor"
+    }
+  ],
+  "metas": [
+    {
+      "id": "b598",
+      "titulo": "Aumentar vendas no mês",
+      "descricao": "Trabalhar para aumentar faturamento",
+      "responsavel": "pedro@teste.com",
+      "inicio": "2025-10-21",
+      "termino": "2025-10-22",
+      "status": "Aprovado",
+      "comentarios": [
+        {
+          "texto": "Muito bem! Meta cumprida",
+          "data": 1761072963201
+        }
+      ]
+    }
+  ],
+  "avaliacoes": [
+    {
+      "id": "a302",
+      "titulo": "Performance Review",
+      "questoes": [
+        {
+          "id": 1761069992718,
+          "enunciado": "Como você avalia a capacidade do colaborador de cumprir prazos?",
+          "tipo": "multipla_escolha",
+          "opcoes": [
+            {
+              "id": 1,
+              "texto": "Sempre entrega antes do prazo e com alta qualidade"
+            },
+            {
+              "id": 2,
+              "texto": "Cumpre os prazos com qualidade adequada"
+            },
+            {
+              "id": 3,
+              "texto": "Às vezes precisa de lembretes ou prorrogações"
+            },
+            {
+              "id": 4,
+              "texto": "Frequentemente perde prazos ou entrega com qualidade abaixo do esperado"
+            }
+          ],
+          "slider": {
+            "min": 0,
+            "max": 10,
+            "step": 1,
+            "labelMin": "Baixo",
+            "labelMax": "Alto"
+          }
+        },
+        {
+          "id": 1761070150727,
+          "enunciado": "Como o colaborador contribui para o trabalho em equipe?",
+          "tipo": "multipla_escolha",
+          "opcoes": [
+            {
+              "id": 1,
+              "texto": "Atua como um ponto de apoio para o time e estimula a colaboração"
+            },
+            {
+              "id": 2,
+              "texto": "Colabora bem e se comunica de forma clara"
+            },
+            {
+              "id": 3,
+              "texto": "Participa quando solicitado, mas com pouca proatividade"
+            },
+            {
+              "id": 4,
+              "texto": "Dificulta o trabalho em equipe ou evita interações"
+            }
+          ],
+          "slider": {
+            "min": 0,
+            "max": 10,
+            "step": 1,
+            "labelMin": "Baixo",
+            "labelMax": "Alto"
+          }
+        },
+        {
+          "id": 1761070199454,
+          "enunciado": "Qual o nível de iniciativa demonstrado pelo colaborador?",
+          "tipo": "slider",
+          "opcoes": [
+            {
+              "id": 1,
+              "texto": ""
+            },
+            {
+              "id": 2,
+              "texto": ""
+            },
+            {
+              "id": 3,
+              "texto": ""
+            },
+            {
+              "id": 4,
+              "texto": ""
+            }
+          ],
+          "slider": {
+            "min": 0,
+            "max": 10,
+            "step": 1,
+            "labelMin": "nenhuma iniciativa",
+            "labelMax": "extremamente proativo"
+          }
+        },
+        {
+          "id": 1761070247869,
+          "enunciado": "Como você avalia a capacidade de resolver problemas de forma autônoma?",
+          "tipo": "slider",
+          "opcoes": [
+            {
+              "id": 1,
+              "texto": ""
+            },
+            {
+              "id": 2,
+              "texto": ""
+            },
+            {
+              "id": 3,
+              "texto": ""
+            },
+            {
+              "id": 4,
+              "texto": ""
+            }
+          ],
+          "slider": {
+            "min": 0,
+            "max": 10,
+            "step": 1,
+            "labelMin": "depende totalmente de orientação",
+            "labelMax": "totalmente autônomo e eficaz"
+          }
+        }
+      ],
+      "dataCriacao": "2025-10-21T18:11:35.577Z"
+    },
+    {
+      "id": "de7a",
+      "titulo": "Avaliação teste",
+      "questoes": [
+        {
+          "id": 1761071058551,
+          "enunciado": "Pergunta teste",
+          "tipo": "slider",
+          "opcoes": [
+            {
+              "id": 1,
+              "texto": ""
+            },
+            {
+              "id": 2,
+              "texto": ""
+            },
+            {
+              "id": 3,
+              "texto": ""
+            },
+            {
+              "id": 4,
+              "texto": ""
+            }
+          ],
+          "slider": {
+            "min": 0,
+            "max": 10,
+            "step": 1,
+            "labelMin": "Baixo",
+            "labelMax": "Alto"
+          }
+        }
+      ],
+      "dataCriacao": "2025-10-21T18:24:37.847Z",
+      "respostas": {
+        "1761071058551": 5
+      },
+      "status": "Respondida",
+      "dataResposta": "2025-10-21T19:02:11.545Z"
+    }
+  ],
+  "ciclos": [
+    {
+      "id": "2c23",
+      "avaliadores": [
+        "gestor1"
+      ],
+      "avaliados": [
+        "Pedro"
+      ],
+      "titulo": "Ciclo do Departamento de Marketing",
+      "tipo": "Mensal",
+      "inicio": "2025-10-26",
+      "termino": "2025-11-26"
+    }
+  ]
+}
