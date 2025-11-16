@@ -15,7 +15,7 @@ const initialState = avaliacoesAdapter.getInitialState({
 export const fetchAvaliacoes = createAsyncThunk(
   "avaliacoes/fetchAvaliacoes",
   async () => {
-    const response = await fetch("http://localhost:3001/avaliacoes");
+    const response = await fetch("http://localhost:4000/avaliacoes");
     const data = await response.json();
     return data;
   }
@@ -24,7 +24,7 @@ export const fetchAvaliacoes = createAsyncThunk(
 export const addNewAvaliacao = createAsyncThunk(
   "avaliacoes/addNewAvaliacao",
   async (novaAvaliacao) => {
-    const response = await fetch("http://localhost:3001/avaliacoes", {
+    const response = await fetch("http://localhost:4000/avaliacoes", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -40,7 +40,7 @@ export const updateAvaliacao = createAsyncThunk(
   "avaliacoes/updateAvaliacao",
   async (avaliacaoAtualizada) => {
     const { id } = avaliacaoAtualizada;
-    const response = await fetch(`http://localhost:3001/avaliacoes/${id}`, {
+    const response = await fetch(`http://localhost:4000/avaliacoes/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(avaliacaoAtualizada),
@@ -53,7 +53,7 @@ export const updateAvaliacao = createAsyncThunk(
 export const deleteAvaliacao = createAsyncThunk(
   "avaliacoes/deleteAvaliacao",
   async (avaliacaoId) => {
-    await fetch(`http://localhost:3001/avaliacoes/${avaliacaoId}`, {
+    await fetch(`http://localhost:4000/avaliacoes/${avaliacaoId}`, {
       method: "DELETE",
     });
     return avaliacaoId; 

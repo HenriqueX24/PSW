@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk, createEntityAdapter  } from '@reduxjs/to
 const usersAdapter = createEntityAdapter();
 
 export const addNewUser = createAsyncThunk('users/addNewUser', async (newUser) => {
-  const response = await fetch('http://localhost:3001/users', {
+  const response = await fetch('http://localhost:4000/users/add', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(newUser),
@@ -12,7 +12,7 @@ export const addNewUser = createAsyncThunk('users/addNewUser', async (newUser) =
   return data;
 });
 export const deleteUser = createAsyncThunk('users/deleteUser', async (userId) => {
-  await fetch(`http://localhost:3001/users/${userId}`, {
+  await fetch(`http://localhost:4000/users/${userId}`, {
     method: 'DELETE',
   });
   return userId; 
@@ -21,7 +21,7 @@ export const deleteUser = createAsyncThunk('users/deleteUser', async (userId) =>
 
 export const updateUser = createAsyncThunk('users/updateUser', async (userAtualizado) => {
   const { id } = userAtualizado;
-  const response = await fetch(`http://localhost:3001/users/${id}`, {
+  const response = await fetch(`http://localhost:4000/users/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(userAtualizado),
@@ -34,12 +34,13 @@ export const updateUser = createAsyncThunk('users/updateUser', async (userAtuali
 const initialState = usersAdapter.getInitialState({
   status: 'idle',
   error: null,
+  
 });
 
 export const fetchUsers = createAsyncThunk(
   'users/fetchUsers', 
   async () => {
-    const response = await fetch('http://localhost:3001/users');
+    const response = await fetch('http://localhost:4000/users');
     const data = await response.json();
     return data;
   }

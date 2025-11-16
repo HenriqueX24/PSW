@@ -12,7 +12,7 @@ const initialState = metasAdapter.getInitialState({
 });
 
 export const fetchMetas = createAsyncThunk("metas/fetchMetas", async () => {
-  const response = await fetch("http://localhost:3001/metas");
+  const response = await fetch("http://localhost:4000/metas");
   const data = await response.json();
   return data;
 });
@@ -20,7 +20,7 @@ export const fetchMetas = createAsyncThunk("metas/fetchMetas", async () => {
 export const addNewMeta = createAsyncThunk(
   "metas/addNewMeta",
   async (novaMeta) => {
-    const response = await fetch("http://localhost:3001/metas", {
+    const response = await fetch("http://localhost:4000/metas", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -36,7 +36,7 @@ export const updateMeta = createAsyncThunk(
   "metas/updateMeta",
   async (metaAtualizada) => {
     const { id } = metaAtualizada;
-    const response = await fetch(`http://localhost:3001/metas/${id}`, {
+    const response = await fetch(`http://localhost:4000/metas/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(metaAtualizada),
@@ -48,7 +48,7 @@ export const updateMeta = createAsyncThunk(
 export const deleteMeta = createAsyncThunk(
   "metas/deleteMeta",
   async (metaId) => {
-    await fetch(`http://localhost:3001/metas/${metaId}`, {
+    await fetch(`http://localhost:4000/metas/${metaId}`, {
       method: "DELETE",
     });
     return metaId;

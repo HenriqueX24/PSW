@@ -12,14 +12,14 @@ const initialState = ciclosAdapter.getInitialState({
 });
 
 export const fetchCiclos = createAsyncThunk("ciclos/fetchCiclos", async () => {
-  const response = await fetch("http://localhost:3001/ciclos");
+  const response = await fetch("http://localhost:4000/ciclos");
   return response.json();
 });
 
 export const addNewCiclo = createAsyncThunk(
   "ciclos/addNewCiclo",
   async (novoCiclo) => {
-    const response = await fetch("http://localhost:3001/ciclos", {
+    const response = await fetch("http://localhost4000/ciclos", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(novoCiclo),

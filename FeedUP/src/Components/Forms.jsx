@@ -59,11 +59,9 @@ export default function Forms() {
         alert('Perfil atualizado com sucesso!');
         navigate('/perfil');
       } else {
-        // Lógica de criação
-        // 1. 'await' pausa a execução aqui...
+    
         await dispatch(addNewUser(data)).unwrap();
-        // 2. ...até que a ação termine. Só então o código continua.
-        
+
         alert('Conta criada com sucesso!');
         // 3. A navegação agora acontece com a store do Redux já atualizada.
         navigate('/login');
