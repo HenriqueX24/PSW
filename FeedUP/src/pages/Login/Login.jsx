@@ -1,46 +1,56 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import styles from "./loginstyle.module.css";
-import { useSelector, useDispatch } from "react-redux";
-import { loginSuccess, loginFailure } from "../../features/user/loginSlice.js";
-import { selectAllUsers } from "../../features/user/usersSlice.js";
+import { useSelector, useDispatch, } from "react-redux";
+import { useEffect } from "react";
 import { Box, Container, Typography } from "@mui/material";
 import ButtonSubmit from "../../Components/ButtonSubmit.jsx";
 import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { loginUser } from '../../features/user/loginSlice.js';
 
 export default function Login() {
   const [identifier, setIdentifier] = useState("");
   const [senha, setSenha] = useState("");
-  const [showSenha, setShowSenha] = useState(false); // Novo estado
+  const [showSenha, setShowSenha] = useState(false); 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const userList = useSelector(selectAllUsers);
 
-  console.log("Usuários disponíveis para login:", userList);
+
+
   
+  const { isAuthenticated, isLoading, error } = useSelector((state) => state.login);
+
+
+  useEffect(() => {
+    if (isAuthenticated) {
+
+      alert('Login bem-sucedido!');
+      navigate('/ciclo-revisao');
+    }
+    if (error) {
+      alert(error); 
+    }
+  }, [isAuthenticated, error, navigate]);
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!identifier || !senha) {
-      alert("Preencha todos os campos!");
+      alert('Preencha todos os campos!');
       return;
     }
-    const foundUser = userList.find(
-      (user) => user.email === identifier || user.cpf === identifier
-    );
-    if (foundUser && foundUser.senha === senha) {
-      dispatch(loginSuccess(foundUser));
-      alert(`Bem-vindo, ${foundUser.nome}!`);
-      navigate("/ciclo-revisao");
-    } else {
-      const errorMessage = "E-mail/CPF ou senha inválidos.";
-      dispatch(loginFailure(errorMessage));
-      alert(errorMessage);
-    }
+
+    const credentials = {
+      email: identifier, 
+      senha: senha,
+    };
+
+    dispatch(loginUser(credentials));
   };
 
-  const handleClickShowSenha = () => { // Nova função
+  const handleClickShowSenha = () => {
     setShowSenha((show) => !show);
   };
 

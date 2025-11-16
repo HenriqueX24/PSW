@@ -17,6 +17,7 @@
     "@mui/material": "^7.3.2",
     "@mui/styled-engine-sc": "^7.3.2",
     "@reduxjs/toolkit": "^2.9.0",
+    "axios": "^1.13.2",
     "bcryptjs": "^3.0.3",
     "bootstrap": "^5.3.8",
     "dotenv": "^17.2.3",

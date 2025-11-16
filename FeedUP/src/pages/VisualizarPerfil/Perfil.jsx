@@ -7,15 +7,7 @@ import { logout } from "../../features/user/loginSlice";
 import { deleteUser } from "../../features/user/usersSlice";
 import Button from "@mui/material/Button";
 import EditIcon from "@mui/icons-material/Edit";
-import {
-  IconButton,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Stack,
-} from "@mui/material";
+import { IconButton, Stack } from "@mui/material";
 
 export default function Perfil() {
   const navigate = useNavigate();
@@ -23,6 +15,7 @@ export default function Perfil() {
 
   const { isAuthenticated, currentUser } = useSelector((state) => state.login);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+  const user = currentUser?.user || currentUser;
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -36,28 +29,8 @@ export default function Perfil() {
   const handleEdit = () => {
     navigate("/perfil/editar");
   };
-  const handleClickOpenDeleteDialog = () => {
-    setOpenDeleteDialog(true);
-  };
-  const handleCloseDeleteDialog = () => {
-    setOpenDeleteDialog(false);
-  };
-
-  const handleConfirmDelete = async () => {
-    try {
-      await dispatch(deleteUser(currentUser.id)).unwrap();
-      dispatch(logout());
-      handleCloseDeleteDialog();
-      navigate("/login");
-    } catch (err) {
-      alert("Falha ao encerrar a conta.");
-      console.error("Falha ao deletar usuário:", err);
-      handleCloseDeleteDialog();
-    }
-  };
-
-  if (!currentUser) {
-    return <div>Carregando perfil...</div>;
+  if (!user) {
+    return <div style={{padding: 20, textAlign: 'center'}}>Carregando dados do perfil...</div>;
   }
 
   return (
@@ -101,57 +74,66 @@ export default function Perfil() {
         </div>
 
         <div className="perfil-info">
+          {/* NOME */}
           <div className="perfil-campo">
             <span className="perfil-label">Nome</span>
-            <span className="perfil-valor">{currentUser?.nome}</span>
-          </div>
-          <div className="perfil-campo">
-            <span className="perfil-label">E-mail</span>
-            <span className="perfil-valor">{currentUser?.email}</span>
-          </div>
-          <div className="perfil-campo">
-            <span className="perfil-label">Departamento</span>
-            <span className="perfil-valor">Marketing</span>{" "}
-            {/* (Este pode ser um valor fixo ou vir do usuário no futuro) */}
-          </div>
-          <div className="perfil-campo">
-            <span className="perfil-label">CPF</span>
-            <span className="perfil-valor">{currentUser?.cpf}</span>
+            <span className="perfil-valor">{user.nome || "Não informado"}</span>
           </div>
 
+          {/* EMAIL */}
+          <div className="perfil-campo">
+            <span className="perfil-label">E-mail</span>
+            <span className="perfil-valor">{user.email || "Não informado"}</span>
+          </div>
+
+          {/* DEPARTAMENTO */}
+          <div className="perfil-campo">
+            <span className="perfil-label">Departamento</span>
+            <span className="perfil-valor">Marketing (Padrão)</span> 
+          </div>
+
+          {/* CPF */}
+          <div className="perfil-campo">
+            <span className="perfil-label">CPF</span>
+            <span className="perfil-valor">{user.cpf || "Não informado"}</span>
+          </div>
+
+          {/* CARGO (Radio Buttons Visuais) */}
           <div className="perfil-campo perfil-radio">
-            <label>
+            <label style={{pointerEvents: 'none'}}> {/* Bloqueado para clique */}
               <input
                 type="radio"
                 name="tipo"
-                checked={currentUser?.cargo === "funcionario"}
+                checked={user.cargo === "funcionario"}
+                readOnly
               />
               <span className="radio-custom" />
               Funcionário
             </label>
-            <label>
+            <label style={{pointerEvents: 'none'}}> {/* Bloqueado para clique */}
               <input
                 type="radio"
                 name="tipo"
-                checked={currentUser?.cargo === "gestor"}
+                checked={user.cargo === "gestor"}
+                readOnly
               />
               <span className="radio-custom" />
               Gestor
             </label>
           </div>
-          <div></div>
+
           <div>
             <Stack
               direction="row"
               spacing={1}
-              sx={{ display: "flex", align: "left" }}
+              sx={{ display: "flex", align: "left", marginTop: 2 }}
             >
               <Button
-                onClick={()=>navigate("/login")}
+                onClick={() => dispatch(logout())}
                 color="error"
                 variant="outlined"
               >
-                Sair
+                Sair da Conta
               </Button>
             </Stack>
           </div>
@@ -159,23 +141,6 @@ export default function Perfil() {
       </main>
 
       <NavBar />
-      {/* Tirando a ideia de encerrar para virar logout
-      <Dialog open={openDeleteDialog} onClose={handleCloseDeleteDialog}>
-        <DialogTitle>{"Encerrar sua conta?"}</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Esta ação é permanente. Todos os seus dados serão removidos. Tem
-            certeza que deseja continuar?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDeleteDialog}>Cancelar</Button>
-          <Button onClick={handleConfirmDelete} color="error" autoFocus>
-            Encerrar Conta
-          </Button>
-        </DialogActions>
-      </Dialog>
-       */}
     </div>
   );
 }
