@@ -1,7 +1,7 @@
 # FeedUP - PSW
 
 <h3>Frontend com React e Redux</h3>
-Está na pasta **Frontend**. Faça um clone e 
+Está na pasta Frontend. Faça um clone e 
 
 * instale as dependêcias: *npm i* 
 * instale o json-server: *npm install -g json-server* 
@@ -10,6 +10,9 @@ Está na pasta **Frontend**. Faça um clone e
 * rode o software: *npm run dev*
 
 <h3>Versão Backend com Node,Express,MongoDB,JWT</h3>
-* instale as dependêcias: *npm i*<br/>
-* instalar mongoose: *npm i mongoose*<br/>
+
+* instale as dependêcias: npm i 
+
+* instalar mongoose: npm i mongoose
+  
 * npm run dev
