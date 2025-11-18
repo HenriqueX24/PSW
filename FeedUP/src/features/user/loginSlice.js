@@ -9,11 +9,11 @@ export const updateUserProfile = createAsyncThunk(
   'user/updateProfile',
   async (userData, thunkAPI) => {
     try {
-      // 1. Pegar o token do estado atual para autorizar a requisição
+
       const state = thunkAPI.getState();
       const token = state.login.currentUser?.token; 
 
-      // Configurar o cabeçalho com o Token
+  
       const config = {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -21,7 +21,7 @@ export const updateUserProfile = createAsyncThunk(
       };
       const response = await axios.put(API_URL + 'profile', userData, config);
 
-      return response.data; // Retorna o usuário atualizado + novo token
+      return response.data; 
     } catch (error) {
       const message =
         (error.response &&
@@ -111,6 +111,6 @@ export const loginSlice = createSlice({
   },
 });
 
-export const { logout, resetUpdate } = loginSlice.actions;
+export const { logout,resetUpdate } = loginSlice.actions;
 
 export default loginSlice.reducer;
