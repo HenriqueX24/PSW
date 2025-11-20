@@ -50,6 +50,16 @@ const NavLinks = () => (
   </Box>
 );
 
+/**
+ * Componente da Barra de Navegação Superior (AppBar).
+ *
+ * Renderiza a barra principal no topo da página, contendo o
+ * componente `HorizontalLinearStepper`.
+ * Inclui lógica (agora comentada) para um menu de navegação e
+ * detecção de tela (mobile vs. desktop).
+ *
+ * @returns {JSX.Element} A barra de navegação principal.
+ */
 export default function MenuNav() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("lg"));

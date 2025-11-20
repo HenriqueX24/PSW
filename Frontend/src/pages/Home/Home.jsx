@@ -16,6 +16,16 @@ import {
 import MenuNav from "../../Components/MenuNav.jsx";
 import NavBar from "../../Components/NavBar.jsx";
 
+/**
+ * Página "Home".
+ *
+ * Renderiza a página inicial principal (provavelmente a landing page ou
+ * um dashboard inicial).
+ * Exibe um título "Home", a barra de navegação superior (`MenuNav`),
+ * a barra de navegação inferior (`NavBar`) e o logo central da aplicação.
+ *
+ * @returns {JSX.Element} A página Home.
+ */
 function Home() {
   const theme = useTheme();
 

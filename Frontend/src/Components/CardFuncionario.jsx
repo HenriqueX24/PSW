@@ -1,20 +1,30 @@
-// fileName: CardFuncionario.jsx (Atualizado)
+// fileName: CardFuncionario.jsx
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-// Propriedades: employee, avaliacaoStatus, avaliacaoId (para navegação)
+/**
+ * Componente Card para exibir um funcionário dentro de um ciclo de avaliação.
+ * Mostra o status da avaliação e ações (Ver Avaliação, Ver Metas).
+ *
+ * @param {object} props - As propriedades do componente.
+ * @param {object} props.employee - O objeto do funcionário ({ id, nome, email }).
+ * @param {string} props.avaliacaoStatus - O status da avaliação (ex: "pendente", "realizado").
+ * @param {string | number} props.avaliacaoId - O ID da avaliação, usado para navegar para a avaliação.
+ * @returns {JSX.Element} O card do funcionário.
+ */
 export default function CardFuncionario({ employee, avaliacaoStatus, avaliacaoId }) {
   const navigate = useNavigate();
   
   const { id, nome, email } = employee;
 
+  // Navega para a página de detalhes da avaliação específica
   const handleViewEvaluation = () => {
-    // Note: Esta navegação só deve ser chamada se o status for 'pendente' conforme a nova regra
     if (avaliacaoId) { 
       navigate(`/avaliacao/${avaliacaoId}`);
     }
   };
 
+  // Navega para a página de metas (do funcionário, presumidamente)
   const handleViewGoals = () => {
     navigate(`/metas`); // Navega para a página de metas
   };
@@ -48,8 +58,7 @@ export default function CardFuncionario({ employee, avaliacaoStatus, avaliacaoId
           </button>
         )}
 
-        {/* Lógica: Botão "Metas" aparece SEMPRE para funcionários no ciclo 
-           (Simulando que todos têm metas cadastradas) */}
+        {/* Lógica: Botão "Metas" aparece SEMPRE */}
         <button
           type="button"
           className="ver-avaliacao-btn"

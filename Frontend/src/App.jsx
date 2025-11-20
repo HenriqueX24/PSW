@@ -3,7 +3,6 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUsers } from "./features/user/usersSlice";
 import Login from "./pages/Login/Login.jsx";
-import SobreApp from "./pages/SobreApp/SobreApp.jsx";
 import Perfil from "./pages/VisualizarPerfil/Perfil.jsx";
 import Metas from "./pages/Metas/Metas.jsx";
 import MetaDetalhe from "./pages/Meta-detalhe/MetaDetalhe.jsx";

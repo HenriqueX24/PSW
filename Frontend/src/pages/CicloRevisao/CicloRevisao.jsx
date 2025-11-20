@@ -12,22 +12,41 @@ import { Grid, Box, Container } from "@mui/material";
 import Title from "../../Components/Title";
 import SetaVoltar from "../../Components/SetaVoltar";
 
+/**
+ * Página "Ciclo de Revisão".
+ *
+ * Página principal que exibe todos os Ciclos de Revisão.
+ * Busca os ciclos (`fetchCiclos`) do Redux na montagem.
+ * Agrupa os ciclos por 'tipo' (ex: Mensal, Semestral) e os exibe
+ * em seções, cada um como um `CardCiclo` clicável que leva
+ * para a página `/ciclo-funcionarios/:id`.
+ *
+ * Renderiza condicionalmente o botão "Criar Ciclo" se o usuário
+ * logado for um "gestor".
+ *
+ * @returns {JSX.Element} A página de listagem de ciclos de revisão.
+ */
 export default function CicloRevisao() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const ciclos = useSelector(selectAllCiclos);
-  const ciclosStatus = useSelector((state) => state.ciclos.status);
-  const { currentUser } = useSelector((state) => state.login);
+  const ciclos = useSelector(selectAllCiclos); // Busca todos os ciclos
+  const ciclosStatus = useSelector((state) => state.ciclos.status); // Busca o status (idle, loading, etc.)
+  const { currentUser } = useSelector((state) => state.login); // Busca o usuário logado
 
+  // Efeito para buscar os ciclos do Redux (da "API")
   useEffect(() => {
+    // Se o status for 'idle' (ocioso), busca os ciclos
     if (ciclosStatus === "idle") {
       dispatch(fetchCiclos());
     }
-  }, [ciclosStatus, dispatch]);
+  }, [ciclosStatus, dispatch]); // Dependências do efeito
+
+  // Lógica de renderização baseada no status
   let content;
   if (ciclosStatus === "loading") {
     content = <p>Carregando ciclos...</p>;
   } else if (ciclosStatus === "succeeded") {
+    // Se a busca for bem-sucedida, agrupa os ciclos por 'tipo'
     const ciclosAgrupados = ciclos.reduce((acc, ciclo) => {
       const tipo = ciclo.tipo || "Sem Tipo";
       if (!acc[tipo]) {
@@ -37,6 +56,7 @@ export default function CicloRevisao() {
       return acc;
     }, {});
 
+    // Mapeia os grupos e depois os ciclos dentro de cada grupo
     content = Object.keys(ciclosAgrupados).map((tipo) => (
       <div key={tipo} className="cycle-section">
         <h2 className="cycle-title">
@@ -45,6 +65,7 @@ export default function CicloRevisao() {
         <Grid container spacing={2}>
           {ciclosAgrupados[tipo].map((ciclo) => (
             <Grid item xs={12} sm={6} md={4} key={ciclo.id}>
+              {/* Cada card é um link para a lista de funcionários do ciclo */}
               <Link
                 to={`/ciclo-funcionarios/${ciclo.id}`}
                 className="card-link"
@@ -80,6 +101,7 @@ export default function CicloRevisao() {
       <MenuNav label={"Ciclo de Revisão"} />
       <main className="ciclo-main">
         {content}
+        {/* Renderização condicional do botão "Criar Ciclo" */}
         {currentUser && currentUser.cargo === "gestor" && (
           <ButtonCreate
             nameButton={"Criar Ciclo"}

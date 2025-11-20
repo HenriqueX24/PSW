@@ -11,6 +11,21 @@ import { selectAvaliacaoById, fetchAvaliacoes, updateAvaliacao } from "../../fea
 import FormsAvaliacao from "../../Components/FormsAvaliacao"; // Importa o FormsAvaliacao
 import Title from "../../Components/Title"
 
+/**
+ * Página "Fazer Avaliação".
+ *
+ * Permite que um usuário *responda* a um modelo de avaliação.
+ * 1. Obtém o `id` da avaliação da URL (via `useParams`).
+ * 2. Busca/Seleciona a avaliação específica do `avaliacaoSlice` do Redux.
+ * 3. Renderiza o componente `FormsAvaliacao`, que gera dinamicamente
+ * os inputs (Slider, Múltipla Escolha) com base nas 'questoes' da avaliação.
+ * 4. Recebe as respostas do usuário através do callback `handleRespostasChange`.
+ * 5. Ao submeter, valida se todas as questões foram respondidas.
+ * 6. Despacha a ação `updateAvaliacao` para salvar as `respostas` no objeto
+ * da avaliação, marcando-a como "Respondida".
+ *
+ * @returns {JSX.Element} A página para responder uma avaliação.
+ */
 function FazerAvaliacao() {
   const { id } = useParams(); // Obtém o ID da URL
   const dispatch = useDispatch();
@@ -19,12 +34,12 @@ function FazerAvaliacao() {
   const avaliacao = useSelector(state => selectAvaliacaoById(state, String(id)));
   const avaliacaoStatus = useSelector(state => state.avaliacoes.status);
 
-  // Estado para armazenar as respostas
+  // Estado local para armazenar as respostas (ex: { "questaoId": "resposta" })
   const [respostasAvaliacao, setRespostasAvaliacao] = useState({});
 
   const navigate = useNavigate();
 
-  // Carrega as avaliações se necessário
+  // Carrega as avaliações se necessário (ex: se o usuário recarregar a página)
   useEffect(() => {
     if (avaliacaoStatus === 'idle' || avaliacaoStatus === 'failed') {
       dispatch(fetchAvaliacoes());
@@ -35,11 +50,12 @@ function FazerAvaliacao() {
     navigate("/ciclo-revisao");
   };
 
-  // Callback para receber as respostas do FormsAvaliacao
+  // Callback para receber as respostas do FormsAvaliacao (componente filho)
   const handleRespostasChange = (novasRespostas) => {
       setRespostasAvaliacao(novasRespostas);
   }
 
+  // Função de submissão do formulário preenchido
   const handleSubmit = (e) => {
     e.preventDefault();
     
@@ -70,7 +86,7 @@ function FazerAvaliacao() {
         .unwrap() 
         .then(() => {
             alert(`Avaliação "${avaliacao.titulo}" enviada com sucesso e salva!`);
-            navigate(-1); 
+            navigate(-1); // Volta para a página anterior
         })
         .catch((error) => {
             alert(`Erro ao salvar a avaliação: ${error.message}`);
@@ -124,6 +140,7 @@ function FazerAvaliacao() {
       </Container>
       <MenuNav />
       <main>
+        {/* Formulário de Avaliação */}
         <form className="autoavaliacao-form" onSubmit={handleSubmit}>
           <div className="form-section">
             {/* NOVO: Usa o componente reutilizável FormsAvaliacao */}

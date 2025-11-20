@@ -5,9 +5,19 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 
+/**
+ * Componente de exemplo (controlado) do Material-UI para um grupo de Radio buttons.
+ * Permite selecionar entre "Funcionário" e "Gestor".
+ *
+ * Este componente gerencia seu próprio estado interno.
+ *
+ * @returns {JSX.Element} O grupo de radio buttons.
+ */
 export default function ControlledRadioButtonsGroup() {
+  // Estado interno para controlar qual opção está selecionada
   const [value, setValue] = React.useState("female");
 
+  // Atualiza o estado quando uma opção diferente é selecionada
   const handleChange = (event) => {
     setValue(event.target.value);
   };

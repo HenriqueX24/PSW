@@ -10,32 +10,52 @@ import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
+/**
+ * Página de Login.
+ *
+ * Renderiza o formulário de login.
+ * Utiliza o `selectAllUsers` do Redux para obter a lista de TODOS os usuários.
+ * A autenticação é feita **no lado do cliente (client-side)**:
+ * 1. O usuário digita E-mail/CPF e Senha.
+ * 2. O `handleSubmit` procura na lista `userList` (do Redux) por uma correspondência.
+ * 3. Se encontrar, despacha `loginSuccess` para o `loginSlice`.
+ * 4. Se não encontrar, despacha `loginFailure`.
+ *
+ * Inclui um toggle para visibilidade da senha.
+ *
+ * @returns {JSX.Element} A página de login.
+ */
 export default function Login() {
-  const [identifier, setIdentifier] = useState("");
-  const [senha, setSenha] = useState("");
-  const [showSenha, setShowSenha] = useState(false); // Novo estado
+  const [identifier, setIdentifier] = useState(""); // Estado para Email ou CPF
+  const [senha, setSenha] = useState(""); // Estado para Senha
+  const [showSenha, setShowSenha] = useState(false); // Estado para visibilidade da senha
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const userList = useSelector(selectAllUsers);
+  const userList = useSelector(selectAllUsers); // Busca TODOS os usuários
 
   console.log("Usuários disponíveis para login:", userList);
   
+  // Função de submissão do formulário
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!identifier || !senha) {
       alert("Preencha todos os campos!");
       return;
     }
+    // Lógica de autenticação no client-side
     const foundUser = userList.find(
       (user) => user.email === identifier || user.cpf === identifier
     );
+
+    // Se o usuário foi encontrado E a senha bate
     if (foundUser && foundUser.senha === senha) {
-      dispatch(loginSuccess(foundUser));
+      dispatch(loginSuccess(foundUser)); // Despacha sucesso
       alert(`Bem-vindo, ${foundUser.nome}!`);
-      navigate("/ciclo-revisao");
+      navigate("/ciclo-revisao"); // Navega para a página principal
     } else {
+      // Se não encontrou ou a senha está errada
       const errorMessage = "E-mail/CPF ou senha inválidos.";
-      dispatch(loginFailure(errorMessage));
+      dispatch(loginFailure(errorMessage)); // Despacha falha
       alert(errorMessage);
     }
   };
@@ -94,6 +114,7 @@ export default function Login() {
                 placeholder="Digite sua senha"
                 style={{ width: '100%', paddingRight: '40px' }} // Ajuste o padding para o ícone
               />
+              {/* Botão de visibilidade da senha */}
               <IconButton
                   aria-label="toggle password visibility"
                   onClick={handleClickShowSenha}
@@ -111,6 +132,7 @@ export default function Login() {
               </div>
               <ButtonSubmit texto="Entrar" />
 
+              {/* Link para Criar Conta */}
               <div style={{ marginTop: 12 }}>
                 <Link to="/criar-conta" className={styles.forgot}>
                   Novo aqui? Criar conta

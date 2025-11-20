@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: CicloRevisao.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: CicloRevisao.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// src/CicloRevisao.jsx
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchCiclos, selectAllCiclos } from "../../features/user/ciclosSlice";
+import "./ciclo-revisao.css";
+import { useNavigate, Link } from "react-router-dom";
+import NavBar from "../../Components/NavBar";
+import MenuNav from "../../Components/MenuNav";
+import CardCiclo from "../../Components/CardCiclo";
+import ButtonCreate from "../../Components/ButtonCreate";
+import { Grid, Box, Container } from "@mui/material";
+import Title from "../../Components/Title";
+import SetaVoltar from "../../Components/SetaVoltar";
+
+/**
+ * Página "Ciclo de Revisão".
+ *
+ * Página principal que exibe todos os Ciclos de Revisão.
+ * Busca os ciclos (`fetchCiclos`) do Redux na montagem.
+ * Agrupa os ciclos por 'tipo' (ex: Mensal, Semestral) e os exibe
+ * em seções, cada um como um `CardCiclo` clicável que leva
+ * para a página `/ciclo-funcionarios/:id`.
+ *
+ * Renderiza condicionalmente o botão "Criar Ciclo" se o usuário
+ * logado for um "gestor".
+ *
+ * @returns {JSX.Element} A página de listagem de ciclos de revisão.
+ */
+export default function CicloRevisao() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const ciclos = useSelector(selectAllCiclos); // Busca todos os ciclos
+  const ciclosStatus = useSelector((state) => state.ciclos.status); // Busca o status (idle, loading, etc.)
+  const { currentUser } = useSelector((state) => state.login); // Busca o usuário logado
+
+  // Efeito para buscar os ciclos do Redux (da "API")
+  useEffect(() => {
+    // Se o status for 'idle' (ocioso), busca os ciclos
+    if (ciclosStatus === "idle") {
+      dispatch(fetchCiclos());
+    }
+  }, [ciclosStatus, dispatch]); // Dependências do efeito
+
+  // Lógica de renderização baseada no status
+  let content;
+  if (ciclosStatus === "loading") {
+    content = &lt;p>Carregando ciclos...&lt;/p>;
+  } else if (ciclosStatus === "succeeded") {
+    // Se a busca for bem-sucedida, agrupa os ciclos por 'tipo'
+    const ciclosAgrupados = ciclos.reduce((acc, ciclo) => {
+      const tipo = ciclo.tipo || "Sem Tipo";
+      if (!acc[tipo]) {
+        acc[tipo] = [];
+      }
+      acc[tipo].push(ciclo);
+      return acc;
+    }, {});
+
+    // Mapeia os grupos e depois os ciclos dentro de cada grupo
+    content = Object.keys(ciclosAgrupados).map((tipo) => (
+      &lt;div key={tipo} className="cycle-section">
+        &lt;h2 className="cycle-title">
+          {tipo} &lt;span className="arrow">&amp;#9660;&lt;/span>
+        &lt;/h2>
+        &lt;Grid container spacing={2}>
+          {ciclosAgrupados[tipo].map((ciclo) => (
+            &lt;Grid item xs={12} sm={6} md={4} key={ciclo.id}>
+              {/* Cada card é um link para a lista de funcionários do ciclo */}
+              &lt;Link
+                to={`/ciclo-funcionarios/${ciclo.id}`}
+                className="card-link"
+              >
+                &lt;CardCiclo ciclo={ciclo} />
+              &lt;/Link>
+            &lt;/Grid>
+          ))}
+        &lt;/Grid>
+      &lt;/div>
+    ));
+  } else if (ciclosStatus === "failed") {
+    content = &lt;p>Erro ao carregar ciclos.&lt;/p>;
+  }
+
+  return (
+    &lt;Box sx={{ backgroundColor: "white", minHeight: "100vh" }}>
+      &lt;Container
+        className="cabecalho"
+        maxWidth="lg"
+        sx={{
+          display: "flex", // Habilita Flexbox
+          alignItems: "center", // Centraliza verticalmente
+          justifyContent: "flex-start", // Alinha ao início (esquerda)
+          gap: 60, // Adiciona um pequeno espaço entre a seta e o título
+          py: 3, // Padding vertical
+        }}
+      >
+        
+        &lt;Title className="titulo-pagina"  titulo="Ciclos de Revisão" />
+      &lt;/Container>
+
+      &lt;MenuNav label={"Ciclo de Revisão"} />
+      &lt;main className="ciclo-main">
+        {content}
+        {/* Renderização condicional do botão "Criar Ciclo" */}
+        {currentUser &amp;&amp; currentUser.cargo === "gestor" &amp;&amp; (
+          &lt;ButtonCreate
+            nameButton={"Criar Ciclo"}
+            onClick={() => navigate("/criar-ciclo")}
+          />
+        )}
+      &lt;/main>
+
+      &lt;NavBar />
+    &lt;/Box>
+  );
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Thu Nov 20 2025 12:19:22 GMT-0300 (Horário Padrão de Brasília)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

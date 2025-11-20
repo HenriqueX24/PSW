@@ -6,6 +6,15 @@ import Title from "../../Components/Title";
 import SetaVoltar from "../../Components/SetaVoltar";
 import { Container } from "@mui/material";
 
+/**
+ * Página "Criar Conta".
+ *
+ * Renderiza um layout de contêiner simples (`SimpleContainer`) que exibe
+ * um título, um botão de voltar e o componente de formulário (`Forms`)
+ * para o registro de um novo usuário.
+ *
+ * @returns {JSX.Element} A página de criação de conta.
+ */
 function CriarConta() {
   // A rota de destino para a tela de login.
   // Você deve substituir '/login' pela rota real da sua tela de login.

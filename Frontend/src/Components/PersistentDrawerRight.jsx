@@ -30,6 +30,17 @@ const mobileLinks = [
   { to: "/ciclo-revisao", label: "Ciclos de Revisão" },
 ];
 
+/**
+ * Componente de "Drawer" (menu lateral) para navegação mobile.
+ *
+ * Este é um menu "temporário" que desliza da direita.
+ * Ele é controlado por props `open` e `handleDrawerClose` vindas de um componente pai.
+ *
+ * @param {object} props - As propriedades do componente.
+ * @param {boolean} props.open - Controla se o drawer está aberto.
+ * @param {function} props.handleDrawerClose - Função callback para fechar o drawer.
+ * @returns {JSX.Element} O componente Drawer.
+ */
 // O componente agora recebe as props do pai
 function PersistentDrawerRight({ open, handleDrawerClose }) {
   const theme = useTheme();

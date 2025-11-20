@@ -5,6 +5,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useNavigate } from "react-router-dom";
 
 // Componente para a barra de navegação inferior (Bottom Navigation)
+// Este é um componente interno, renderizado pelo NavBar
 const BottomNav = ({ navigate }) => (
   <Box
     sx={{
@@ -57,6 +58,15 @@ const BottomNav = ({ navigate }) => (
   </Box>
 );
 
+/**
+ * Componente da Barra de Navegação Inferior (BottomNav).
+ *
+ * Renderiza uma barra fixa na parte inferior da tela, visível
+ * em todas as resoluções, para navegação rápida entre
+ * "Atividades", "Ciclo" (Home) e "Perfil".
+ *
+ * @returns {JSX.Element} A barra de navegação inferior.
+ */
 function NavBar() {
   const navigate = useNavigate();
 

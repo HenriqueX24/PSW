@@ -12,11 +12,12 @@ import styles from "./Forms.module.css";
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff'; 
 
+// Esquema de validação com Yup
 const validationSchema = Yup.object().shape({
   nome: Yup.string().required('Nome é obrigatório'),
   cpf: Yup.string().required('CPF é obrigatório').matches(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/, 'Formato de CPF inválido'),
   email: Yup.string().email('Email inválido').required('Email é obrigatório'),
-  senha: Yup.string().when('$isEditMode', {
+  senha: Yup.string().when('$isEditMode', { // Validação condicional da senha
     is: false,
     then: schema => schema.min(6, 'A senha deve ter pelo menos 6 caracteres').required('Senha é obrigatória'),
     otherwise: schema => schema.optional(),
@@ -24,21 +25,33 @@ const validationSchema = Yup.object().shape({
   cargo: Yup.string().required('Perfil é obrigatório'),
 });
 
+/**
+ * Componente de formulário para Criar ou Editar um Perfil de Usuário.
+ *
+ * Utiliza `react-hook-form` para gerenciamento de estado e `yup` para validação.
+ * Detecta automaticamente o modo (Criação vs. Edição) com base na URL.
+ * Despacha ações do Redux (`addNewUser` ou `updateUser`) ao submeter.
+ *
+ * @returns {JSX.Element} O formulário de usuário.
+ */
 export default function Forms() {
-  const [showSenha, setShowSenha] = useState(false); // Novo estado
+  const [showSenha, setShowSenha] = useState(false); // Estado para mostrar/ocultar senha
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
+  // Verifica se está em modo de edição pela URL
   const isEditMode = location.pathname.includes('/perfil/editar');
   const { currentUser } = useSelector(state => state.login);
 
+  // Configuração do React Hook Form
   const { register, handleSubmit, formState: { errors, isSubmitting }, setValue } = useForm({
     resolver: yupResolver(validationSchema),
     context: { isEditMode }, 
-    defaultValues: isEditMode ? currentUser : { cargo: 'funcionario' }
+    defaultValues: isEditMode ? currentUser : { cargo: 'funcionario' } // Define valores padrão
   });
 
+  // Máscara para o campo de CPF
   const handleCpfChange = (e) => {
     let v = e.target.value.replace(/\D/g, "").slice(0, 11);
     if (v.length > 9) v = v.replace(/^(\d{3})(\d{3})(\d{3})(\d{0,2}).*/, "$1.$2.$3-$4");
@@ -47,25 +60,23 @@ export default function Forms() {
     setValue('cpf', v, { shouldValidate: true });
   };
 
+  // Alterna a visibilidade da senha
   const handleClickShowSenha = () => { 
     setShowSenha((show) => !show);
   };
 
+  // Função de submit (Criação ou Edição)
  const onSubmit = async (data) => {
     try {
       if (isEditMode) {
-        // Lógica de edição (já usa await)
+        // Lógica de edição
         await dispatch(updateUser({ ...currentUser, ...data })).unwrap();
         alert('Perfil atualizado com sucesso!');
         navigate('/perfil');
       } else {
         // Lógica de criação
-        // 1. 'await' pausa a execução aqui...
         await dispatch(addNewUser(data)).unwrap();
-        // 2. ...até que a ação termine. Só então o código continua.
-        
         alert('Conta criada com sucesso!');
-        // 3. A navegação agora acontece com a store do Redux já atualizada.
         navigate('/login');
       }
     } catch (err) {
@@ -74,6 +85,7 @@ export default function Forms() {
     }
   };
 
+  // Renderização do formulário
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.loginForm}>
       
@@ -95,15 +107,15 @@ export default function Forms() {
         {errors.email && <p className="error-message">{errors.email.message}</p>}
       </div>
       
+      {/* Campo de senha só aparece no modo de criação */}
       {!isEditMode && (
         <div className="form-group">
           <label>Senha</label>
           <Input 
           fullWidth 
-          // Usa o estado showSenha para alternar o tipo
-          type={showSenha ? "text" : "password"}
+          type={showSenha ? "text" : "password"} // Alterna o tipo
           {...register("senha")} 
-          endAdornment={ // Adiciona o ícone no final do Input
+          endAdornment={ // Ícone de visibilidade
               <InputAdornment position="end">
                 <IconButton
                   aria-label="toggle password visibility"
@@ -119,6 +131,7 @@ export default function Forms() {
         </div>
       )}
 
+      {/* Seleção de Cargo (Perfil) */}
       <FormControl component="fieldset" style={{ marginTop: "20px" }}>
         <FormLabel component="legend" style={{ fontWeight: 600, color: "#333" }}>Perfil</FormLabel>
         <RadioGroup row>

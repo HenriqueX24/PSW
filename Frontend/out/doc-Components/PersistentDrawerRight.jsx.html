@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: PersistentDrawerRight.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: PersistentDrawerRight.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { styled, useTheme } from "@mui/material/styles";
+import Drawer from "@mui/material/Drawer";
+import List from "@mui/material/List";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+// ListItemIcon não é mais necessário, então pode ser removido
+import ListItemText from "@mui/material/ListItemText";
+import { NavLink } from "react-router-dom"; // Importar NavLink
+
+const drawerWidth = 240;
+
+const DrawerHeader = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  justifyContent: "flex-start",
+}));
+
+// Links que serão exibidos no menu mobile
+const mobileLinks = [
+  { to: "/sobre-app", label: "Sobre" },
+  { to: "/avaliacao/:id", label: "Avaliações" },
+  { to: "/metas", label: "Metas" },
+  { to: "/ciclo-revisao", label: "Ciclos de Revisão" },
+];
+
+/**
+ * Componente de "Drawer" (menu lateral) para navegação mobile.
+ *
+ * Este é um menu "temporário" que desliza da direita.
+ * Ele é controlado por props `open` e `handleDrawerClose` vindas de um componente pai.
+ *
+ * @param {object} props - As propriedades do componente.
+ * @param {boolean} props.open - Controla se o drawer está aberto.
+ * @param {function} props.handleDrawerClose - Função callback para fechar o drawer.
+ * @returns {JSX.Element} O componente Drawer.
+ */
+// O componente agora recebe as props do pai
+function PersistentDrawerRight({ open, handleDrawerClose }) {
+  const theme = useTheme();
+
+  return (
+    // Removendo Box, CssBaseline, AppBar e Main
+    &lt;Drawer
+      sx={{
+        width: drawerWidth,
+        flexShrink: 0,
+        "&amp; .MuiDrawer-paper": {
+          width: drawerWidth,
+        },
+      }}
+      // Alterado para 'temporary' que é mais apropriado para menus mobile
+      variant="temporary"
+      anchor="right"
+      open={open} // Controlado pela prop 'open'
+    >
+      &lt;DrawerHeader>
+        &lt;IconButton onClick={handleDrawerClose}>
+          {" "}
+          {/* Controlado pela prop 'handleDrawerClose' */}
+          {theme.direction === "rtl" ? (
+            &lt;ChevronLeftIcon />
+          ) : (
+            &lt;ChevronRightIcon />
+          )}
+        &lt;/IconButton>
+      &lt;/DrawerHeader>
+      &lt;Divider />
+      {/* O List usa o NavLink para navegação e chama handleDrawerClose ao clicar */}
+      &lt;List>
+        {mobileLinks.map((item) => (
+          &lt;ListItem key={item.to} disablePadding>
+            {/* INÍCIO DA CORREÇÃO */}
+            &lt;ListItemButton
+              component={NavLink} // Usa NavLink para navegar
+              to={item.to}
+              onClick={handleDrawerClose} // Fecha o menu após a navegação
+            >
+              {/* O ListItemIcon foi removido daqui */}
+              &lt;ListItemText primary={item.label} />
+            &lt;/ListItemButton>
+            {/* FIM DA CORREÇÃO */}
+          &lt;/ListItem>
+        ))}
+      &lt;/List>
+    &lt;/Drawer>
+  );
+}
+
+export default PersistentDrawerRight;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#ButtonSubmit">ButtonSubmit</a></li><li><a href="global.html#CardAvaliacao">CardAvaliacao</a></li><li><a href="global.html#CardMeta">CardMeta</a></li><li><a href="global.html#CardQuestao">CardQuestao</a></li><li><a href="global.html#ListaCardAvaliacao">ListaCardAvaliacao</a></li><li><a href="global.html#ListaCardMeta">ListaCardMeta</a></li><li><a href="global.html#NavBar">NavBar</a></li><li><a href="global.html#OpcaoSlider">OpcaoSlider</a></li><li><a href="global.html#OpcoesMultiplaEscolha">OpcoesMultiplaEscolha</a></li><li><a href="global.html#PersistentDrawerRight">PersistentDrawerRight</a></li><li><a href="global.html#SimpleContainer">SimpleContainer</a></li><li><a href="global.html#formatResposta">formatResposta</a></li><li><a href="global.html#handleChange">handleChange</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Thu Nov 20 2025 12:12:08 GMT-0300 (Horário Padrão de Brasília)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

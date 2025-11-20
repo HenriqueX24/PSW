@@ -5,17 +5,25 @@ import { useDispatch, useSelector } from "react-redux";
 // Importa thunks e os novos seletores
 import {
   fetchMetas,
-  selectMetasConcluidas,
+  selectMetasConcluidas, // Seletor para metas concluídas
 } from "../../features/user/metaSlice";
 import {
   fetchAvaliacoes,
-  selectAvaliacoesRespondidas,
+  selectAvaliacoesRespondidas, // Seletor para avaliações respondidas
 } from "../../features/user/avaliacaoSlice";
 
 import NavBar from "../../Components/NavBar";
 import Title from "../../Components/Title";
-import AvaliacaoSnapshotModal from "../../Components/AvaliacaoSnapshotModal";
+import AvaliacaoSnapshotModal from "../../Components/AvaliacaoSnapshotModal"; // Modal para ver snapshot
 
+/**
+ * Componente de Card interno para o Histórico.
+ * @param {object} props - Propriedades.
+ * @param {string} props.titulo - Título do item.
+ * @param {string} props.tipo - "Meta" ou "Avaliação".
+ * @param {function} props.onClick - Função de clique.
+ * @returns {JSX.Element}
+ */
 // Componente simples para representar um Card de Histórico
 const HistoricoCard = ({ titulo, tipo, onClick }) => (
   <Grid xs={12} sm={6} md={4}>
@@ -37,6 +45,20 @@ const HistoricoCard = ({ titulo, tipo, onClick }) => (
   </Grid>
 );
 
+/**
+ * Página "Registro de Atividades" (Histórico).
+ *
+ * Exibe um histórico combinado de *atividades concluídas*.
+ * Busca dados de dois slices diferentes do Redux: `metaSlice` e `avaliacaoSlice`.
+ * Usa seletores customizados (`selectMetasConcluidas`, `selectAvaliacoesRespondidas`)
+ * para obter apenas os itens finalizados.
+ *
+ * Combina os dois arrays, ordena por data (mais recente primeiro) e exibe.
+ * Clicar em uma "Avaliação" abre o modal `AvaliacaoSnapshotModal` para
+ * exibir as respostas.
+ *
+ * @returns {JSX.Element} A página de histórico.
+ */
 // Função auxiliar para formatar e exibir o snapshot da avaliação
 const showAvaliacaoSnapshot = (avaliacao) => {
   if (!avaliacao.respostas) {
@@ -110,6 +132,7 @@ export default function RegistroAtividades() {
     })),
   ].sort((a, b) => b.data - a.data); // Ordena do mais recente para o mais antigo
 
+  // Handler para o clique no card (abre Modal ou Alert)
   const handleCardClick = (item) => {
     // Lógica para mostrar o snapshot (modal, navegação, etc.)
     if (item.tipo === "Meta") {
@@ -128,6 +151,7 @@ export default function RegistroAtividades() {
     }
   };
 
+  // Renderização condicional do conteúdo
   const content =
     historicoCombinado.length > 0 ? (
       <Grid container spacing={3}>
@@ -167,6 +191,7 @@ export default function RegistroAtividades() {
       </Container>
       <NavBar />
 
+      {/* O Modal de Snapshot (controlado por state) */}
       <AvaliacaoSnapshotModal 
         open={modalOpen} 
         handleClose={handleModalClose} 
@@ -175,4 +200,3 @@ export default function RegistroAtividades() {
     </>
   );
 }
-

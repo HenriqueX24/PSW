@@ -17,36 +17,49 @@ import { useDispatch } from 'react-redux'; // NOVO: Importação do useDispatch
 import { addNewAvaliacao } from "../../features/user/avaliacaoSlice"; // NOVO: Importação da ação Redux
 import Title from "../../Components/Title"
 
+/**
+ * Página "Criar Avaliação".
+ *
+ * Renderiza uma interface de construtor de formulário (builder).
+ * Permite ao usuário (Gestor) definir um título e adicionar dinamicamente
+ * questões (Múltipla Escolha ou Slider) usando o `CardQuestao`.
+ * Despacha a ação `addNewAvaliacao` do Redux para salvar o formulário criado.
+ *
+ * @returns {JSX.Element} A página de criação de avaliação.
+ */
 function CriarAvaliacao() {
   const dispatch = useDispatch(); // NOVO: Hook para despachar ações
   const navigate = useNavigate();
 
+  // Estado para o título da avaliação
   const [titulo, setTitulo] = useState("");
+  // Estado para o array de objetos de questão
   const [questoes, setQuestoes] = useState([]);
 
-  // Função para adicionar uma nova questão
+  // Função para adicionar uma nova questão ao array 'questoes'
   const adicionarQuestao = () => {
     const novaQuestao = {
-      id: Date.now(),
+      id: Date.now(), // ID único baseado no timestamp
       enunciado: "",
-      tipo: "multipla_escolha",
-      opcoes: [
+      tipo: "multipla_escolha", // Tipo padrão
+      opcoes: [ // Estrutura padrão para múltipla escolha
         { id: 1, texto: "" },
         { id: 2, texto: "" },
         { id: 3, texto: "" },
         { id: 4, texto: "" },
       ],
-      slider: { min: 0, max: 10, step: 1, labelMin: "Baixo", labelMax: "Alto" },
+      slider: { min: 0, max: 10, step: 1, labelMin: "Baixo", labelMax: "Alto" }, // Estrutura padrão para slider
     };
     setQuestoes([...questoes, novaQuestao]);
   };
 
-  // Função para remover uma questão
+  // Função para remover uma questão do array 'questoes' pelo ID
   const removerQuestao = (id) => {
     setQuestoes(questoes.filter((q) => q.id !== id));
   };
 
-  // Função para atualizar os dados de uma questão específica
+  // Função para atualizar os dados de uma questão específica no array
+  // Usada pelo `CardQuestao` (componente filho)
   const atualizarQuestao = (id, novosDados) => {
     setQuestoes(
       questoes.map((q) => (q.id === id ? { ...q, ...novosDados } : q))
@@ -66,7 +79,7 @@ function CriarAvaliacao() {
 
     // NOVO: Despacha a ação assíncrona para salvar a avaliação
     dispatch(addNewAvaliacao(novaAvaliacao))
-      .unwrap() // Lida com a promise do thunk
+      .unwrap() // Lida com a promise do thunk (para .then e .catch)
       .then(() => {
         alert("Avaliação criada com sucesso!");
         navigate("/avaliacao/:id"); // Volta para a Lista de Avaliações
@@ -77,6 +90,7 @@ function CriarAvaliacao() {
       });
   };
 
+  // Navega para a página anterior
   const handleVoltar = () => {
     navigate(-1);
   }
@@ -153,12 +167,13 @@ function CriarAvaliacao() {
             ></ButtonCreate>
           </Box>
 
+          {/* Botão de Salvar a Avaliação (Submissão) */}
           <Box sx={{ mt: 4, textAlign: "right" }}>
             <Button
               type="submit"
               variant="contained"
               color="primary"
-              disabled={!titulo || questoes.length === 0}
+              disabled={!titulo || questoes.length === 0} // Desabilitado se não tiver título ou questões
             >
               Salvar Avaliação
             </Button>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Avaliacao.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Avaliacao.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import "./avaliacaostyle.css";
+import { useSelector } from "react-redux";
+import { useNavigate, useLocation, Link, NavLink } from "react-router-dom";
+import {
+  AppBar,
+  Toolbar,
+  Container,
+  Box,
+  Typography,
+  IconButton,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
+import HomeIcon from "@mui/icons-material/Home";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import ListaCardAvaliacao from "../../Components/ListaCardAvaliacao.jsx";
+import Title from "../../Components/Title.jsx";
+import ButtonCreate from "../../Components/ButtonCreate.jsx";
+import MenuNav from "../../Components/MenuNav.jsx";
+
+/**
+ * Componente interno para os links de navegação do Desktop.
+ * @returns {JSX.Element}
+ */
+const NavLinks = () => (
+  &lt;Box
+    sx={{
+      //display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      flexGrow: 1,
+      // Esconde no mobile/tablet e mostra no desktop
+      display: { xs: "none", lg: "flex" },
+    }}
+  > 
+    {/* Links de Navegação */}
+    {[
+      { to: "/sobre-app", label: "Sobre" },
+      { to: "/avaliacao/:id", label: "Avaliações" },
+      { to: "/metas", label: "Metas" },
+      { to: "/ciclo-revisao", label: "Ciclos de Revisão" },
+    ].map((item) => (
+      &lt;NavLink
+        key={item.to}
+        className="nav-link"
+        to={item.to}
+        style={{ textDecoration: "none", margin: "0 16px" }}
+      >
+        &lt;Typography
+          variant="button"
+          sx={{ color: "var(--brand)", fontWeight: 600 }}
+        >
+          {item.label}
+        &lt;/Typography>
+      &lt;/NavLink>
+    ))}
+  &lt;/Box>
+);
+
+/**
+ * Componente interno para a barra de navegação inferior (BottomNav).
+ * @param {object} props - Propriedades.
+ * @param {function} props.navigate - A função navigate do React Router.
+ * @returns {JSX.Element}
+ */
+// Componente para a barra de navegação inferior (Bottom Navigation)
+const BottomNav = ({ navigate }) => (
+  &lt;Box
+    sx={{
+      position: "fixed",
+      bottom: 0,
+      left: 0,
+      right: 0,
+      width: "100%",
+      backgroundColor: "#fff",
+      borderTop: "1px solid var(--border)",
+      // ALTERAÇÃO: 'display: flex' torna a barra visível em todas as resoluções.
+      display: "flex",
+      justifyContent: "space-around",
+      padding: "8px 0",
+      zIndex: 100,
+    }}
+  >
+    {/* Botões de Navegação */}
+    {[
+      {
+        path: "/registro-atividades",
+        label: "RegistroAtividades",
+        Icon: CheckBoxIcon,
+        color: "#e0e0e0",
+      },
+      {
+        path: "/ciclo-revisao",
+        label: "CicloRevisao",
+        Icon: HomeIcon,
+        color: "var(--brand)",
+      },
+      {
+        path: "/perfil",
+        label: "Perfil",
+        Icon: AccountCircleIcon,
+        color: "#e0e0e0",
+      },
+    ].map((item) => (
+      &lt;IconButton
+        key={item.path}
+        onClick={() => navigate(item.path)}
+        aria-label={item.label}
+        color="default"
+      >
+        &lt;item.Icon sx={{ color: item.color }} fontSize="large" />
+      &lt;/IconButton>
+    ))}
+  &lt;/Box>
+);
+
+/**
+ * Página "Avaliação".
+ *
+ * Exibe a lista de *modelos* de avaliação disponíveis.
+ * Utiliza o componente `ListaCardAvaliacao` para buscar e renderizar
+ * os cards de avaliação do Redux (avaliacaoSlice).
+ *
+ * Renderiza condicionalmente o botão "Criar Avaliação"
+ * (`ButtonCreate`) se o usuário logado for um "gestor".
+ *
+ * @returns {JSX.Element} A página de listagem de avaliações.
+ */
+function Avaliacao() {
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const isActive = (path) => pathname === path;
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
+  const RouterLink = Link;
+  // Busca o usuário logado do Redux
+  const user = useSelector((state) => state.login?.currentUser);
+  // Verifica se o usuário é um gestor
+  const isGestor = user &amp;&amp; user.cargo === "gestor";
+
+  return (
+    &lt;div>
+      &lt;Box sx={{ backgroundColor: "white", minHeight: "100vh" }}>
+        {/* 1. TÍTULO 'Menu' (Movido para cima da AppBar) */}
+        &lt;Container
+          maxWidth="lg"
+          className="cabecalho"
+          sx={{
+            display: "flex", // Habilita Flexbox
+            alignItems: "center", // Centraliza verticalmente
+            justifyContent: "flex-start", // Alinha ao início (esquerda)
+            gap: 60, // Adiciona um pequeno espaço entre a seta e o título
+            py: 3, // Padding vertical
+          }}
+        >
+          &lt;button
+            type="button"
+            className="botao-voltar"
+            aria-label="Voltar"
+            onClick={() => navigate(-1)} /* navigate(-1) volta para a última página acessada*/
+          >
+            &lt;svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+              &lt;path
+                d="M15 18l-6-6 6-6"
+                stroke="#5cc6ba"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            &lt;/svg>
+          &lt;/button>
+
+          {/* Título Avaliações */}
+          &lt;Title titulo="Avaliações" className="titulo-pagina"/>
+        &lt;/Container>
+
+        {/* NAVBAR REACT */}
+        &lt;MenuNav />
+
+        &lt;div className="avaliacao-container">
+          {/* LISTA */}
+          &lt;AppBar position="static" color="default" elevation={1}>
+            {/* Componente que busca e lista as avaliações do Redux */}
+            &lt;ListaCardAvaliacao />
+            {/*Condição para renderizar o botão SOMENTE se o usuário for um Gestor */}
+            {isGestor &amp;&amp; (
+            &lt;ButtonCreate
+              nameButton={"Criar Avaliação"}
+              onClick={() => navigate("/criar-avaliacao")}
+            />
+            )}
+          &lt;/AppBar>
+          {/* FIM LISTA */}
+        &lt;/div>
+
+        {/* 4. Bottom Navigation (Agora visível em todas as resoluções) */}
+        &lt;BottomNav navigate={navigate} />
+      &lt;/Box>
+    &lt;/div>
+  );
+}
+
+export default Avaliacao;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Avaliacao">Avaliacao</a></li><li><a href="global.html#BottomNav">BottomNav</a></li><li><a href="global.html#NavLinks">NavLinks</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Thu Nov 20 2025 12:13:41 GMT-0300 (Horário Padrão de Brasília)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

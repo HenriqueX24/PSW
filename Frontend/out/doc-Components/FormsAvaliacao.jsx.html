@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: FormsAvaliacao.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: FormsAvaliacao.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState, useEffect } from 'react';
+import { Typography, Box, TextField, Divider, RadioGroup, FormControlLabel, Radio, Slider } from '@mui/material';
+
+/**
+ * Renderiza o formulário dinâmico para um usuário *responder* a uma avaliação.
+ *
+ * Ele mapeia as 'questoes' do objeto 'avaliacao' e exibe o input
+ * apropriado (Slider, Múltipla Escolha, etc.) para cada uma.
+ *
+ * @param {object} props - As propriedades do componente.
+ * @param {object} props.avaliacao - O objeto de avaliação completo (com { titulo, questoes }).
+ * @param {function} props.onRespostasChange - Callback que envia o estado das respostas para o componente pai.
+ * @returns {JSX.Element} O formulário de avaliação para preenchimento.
+ */
+export default function FormsAvaliacao({ avaliacao, onRespostasChange }) {
+  
+  // Guard Clause: Verifica se a avaliação e as questões existem
+  if (!avaliacao || !avaliacao.questoes) {
+    return &lt;Typography variant="h6">Avaliação não encontrada ou em formato inválido.&lt;/Typography>;
+  }
+
+  const { titulo, questoes } = avaliacao;
+  // Estado interno para armazenar as respostas (ex: { "questao_id_1": "resposta" })
+  const [respostas, setRespostas] = useState({});
+
+  // Handler para atualizar o estado das respostas
+  const handleRespostaChange = (idQuestao, valor) => {
+    setRespostas(prev => ({
+      ...prev,
+      [String(idQuestao)]: valor
+    }));
+  };
+  
+  // Efeito que notifica o componente pai sempre que as respostas mudarem
+  useEffect(() => {
+      if (onRespostasChange) {
+          onRespostasChange(respostas);
+      }
+  }, [respostas, onRespostasChange]);
+
+  // Função para renderizar o tipo de input correto (Slider, Radio, etc.)
+  const renderQuestaoInput = (questao) => {
+      const valorAtual = respostas[questao.id] || (questao.tipo === 'slider' ? (questao.slider?.min || 0) : '');
+
+      switch (questao.tipo) {
+          case 'slider':
+              // Renderiza um Slider do Material-UI
+              return (
+                  &lt;Box sx={{ mt: 2, px: 2 }}>
+                      &lt;Slider
+                          value={Number(valorAtual)}
+                          onChange={(e, newValue) => handleRespostaChange(questao.id, newValue)}
+                          aria-labelledby={`slider-label-${questao.id}`}
+                          valueLabelDisplay="auto"
+                          step={questao.slider?.step || 1}
+                          marks
+                          min={questao.slider?.min || 0}
+                          max={questao.slider?.max || 10}
+                      />
+                  &lt;/Box>
+              );
+          case 'multipla_escolha':
+              // Renderiza um grupo de Radio buttons
+              return (
+                  &lt;RadioGroup
+                      aria-label={`questao-${questao.id}`}
+                      name={`questao-${questao.id}`}
+                      value={valorAtual} 
+                      onChange={(e) => handleRespostaChange(questao.id, e.target.value)}
+                      sx={{ mt: 1, ml: 2 }}
+                  >
+                      {questao.opcoes?.map((opcao) => (
+                          &lt;FormControlLabel 
+                              key={opcao.id} 
+                              value={opcao.texto} // O valor salvo é o texto da opção
+                              control={&lt;Radio />} 
+                              label={opcao.texto || 'Opção Vazia'} 
+                          />
+                      ))}
+                  &lt;/RadioGroup>
+              );
+          default:
+              // Fallback para texto livre
+              return (
+                  &lt;TextField
+                      fullWidth
+                      label="Resposta (Texto Livre)"
+                      variant="outlined"
+                      margin="normal"
+                      value={valorAtual}
+                      onChange={(e) => handleRespostaChange(questao.id, e.target.value)}
+                  />
+              );
+      }
+  }
+
+  // Renderização principal do formulário
+  return (
+    &lt;Box sx={{ p: 3, border: '1px solid #ccc', borderRadius: '8px' }}>
+      &lt;Typography variant="h5" component="h2" gutterBottom>
+        {titulo}
+      &lt;/Typography>
+      &lt;Divider sx={{ mb: 3 }} />
+
+      {questoes.length > 0 ? (
+        // Mapeia cada questão e renderiza seu input
+        questoes.map((questao, index) => (
+          &lt;Box key={questao.id} sx={{ mb: 4 }}>
+            &lt;Typography variant="subtitle1" gutterBottom>
+              {index + 1}. {questao.enunciado || `Questão ${index + 1} (Sem Enunciado)`}
+            &lt;/Typography>
+            {renderQuestaoInput(questao)}
+          &lt;/Box>
+        ))
+      ) : (
+        &lt;Typography>Nenhuma questão disponível para esta avaliação.&lt;/Typography>
+      )}
+    &lt;/Box>
+  );
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#ButtonSubmit">ButtonSubmit</a></li><li><a href="global.html#CardAvaliacao">CardAvaliacao</a></li><li><a href="global.html#CardMeta">CardMeta</a></li><li><a href="global.html#CardQuestao">CardQuestao</a></li><li><a href="global.html#ListaCardAvaliacao">ListaCardAvaliacao</a></li><li><a href="global.html#ListaCardMeta">ListaCardMeta</a></li><li><a href="global.html#NavBar">NavBar</a></li><li><a href="global.html#OpcaoSlider">OpcaoSlider</a></li><li><a href="global.html#OpcoesMultiplaEscolha">OpcoesMultiplaEscolha</a></li><li><a href="global.html#PersistentDrawerRight">PersistentDrawerRight</a></li><li><a href="global.html#SimpleContainer">SimpleContainer</a></li><li><a href="global.html#formatResposta">formatResposta</a></li><li><a href="global.html#handleChange">handleChange</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Thu Nov 20 2025 12:12:08 GMT-0300 (Horário Padrão de Brasília)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -11,7 +11,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-// Define o Dialog estilizado
+// Define o Dialog (Modal) estilizado usando a API do Material-UI
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
     padding: theme.spacing(2),
@@ -21,7 +21,14 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-// Função auxiliar para formatar o texto da resposta
+/**
+ * Função auxiliar interna para formatar a resposta de uma questão
+ * para exibição amigável no snapshot.
+ *
+ * @param {string | number} resposta - O valor salvo da resposta.
+ * @param {object} questao - O objeto da questão (para obter contexto, como opções ou labels).
+ * @returns {string} A resposta formatada.
+ */
 const formatResposta = (resposta, questao) => {
   if (questao.tipo === 'slider') {
     return `Valor: ${resposta} (Min: ${questao.slider.labelMin}, Max: ${questao.slider.labelMax})`;
@@ -30,14 +37,25 @@ const formatResposta = (resposta, questao) => {
     const opcaoSelecionada = questao.opcoes.find(opt => String(opt.id) === String(resposta));
     return opcaoSelecionada ? `Opção Selecionada: "${opcaoSelecionada.texto}"` : `Resposta Salva: ${resposta}`;
   }
+  // Para outros tipos (como texto, se houver) ou respostas vazias
   return resposta || "Sem Resposta Salva";
 };
 
 
-// Componente principal do Modal
+/**
+ * Componente Modal (Dialog) que exibe um "snapshot" (resumo)
+ * de uma avaliação já respondida.
+ *
+ * @param {object} props - As propriedades do componente.
+ * @param {boolean} props.open - Controla se o modal está visível.
+ * @param {function} props.handleClose - Função chamada para fechar o modal.
+ * @param {object} props.avaliacao - O objeto de avaliação completo (com { dados: { titulo, dataResposta, questoes, respostas, status } }).
+ * @returns {JSX.Element | null} O modal ou nulo se não houver avaliação.
+ */
 export default function AvaliacaoSnapshotModal({ open, handleClose, avaliacao }) {
+  // Guard Clause: Não renderiza se não houver avaliação
   if (!avaliacao) {
-    return null; // Não renderiza se não houver avaliação
+    return null; 
   }
 
   const { titulo, dataResposta, questoes, respostas, status } = avaliacao.dados;
@@ -53,6 +71,7 @@ export default function AvaliacaoSnapshotModal({ open, handleClose, avaliacao })
       <DialogTitle sx={{ m: 0, p: 2 }} id="avaliacao-snapshot-dialog-title">
         Snapshot da Avaliação: **{titulo}**
       </DialogTitle>
+      {/* Botão de Fechar (X) no canto */}
       <IconButton
         aria-label="close"
         onClick={handleClose}
@@ -66,6 +85,7 @@ export default function AvaliacaoSnapshotModal({ open, handleClose, avaliacao })
         <CloseIcon />
       </IconButton>
       <DialogContent dividers>
+        {/* Seção de Metadados da Avaliação */}
         <Typography variant="subtitle1" gutterBottom>
           **Status**: {status}
         </Typography>
@@ -77,6 +97,7 @@ export default function AvaliacaoSnapshotModal({ open, handleClose, avaliacao })
           Respostas
         </Typography>
 
+        {/* Mapeia e exibe cada questão e sua respectiva resposta */}
         {questoes.map((questao, index) => {
           const idQuestao = String(questao.id);
           const resposta = respostas ? respostas[idQuestao] : null;
@@ -90,6 +111,7 @@ export default function AvaliacaoSnapshotModal({ open, handleClose, avaliacao })
                 variant="body2" 
                 sx={{ ml: 2, p: 1, borderLeft: '3px solid', borderColor: 'primary.main', backgroundColor: 'action.hover' }}
               >
+                {/* Usa a função auxiliar para formatar a resposta */}
                 {formatResposta(resposta, questao)}
               </Typography>
             </Box>

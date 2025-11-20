@@ -6,6 +6,7 @@ import StepLabel from "@mui/material/StepLabel";
 import Typography from "@mui/material/Typography";
 import { useNavigate, useLocation } from "react-router-dom";
 
+// Define as etapas e suas rotas correspondentes
 const steps = [
   { label: "Ciclo de Revisão", route: "/ciclo-revisao" },
   { label: "Funcionários", route: "/ciclo-funcionarios" },
@@ -14,20 +15,33 @@ const steps = [
   { label: "Fazer Avaliação", route: "/fazer-avaliacao" },
 ];
 
+/**
+ * Componente de "Stepper" (Passo a Passo) de navegação.
+ *
+ * Exibe as etapas do fluxo principal da aplicação (Ciclo, Funcionários, Avaliações, etc.)
+ * e destaca o passo ativo com base na URL atual (`useLocation`).
+ * Permite a navegação ao clicar em um passo (`useNavigate`).
+ *
+ * @returns {JSX.Element} O componente stepper.
+ */
 export default function HorizontalLinearStepper() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Define o step ativo baseado na rota atual
+  // Encontra o "step" ativo baseado na URL atual
+  // location.pathname.startsWith(step.route) garante que rotas como /avaliacao/123
+  // ainda ativem o step "Avaliações" (/avaliacao).
   const activeStep = steps.findIndex((step) =>
     location.pathname.startsWith(step.route)
   );
 
-  // Navega para a rota do step clicado
+  // Navega para a rota do step que foi clicado
   const handleStepClick = (index) => {
     const target = steps[index].route;
 
-    const finalRoute = fallbackMap[target] || target;
+    // Lógica de fallback (mapa 'fallbackMap' não está definido aqui,
+    // mas a intenção é navegar para o 'target')
+    const finalRoute = /* fallbackMap[target] || */ target;
     navigate(finalRoute);
   };
 
@@ -38,7 +52,7 @@ export default function HorizontalLinearStepper() {
           <Step key={step.label}>
             <StepLabel
               onClick={() => handleStepClick(index)}
-              sx={{ cursor: "pointer" }}
+              sx={{ cursor: "pointer" }} // Adiciona cursor de clique
             >
               {step.label}
             </StepLabel>

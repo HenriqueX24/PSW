@@ -14,7 +14,7 @@ router.route('/').get((req, res) => {
 });
 
 
-router.route('/add').post((req, res) => {
+router.route('/').post((req, res) => {
   const { nome, cpf, email, senha, cargo } = req.body;
 
   const newUser = new User({

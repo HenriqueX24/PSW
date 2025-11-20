@@ -8,21 +8,32 @@ import CardAvaliacao from "./CardAvaliacao";
 import { Typography, Box } from "@mui/material"; 
 import { Link } from "react-router-dom"; // Importa Link para navegação
 
+/**
+ * Componente que busca e renderiza a lista de todas as avaliações disponíveis.
+ *
+ * Ele se conecta ao Redux Store (avaliacaoSlice), busca os dados
+ * (`fetchAvaliacoes`), e mapeia os resultados, renderizando um
+ * `CardAvaliacao` para cada item.
+ *
+ * @returns {JSX.Element} A lista de cards de avaliação.
+ */
 const ListaCardAvaliacao = () => {
   const dispatch = useDispatch();
-  // Busca as avaliações e o status
-  // O erro 'reading ids' é resolvido se o Redux Store estiver configurado corretamente
+  
+  // Seletores do Redux para buscar dados e status
   const avaliacoes = useSelector(selectAllAvaliacoes); 
-  const avaliacoesStatus = useSelector((state) => state.avaliacoes.status); // <--- O nome 'avaliacoes' DEVE coincidir com o nome no Redux Store
+  const avaliacoesStatus = useSelector((state) => state.avaliacoes.status);
   const error = useSelector((state) => state.avaliacoes.error);
 
-  // Efeito para carregar as avaliações quando o componente for montado (se necessário)
+  // Efeito para carregar as avaliações na montagem do componente,
+  // caso ainda não tenham sido carregadas (status "idle").
   useEffect(() => {
     if (avaliacoesStatus === "idle") {
       dispatch(fetchAvaliacoes());
     }
   }, [avaliacoesStatus, dispatch]);
 
+  // Função utilitária para formatar a data
   const formatarData = (dataString) => {
     try {
         if (dataString) {
@@ -34,6 +45,7 @@ const ListaCardAvaliacao = () => {
     return "Data Desconhecida"; 
   };
 
+  // Renderização condicional baseada no status da busca (loading, succeeded, failed)
   let content;
 
   if (avaliacoesStatus === "loading") {
@@ -45,12 +57,11 @@ const ListaCardAvaliacao = () => {
     } else {
         // Mapeia os dados do Redux para os cards
         content = avaliacoes.map((avaliacao) => (
-            // CardAvaliacao deve usar Link (ou um wrapper que usa Link) para a navegação
             <CardAvaliacao
                 key={avaliacao.id}
                 titulo={avaliacao.titulo}
                 data={formatarData(avaliacao.dataCriacao)} 
-                // O link agora aponta para a rota de preenchimento, usando o ID real
+                // O link aponta para a rota de preenchimento da avaliação específica
                 link={`/fazer-avaliacao/${avaliacao.id}`} 
             />
         ));
@@ -61,7 +72,6 @@ const ListaCardAvaliacao = () => {
 
   return (
     <div className="lista-avaliacoes">
-      {/* Removemos os cards estáticos para usar o conteúdo dinâmico do Redux */}
       {content}
     </div>
   );

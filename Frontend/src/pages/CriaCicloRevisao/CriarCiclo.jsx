@@ -13,6 +13,7 @@ import Title from "../../Components/Title";
 import { Container, Box, Chip, Stack } from "@mui/material";
 import SelectUsers from "../../Components/SelectUsers";
 
+// Esquema de validação do formulário com Yup
 const validationSchema = Yup.object().shape({
   titulo: Yup.string().required("Título é obrigatório"),
   tipo: Yup.string().required("Tipo de ciclo é obrigatório"),
@@ -23,6 +24,17 @@ const validationSchema = Yup.object().shape({
   avaliados: Yup.array().min(1, "Selecione ao menos um avaliado").required(), 
 });
 
+/**
+ * Página "Criar Ciclo".
+ *
+ * Renderiza um formulário completo para a criação de um novo Ciclo de Revisão.
+ * Utiliza `react-hook-form` e `yup` para gerenciamento e validação.
+ * Permite selecionar 'Avaliadores' (Gestores) e 'Avaliados' (Funcionários)
+ * a partir de dados do Redux.
+ * Despacha a ação `addNewCiclo` do Redux ao submeter.
+ *
+ * @returns {JSX.Element} A página de criação de ciclo.
+ */
 export default function CriarCiclo() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -47,10 +59,11 @@ export default function CriarCiclo() {
     value: user.email,
   }));
 
+  // Configuração do React Hook Form
   const {
     handleSubmit,
-    setValue,
-    watch,
+    setValue, // Usado para atualizar o valor do formulário programaticamente
+    watch, // Usado para observar os valores dos arrays
     register, // Mantido para campos simples
     formState: { errors, isSubmitting },
   } = useForm({
@@ -73,13 +86,15 @@ export default function CriarCiclo() {
 
   // Lógica para Avaliados (Funcionários)
   const handleAvaliadoSelect = (newEmail) => {
+    // Adiciona o email ao array se ele não existir
     if (newEmail && !avaliados.includes(newEmail)) {
         setValue("avaliados", [...avaliados, newEmail], { shouldValidate: true });
     }
-    setSelectedAvaliadoEmail("");
+    setSelectedAvaliadoEmail(""); // Reseta o seletor
   };
 
   const handleDeleteAvaliado = (emailToDelete) => {
+    // Remove o email do array (Chip)
     const newAvaliados = avaliados.filter((email) => email !== emailToDelete);
     setValue("avaliados", newAvaliados, { shouldValidate: true });
   };
@@ -97,6 +112,7 @@ export default function CriarCiclo() {
     setValue("avaliadores", newAvaliadores, { shouldValidate: true });
   };
 
+  // Função de submissão do formulário
   const onSubmit = async (data) => {
     try {
       // data.avaliados e data.avaliadores já são arrays, prontos para envio.

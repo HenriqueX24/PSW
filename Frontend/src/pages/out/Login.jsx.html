@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Login.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Login.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import styles from "./loginstyle.module.css";
+import { useSelector, useDispatch } from "react-redux";
+import { loginSuccess, loginFailure } from "../../features/user/loginSlice.js";
+import { selectAllUsers } from "../../features/user/usersSlice.js";
+import { Box, Container, Typography } from "@mui/material";
+import ButtonSubmit from "../../Components/ButtonSubmit.jsx";
+import IconButton from '@mui/material/IconButton';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+
+/**
+ * Página de Login.
+ *
+ * Renderiza o formulário de login.
+ * Utiliza o `selectAllUsers` do Redux para obter a lista de TODOS os usuários.
+ * A autenticação é feita **no lado do cliente (client-side)**:
+ * 1. O usuário digita E-mail/CPF e Senha.
+ * 2. O `handleSubmit` procura na lista `userList` (do Redux) por uma correspondência.
+ * 3. Se encontrar, despacha `loginSuccess` para o `loginSlice`.
+ * 4. Se não encontrar, despacha `loginFailure`.
+ *
+ * Inclui um toggle para visibilidade da senha.
+ *
+ * @returns {JSX.Element} A página de login.
+ */
+export default function Login() {
+  const [identifier, setIdentifier] = useState(""); // Estado para Email ou CPF
+  const [senha, setSenha] = useState(""); // Estado para Senha
+  const [showSenha, setShowSenha] = useState(false); // Estado para visibilidade da senha
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const userList = useSelector(selectAllUsers); // Busca TODOS os usuários
+
+  console.log("Usuários disponíveis para login:", userList);
+  
+  // Função de submissão do formulário
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!identifier || !senha) {
+      alert("Preencha todos os campos!");
+      return;
+    }
+    // Lógica de autenticação no client-side
+    const foundUser = userList.find(
+      (user) => user.email === identifier || user.cpf === identifier
+    );
+
+    // Se o usuário foi encontrado E a senha bate
+    if (foundUser &amp;&amp; foundUser.senha === senha) {
+      dispatch(loginSuccess(foundUser)); // Despacha sucesso
+      alert(`Bem-vindo, ${foundUser.nome}!`);
+      navigate("/ciclo-revisao"); // Navega para a página principal
+    } else {
+      // Se não encontrou ou a senha está errada
+      const errorMessage = "E-mail/CPF ou senha inválidos.";
+      dispatch(loginFailure(errorMessage)); // Despacha falha
+      alert(errorMessage);
+    }
+  };
+
+  const handleClickShowSenha = () => { // Nova função
+    setShowSenha((show) => !show);
+  };
+
+  return (
+    &lt;>
+      &lt;Box
+        fullWidth
+        margin="normal"
+        sx={{
+          borderStyle: "solid",
+          borderColor: "grey.400",
+          borderWidth: 1,
+          display: "flex",
+          border: "1px grey",
+          borderRadius: 1,
+          boxShadow: 5,
+          backgroundColor: "white",
+          flexGrow: 5,
+        }}
+      >
+        &lt;Container className={styles.loginPageWrapper} maxWidth={"xs"}>
+          &lt;div className={styles.loginContainer}>
+            &lt;Typography
+              component="h1"
+              variant="h4"
+              sx={{
+                color: "#2dd4bf",
+                mb: 4,
+                fontWeight: "bold",
+              }}
+            >
+              Bem-vindo ao FeedUp!
+            &lt;/Typography>
+            &lt;form className={styles.loginForm} onSubmit={handleSubmit}>
+              &lt;label htmlFor="login">E-mail ou CPF&lt;/label>
+              &lt;input
+                id="login"
+                value={identifier}
+                onChange={(e) => setIdentifier(e.target.value)}
+                placeholder="Digite seu e-mail ou CPF"
+              />
+
+              &lt;label htmlFor="senha">Senha&lt;/label>
+              &lt;div style={{ position: 'relative' }}>
+              &lt;input
+                id="senha"
+                // Use o estado showSenha para alternar o tipo
+                type={showSenha ? "text" : "password"}
+                value={senha}
+                onChange={(e) => setSenha(e.target.value)}
+                placeholder="Digite sua senha"
+                style={{ width: '100%', paddingRight: '40px' }} // Ajuste o padding para o ícone
+              />
+              {/* Botão de visibilidade da senha */}
+              &lt;IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowSenha}
+                  edge="end"
+                  // Estilize o botão para aparecer dentro do campo
+                  sx={{
+                    position: 'absolute',
+                    right: 0,
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                  }}
+                >
+                  {showSenha ? &lt;VisibilityOff /> : &lt;Visibility />}
+                &lt;/IconButton>
+              &lt;/div>
+              &lt;ButtonSubmit texto="Entrar" />
+
+              {/* Link para Criar Conta */}
+              &lt;div style={{ marginTop: 12 }}>
+                &lt;Link to="/criar-conta" className={styles.forgot}>
+                  Novo aqui? Criar conta
+                &lt;/Link>
+              &lt;/div>
+            &lt;/form>
+          &lt;/div>
+        &lt;/Container>
+      &lt;/Box>
+    &lt;/>
+  );
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Thu Nov 20 2025 12:24:40 GMT-0300 (Horário Padrão de Brasília)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

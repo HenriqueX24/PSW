@@ -17,6 +17,20 @@ import {
   Stack,
 } from "@mui/material";
 
+/**
+ * Página "Meu Perfil".
+ *
+ * Exibe as informações do usuário atualmente logado (`currentUser`)
+ * obtidas do `loginSlice` do Redux.
+ * É uma rota protegida; redireciona para /login se não estiver autenticado.
+ *
+ * Fornece ações para:
+ * 1. Voltar (navigate -1).
+ * 2. Editar Perfil (navega para /perfil/editar).
+ * 3. Sair (Logout) (navega para /login, mas não despacha 'logout' - [NOTA DE REVISÃO]).
+ *
+ * @returns {JSX.Element} A página de perfil do usuário.
+ */
 export default function Perfil() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -24,18 +38,22 @@ export default function Perfil() {
   const { isAuthenticated, currentUser } = useSelector((state) => state.login);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
+  // Efeito de Proteção de Rota
   useEffect(() => {
     if (!isAuthenticated) {
       navigate("/login");
     }
   }, [isAuthenticated, navigate]);
 
+  // Navega para a página anterior
   const handleVoltar = () => {
     navigate(-1);
   };
+  // Navega para a página de edição
   const handleEdit = () => {
     navigate("/perfil/editar");
   };
+  // Funções para o diálogo de exclusão (atualmente comentado)
   const handleClickOpenDeleteDialog = () => {
     setOpenDeleteDialog(true);
   };
@@ -43,6 +61,7 @@ export default function Perfil() {
     setOpenDeleteDialog(false);
   };
 
+  // Lógica de exclusão (atualmente não utilizada pelo botão)
   const handleConfirmDelete = async () => {
     try {
       await dispatch(deleteUser(currentUser.id)).unwrap();
@@ -56,12 +75,14 @@ export default function Perfil() {
     }
   };
 
+  // Tela de carregamento se 'currentUser' ainda não estiver disponível
   if (!currentUser) {
     return <div>Carregando perfil...</div>;
   }
 
   return (
     <div className="perfil-container">
+      {/* Cabeçalho com botões Voltar e Editar */}
       <header className="perfil-header">
         <button
           type="button"
@@ -90,6 +111,7 @@ export default function Perfil() {
       </header>
       <hr className="divider" />
       <main className="perfil-main">
+        {/* Avatar (placeholder) */}
         <div className="perfil-avatar">
           <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
             <ellipse cx="40" cy="28" rx="16" ry="16" fill="#C4C4C4" />
@@ -100,6 +122,7 @@ export default function Perfil() {
           </svg>
         </div>
 
+        {/* Informações do Usuário (lidas do Redux) */}
         <div className="perfil-info">
           <div className="perfil-campo">
             <span className="perfil-label">Nome</span>
@@ -119,6 +142,7 @@ export default function Perfil() {
             <span className="perfil-valor">{currentUser?.cpf}</span>
           </div>
 
+          {/* Exibição do Cargo (Gestor/Funcionário) */}
           <div className="perfil-campo perfil-radio">
             <label>
               <input
@@ -140,6 +164,7 @@ export default function Perfil() {
             </label>
           </div>
           <div></div>
+          {/* Botão de Sair (Logout) */}
           <div>
             <Stack
               direction="row"
@@ -147,7 +172,7 @@ export default function Perfil() {
               sx={{ display: "flex", align: "left" }}
             >
               <Button
-                onClick={()=>navigate("/login")}
+                onClick={()=>navigate("/login")} // Ação: Navega para /login
                 color="error"
                 variant="outlined"
               >
@@ -159,6 +184,7 @@ export default function Perfil() {
       </main>
 
       <NavBar />
+      {/* Diálogo de Exclusão (atualmente comentado) */}
       {/* Tirando a ideia de encerrar para virar logout
       <Dialog open={openDeleteDialog} onClose={handleCloseDeleteDialog}>
         <DialogTitle>{"Encerrar sua conta?"}</DialogTitle>

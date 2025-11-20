@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: OpcaoSlider.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: OpcaoSlider.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// OpcaoSlider.jsx
+import React from "react";
+import { Box, TextField, Typography, Slider } from "@mui/material";
+
+/**
+ * Componente "filho" para `CardQuestao`.
+ * Renderiza os campos de texto para definir as propriedades de uma
+ * questão do tipo "Slider" (Valor Mínimo, Máximo, Labels, Step).
+ *
+ * @param {object} props - As propriedades do componente.
+ * @param {object} props.questao - O objeto da questão (contendo { id, slider }).
+ * @param {function} props.atualizarQuestao - Callback (id, updates) para atualizar o estado no componente pai.
+ * @returns {JSX.Element} Os campos de input para as opções do slider.
+ */
+function OpcaoSlider({ questao, atualizarQuestao }) {
+  const { id, slider } = questao;
+  const { min, max, step, labelMin, labelMax } = slider;
+
+  // Handler para atualizar qualquer propriedade do objeto 'slider'
+  const handleSliderChange = (prop, value) => {
+    // Garante que min, max e step sejam salvos como números
+    const novoValor =
+      prop === "min" || prop === "max" || prop === "step"
+        ? Number(value)
+        : value;
+    // Chama a função do pai para atualizar o estado
+    atualizarQuestao(id, { slider: { ...slider, [prop]: novoValor } });
+  };
+
+  // Configuração das "marcas" (labels) para o preview do slider
+  const marks = [
+    { value: min, label: labelMin },
+    { value: max, label: labelMax },
+  ];
+
+  return (
+    &lt;Box>
+      &lt;Typography gutterBottom>Preview do Slider:&lt;/Typography>
+      {/* Slider de preview (desabilitado) */}
+      &lt;Slider
+        value={[min]} // Mostra apenas o início
+        min={min}
+        max={max}
+        step={step}
+        valueLabelDisplay="auto"
+        marks={marks}
+        disabled // O usuário não pode interagir com o preview
+      />
+
+      {/* Campos de Input para configurar o Slider */}
+      &lt;Box sx={{ display: "flex", gap: 2, mt: 3, flexWrap: "wrap" }}>
+        &lt;TextField
+          label="Valor Mínimo"
+          type="number"
+          size="small"
+          value={min}
+          onChange={(e) => handleSliderChange("min", e.target.value)}
+          sx={{ flexGrow: 1, minWidth: "120px" }}
+        />
+        &lt;TextField
+          label="Valor Máximo"
+          type="number"
+          size="small"
+          value={max}
+          onChange={(e) => handleSliderChange("max", e.target.value)}
+          sx={{ flexGrow: 1, minWidth: "120px" }}
+        />
+        &lt;TextField
+          label="Step (Incremento)"
+          type="number"
+          size="small"
+          value={step}
+          onChange={(e) => handleSliderChange("step", e.target.value)}
+          sx={{ flexGrow: 1, minWidth: "120px" }}
+        />
+      &lt;/Box>
+
+      {/* Campos de Input para configurar os Labels (Textos) */}
+      &lt;Box sx={{ display: "flex", gap: 2, mt: 2 }}>
+        &lt;TextField
+          label="Label Mínimo"
+          size="small"
+          value={labelMin}
+          onChange={(e) => handleSliderChange("labelMin", e.target.value)}
+          sx={{ flexGrow: 1 }}
+        />
+        &lt;TextField
+          label="Label Máximo"
+          size="small"
+          value={labelMax}
+          onChange={(e) => handleSliderChange("labelMax", e.target.value)}
+          sx={{ flexGrow: 1 }}
+        />
+      &lt;/Box>
+    &lt;/Box>
+  );
+}
+
+export default OpcaoSlider;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#ButtonSubmit">ButtonSubmit</a></li><li><a href="global.html#CardAvaliacao">CardAvaliacao</a></li><li><a href="global.html#CardMeta">CardMeta</a></li><li><a href="global.html#CardQuestao">CardQuestao</a></li><li><a href="global.html#ListaCardAvaliacao">ListaCardAvaliacao</a></li><li><a href="global.html#ListaCardMeta">ListaCardMeta</a></li><li><a href="global.html#NavBar">NavBar</a></li><li><a href="global.html#OpcaoSlider">OpcaoSlider</a></li><li><a href="global.html#OpcoesMultiplaEscolha">OpcoesMultiplaEscolha</a></li><li><a href="global.html#PersistentDrawerRight">PersistentDrawerRight</a></li><li><a href="global.html#SimpleContainer">SimpleContainer</a></li><li><a href="global.html#formatResposta">formatResposta</a></li><li><a href="global.html#handleChange">handleChange</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Thu Nov 20 2025 12:12:08 GMT-0300 (Horário Padrão de Brasília)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

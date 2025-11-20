@@ -5,14 +5,15 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 /**
- * Componente de seleção customizado.
+ * Componente de seleção (Select/Dropdown) customizado e controlado.
+ *
  * @param {object} props - As propriedades do componente.
- * @param {Array<{label: string, value: string|number}>} props.options - As opções a serem exibidas no seletor, agora incluindo 'value'.
- * @param {number | string} props.value - O valor atualmente selecionado.
- * @param {Function} props.onChange - A função a ser chamada quando o valor mudar.
- * @param {string} [props.selectLabel='Status'] - O rótulo a ser exibido no seletor.
+ * @param {Array<object>} props.options - Array de objetos de opção (ex: {label: 'Nome', value: 'valor'}).
+ * @param {string|number} props.value - O valor atualmente selecionado.
+ * @param {function} props.onChange - Função callback chamada quando o valor muda.
+ * @param {string} [props.selectLabel='Status'] - O rótulo (label) do campo de seleção.
+ * @returns {JSX.Element} O componente de seleção.
  */
-
 export default function NativeSelectDemo({ options, value, onChange, selectLabel = 'Status' }) {
   // A função handleChange agora chama a função onChange passada pelo componente pai
   const handleChange = (event) => {

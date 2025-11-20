@@ -26,8 +26,7 @@ const satisfactionOptions = [
   { value: "insatisfeito", label: "Insatisfeito" },
 ];
 {
-  /* 
-const handleDeadlineChange = (event, newValue) => {
+  /* const handleDeadlineChange = (event, newValue) => {
   console.log(`Nova avaliação de prazo: ${newValue}`);
 };
 
@@ -36,6 +35,20 @@ const handleSatisfactionChange = (event, newValue) => {
 };
 */
 }
+
+/**
+ * Componente de formulário de "pesquisa" (Survey).
+ *
+ * Agrupa múltiplos componentes `RowRadioButtonsGroup` para
+ * renderizar um conjunto de perguntas.
+ * As funções de 'onChange' para cada pergunta são recebidas via props.
+ *
+ * @param {object} props - As propriedades do componente.
+ *L* @param {function} props.onQ1Change - Callback para a mudança na Questão 1.
+ * @param {function} props.onQ2Change - Callback para a mudança na Questão 2.
+ * @param {function} props.onQ3Change - Callback para a mudança na Questão 3.
+ * @returns {JSX.Element} O formulário da pesquisa.
+ */
 export default function SurveyForm({ onQ1Change, onQ2Change, onQ3Change }) {
   return (
     <div>

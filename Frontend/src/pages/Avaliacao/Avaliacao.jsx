@@ -20,6 +20,10 @@ import Title from "../../Components/Title.jsx";
 import ButtonCreate from "../../Components/ButtonCreate.jsx";
 import MenuNav from "../../Components/MenuNav.jsx";
 
+/**
+ * Componente interno para os links de navegação do Desktop.
+ * @returns {JSX.Element}
+ */
 const NavLinks = () => (
   <Box
     sx={{
@@ -55,6 +59,12 @@ const NavLinks = () => (
   </Box>
 );
 
+/**
+ * Componente interno para a barra de navegação inferior (BottomNav).
+ * @param {object} props - Propriedades.
+ * @param {function} props.navigate - A função navigate do React Router.
+ * @returns {JSX.Element}
+ */
 // Componente para a barra de navegação inferior (Bottom Navigation)
 const BottomNav = ({ navigate }) => (
   <Box
@@ -106,6 +116,18 @@ const BottomNav = ({ navigate }) => (
   </Box>
 );
 
+/**
+ * Página "Avaliação".
+ *
+ * Exibe a lista de *modelos* de avaliação disponíveis.
+ * Utiliza o componente `ListaCardAvaliacao` para buscar e renderizar
+ * os cards de avaliação do Redux (avaliacaoSlice).
+ *
+ * Renderiza condicionalmente o botão "Criar Avaliação"
+ * (`ButtonCreate`) se o usuário logado for um "gestor".
+ *
+ * @returns {JSX.Element} A página de listagem de avaliações.
+ */
 function Avaliacao() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -113,7 +135,9 @@ function Avaliacao() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const RouterLink = Link;
+  // Busca o usuário logado do Redux
   const user = useSelector((state) => state.login?.currentUser);
+  // Verifica se o usuário é um gestor
   const isGestor = user && user.cargo === "gestor";
 
   return (
@@ -135,7 +159,7 @@ function Avaliacao() {
             type="button"
             className="botao-voltar"
             aria-label="Voltar"
-            onClick={() => navigate(-1)} /*  navigate(-1) volta para a última página acessada*/
+            onClick={() => navigate(-1)} /* navigate(-1) volta para a última página acessada*/
           >
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
               <path
@@ -149,7 +173,6 @@ function Avaliacao() {
           </button>
 
           {/* Título Avaliações */}
-
           <Title titulo="Avaliações" className="titulo-pagina"/>
         </Container>
 
@@ -159,6 +182,7 @@ function Avaliacao() {
         <div className="avaliacao-container">
           {/* LISTA */}
           <AppBar position="static" color="default" elevation={1}>
+            {/* Componente que busca e lista as avaliações do Redux */}
             <ListaCardAvaliacao />
             {/*Condição para renderizar o botão SOMENTE se o usuário for um Gestor */}
             {isGestor && (

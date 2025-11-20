@@ -11,6 +11,7 @@ import NavBar from "../../Components/NavBar";
 import NativeSelectDemo from "../../Components/NativeSelectDemo";
 
 // Corrigido "em-analise" para "Em análise" para melhor exibição
+// Mapeamento dos status para exibição e classes CSS
 const STATUS_MAP = [
   { label: "Pendente", className: "pendente" },
   { label: "Em análise", className: "em-analise" },
@@ -18,21 +19,38 @@ const STATUS_MAP = [
   { label: "Cancelado", className: "cancelado" },
 ];
 
-// Função auxiliar para formatar a data
+// Função auxiliar para formatar a data (timestamp)
 const formatarData = (timestamp) => {
     const date = new Date(timestamp);
     return date.toLocaleDateString('pt-BR') + ' ' + date.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
 };
 
-
+/**
+ * Página "Detalhe da Meta".
+ *
+ * Exibe e permite a *edição* de uma meta específica.
+ * Obtém o `id` da meta da URL (via `useParams`) e busca os dados
+ * do Redux (`selectMetaById`).
+ *
+ * Permite ao usuário:
+ * 1. Alterar o 'status' da meta (usando `NativeSelectDemo`).
+ * 2. Adicionar um novo comentário.
+ * 3. Ver o histórico de comentários anteriores.
+ *
+ * Ao clicar em "Confirmar Edição", despacha a ação `updateMeta` do Redux
+ * para salvar o novo status e/ou o novo comentário no histórico.
+ *
+ * @returns {JSX.Element} A página de detalhe e edição da meta.
+ */
 export default function MetaDetalhe() {
-  const [novoComentario, setNovoComentario] = useState(""); // Renomeado para 'novoComentario'
-  const [range, setRange] = useState(0); 
+  const [novoComentario, setNovoComentario] = useState(""); // Estado para o campo de novo comentário
+  const [range, setRange] = useState(0); // Estado para o índice do status selecionado
   const navigate = useNavigate();
   const { id } = useParams();
   const dispatch = useDispatch();
-  const meta = useSelector((state) => selectMetaById(state, id));
+  const meta = useSelector((state) => selectMetaById(state, id)); // Busca a meta específica
 
+  // Efeito para sincronizar o 'range' (índice do status) com o status atual da meta
   useEffect(() => {
     // 1. Verifica se a meta existe
     if (meta) {
@@ -57,8 +75,9 @@ export default function MetaDetalhe() {
           } */}
       }
     }
-  }, [meta]); 
+  }, [meta]); // Dependência: 'meta'. Roda quando a meta é carregada
 
+  // Função para salvar as atualizações (Status e/ou Comentário)
   const handleUpdate = async () => {
     const newStatus = STATUS_MAP[range].label;
     
@@ -68,6 +87,7 @@ export default function MetaDetalhe() {
     // 2. Há um novo comentário para adicionar?
     const commentAdded = novoComentario.trim() !== "";
     
+    // Se nada mudou, informa o usuário
     if (!statusChanged && !commentAdded) {
       alert("Nenhuma alteração de status ou novo comentário para salvar.");
       return;
@@ -96,6 +116,7 @@ export default function MetaDetalhe() {
       // Neste caso, estamos usando `novoComentario` e não o incluímos explicitamente.
 
 
+      // Despacha a ação de atualização para o Redux
       await dispatch(updateMeta(updatedMeta)).unwrap();
       
       // Se a atualização foi bem-sucedida, limpamos o campo de comentário.
@@ -111,6 +132,7 @@ export default function MetaDetalhe() {
     }
   };
 
+  // Tela de "Não Encontrado" se a meta não existir
   if (!meta) {
     return (
       <section>
@@ -120,8 +142,9 @@ export default function MetaDetalhe() {
     );
   }
 
+  // Define o status atual baseado no 'range'
   const currentStatus = STATUS_MAP[range] || STATUS_MAP[0];
-  const comentarios = meta.comentarios || []; // Garante que seja um array para iteração
+  const comentarios = meta.comentarios || []; // Garante que 'comentarios' seja um array
 
   return (
     <>
@@ -140,7 +163,7 @@ export default function MetaDetalhe() {
           type="button"
           className="back-btn"
           aria-label="Voltar"
-          onClick={() => navigate(-1)}
+          onClick={() => navigate(-1)} // Botão de voltar
           style={{
             marginRight: 0,
             padding: 0,
@@ -169,6 +192,7 @@ export default function MetaDetalhe() {
           <Typography variant="h5" textAlign="center" className="goal-title">
             {meta.titulo}
           </Typography>
+          {/* Seção de Status (Label e Seletor) */}
           <div className="range">
             <div className={`goal-status ${currentStatus.className}`}>
               {currentStatus.label}
@@ -180,6 +204,7 @@ export default function MetaDetalhe() {
               selectLabel="Status" // Adicione o label para o seletor
             />
           </div>
+          {/* Detalhes da Meta */}
           <div className="goal-desc">
             <strong>Descrição:</strong>
             <p>{meta.descricao}</p>
@@ -203,6 +228,7 @@ export default function MetaDetalhe() {
                       Histórico de Comentários:
                   </Typography>
                   <Box className="comentario-list" sx={{ maxHeight: '150px', overflowY: 'auto', p: 1, border: '1px solid #ccc', borderRadius: '4px' }}>
+                      {/* Mapeia e renderiza os comentários existentes */}
                       {comentarios.map((c, index) => (
                           <Box key={index} sx={{ mb: 1, p: 1, backgroundColor: '#f9f9f9', borderRadius: '4px' }}>
                               <Typography variant="caption" display="block" color="text.secondary">
@@ -229,6 +255,7 @@ export default function MetaDetalhe() {
           </div>
         </Container>
 
+        {/* Botão de Submissão/Atualização */}
         <button type="button" className="edit-goal-btn" onClick={handleUpdate}>
           <span className="edit-icon">&#9998;</span> Confirmar Edição
         </button>
