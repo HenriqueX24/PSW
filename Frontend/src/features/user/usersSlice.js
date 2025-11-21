@@ -68,6 +68,30 @@ export const usersSlice = createSlice({
   },
 });
 
+export const loginUser = createAsyncThunk(
+  'users/loginUser', 
+  async ({ identifier, senha }, { rejectWithValue }) => {
+    try {
+      const response = await fetch('http://localhost:4000/users/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: identifier, senha }), // O backend espera `email` e `senha`
+      });
+
+      // Se a resposta não for 2xx, lance um erro
+      if (!response.ok) {
+        const errorData = await response.json();
+        return rejectWithValue(errorData.msg || 'Falha na autenticação');
+      }
+
+      const data = await response.json();
+      return data; // Retorna o token e os dados do usuário
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 export const { addUser } = usersSlice.actions;
 
 export const {

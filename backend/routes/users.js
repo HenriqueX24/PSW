@@ -37,17 +37,22 @@ router.route('/:id').get((req, res) => {
     .catch(err => res.status(400).json('Erro: ' + err));
 });
 router.route('/login').post(async (req, res) => {
-  const { email, senha } = req.body;
+  const { email, senha } = req.body; // Mudar de 'email' para 'identifier' para flexibilidade
 
  if (!email || !senha) {
     return res.status(400).json({ msg: 'Por favor, forneça email e senha.' });
   }
 
   try {
-   
-    const user = await User.findOne({ email }).select('+senha');
-
-    
+    // Busca por email OU cpf. A expressão regular (regex) é opcional, 
+    // mas ajuda a garantir que o campo esteja sendo usado corretamente.
+    const user = await User.findOne({ 
+      $or: [
+        { email: email }, // Procura pelo valor em 'email' na coluna 'email'
+        { cpf: email } // Procura pelo valor em 'email' na coluna 'cpf'
+        ]
+    }).select('+senha');
+ 
     if (!user) {
     
       return res.status(401).json({ msg: 'Credenciais inválidas' }); 
