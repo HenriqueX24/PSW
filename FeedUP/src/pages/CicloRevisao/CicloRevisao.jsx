@@ -10,7 +10,6 @@ import CardCiclo from "../../Components/CardCiclo";
 import ButtonCreate from "../../Components/ButtonCreate";
 import { Grid, Box, Container } from "@mui/material";
 import Title from "../../Components/Title";
-import SetaVoltar from "../../Components/SetaVoltar";
 
 export default function CicloRevisao() {
   const navigate = useNavigate();
@@ -24,6 +23,7 @@ export default function CicloRevisao() {
       dispatch(fetchCiclos());
     }
   }, [ciclosStatus, dispatch]);
+
   let content;
   if (ciclosStatus === "loading") {
     content = <p>Carregando ciclos...</p>;
@@ -44,9 +44,9 @@ export default function CicloRevisao() {
         </h2>
         <Grid container spacing={2}>
           {ciclosAgrupados[tipo].map((ciclo) => (
-            <Grid item xs={12} sm={6} md={4} key={ciclo.id}>
+            <Grid item xs={12} sm={6} md={4} key={ciclo._id}>
               <Link
-                to={`/ciclo-funcionarios/${ciclo.id}`}
+                to={`/ciclo-funcionarios/${ciclo._id}`}
                 className="card-link"
               >
                 <CardCiclo ciclo={ciclo} />
@@ -66,21 +66,20 @@ export default function CicloRevisao() {
         className="cabecalho"
         maxWidth="lg"
         sx={{
-          display: "flex", // Habilita Flexbox
-          alignItems: "center", // Centraliza verticalmente
-          justifyContent: "flex-start", // Alinha ao início (esquerda)
-          gap: 60, // Adiciona um pequeno espaço entre a seta e o título
-          py: 3, // Padding vertical
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "flex-start",
+          gap: 60,
+          py: 3,
         }}
       >
-        
-        <Title className="titulo-pagina"  titulo="Ciclos de Revisão" />
+        <Title className="titulo-pagina" titulo="Ciclos de Revisão" />
       </Container>
 
       <MenuNav label={"Ciclo de Revisão"} />
       <main className="ciclo-main">
         {content}
-        {currentUser && currentUser.cargo === "gestor" && (
+        {currentUser && currentUser.user && currentUser.user.cargo === "gestor" && (
           <ButtonCreate
             nameButton={"Criar Ciclo"}
             onClick={() => navigate("/criar-ciclo")}
