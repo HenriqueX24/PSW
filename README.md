@@ -9,7 +9,7 @@ Está na pasta Frontend. Faça um clone e
  *npx json-server --watch db.json --port 3001*
 * rode o software: *npm run dev*
 
-<h3>Versão Backend com Node,Express,MongoDB,JWT</h3>
+<h3>Backend com Node,Express,MongoDB,JWT</h3>
 
 * instale as dependêcias: npm i 
 
