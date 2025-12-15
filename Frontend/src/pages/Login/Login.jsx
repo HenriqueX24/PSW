@@ -72,19 +72,6 @@ export default function Login() {
     const foundUser = userList.find(
       (user) => user.email === identifier || user.cpf === identifier
     );
-    /*
-    // Se o usuário foi encontrado E a senha bate
-    if (foundUser && foundUser.senha === senha) {
-      dispatch(loginSuccess(foundUser)); // Despacha sucesso
-      alert(`Bem-vindo, ${foundUser.nome}!`);
-      navigate("/ciclo-revisao"); // Navega para a página principal
-    } else {
-      // Se não encontrou ou a senha está errada
-      const errorMessage = "E-mail/CPF ou senha inválidos.";
-      dispatch(loginFailure(errorMessage)); // Despacha falha
-      alert(errorMessage);
-    }
-    */
   };
 
   const handleClickShowSenha = () => {

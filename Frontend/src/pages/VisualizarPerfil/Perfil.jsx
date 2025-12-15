@@ -184,24 +184,6 @@ export default function Perfil() {
       </main>
 
       <NavBar />
-      {/* Diálogo de Exclusão (atualmente comentado) */}
-      {/* Tirando a ideia de encerrar para virar logout
-      <Dialog open={openDeleteDialog} onClose={handleCloseDeleteDialog}>
-        <DialogTitle>{"Encerrar sua conta?"}</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Esta ação é permanente. Todos os seus dados serão removidos. Tem
-            certeza que deseja continuar?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDeleteDialog}>Cancelar</Button>
-          <Button onClick={handleConfirmDelete} color="error" autoFocus>
-            Encerrar Conta
-          </Button>
-        </DialogActions>
-      </Dialog>
-       */}
     </div>
   );
 }

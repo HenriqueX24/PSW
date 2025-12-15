@@ -1,8 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const userFromStorage = JSON.parse(localStorage.getItem("currentUser"));
+
 const initialState = {
-  isAuthenticated: false,
-  currentUser: null,
+  isAuthenticated: !!userFromStorage,
+  currentUser: userFromStorage || null,
   error: null,
 };
 
@@ -30,7 +32,6 @@ export const loginSlice = createSlice({
     },
   },
 });
-
 
 export const { loginSuccess, loginFailure, logout } = loginSlice.actions;
 
