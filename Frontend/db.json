@@ -208,16 +208,20 @@
   "ciclos": [
     {
       "id": "2c23",
-      "avaliadores": [
-        "gestor1"
-      ],
-      "avaliados": [
-        "Pedro"
-      ],
+      "avaliadores": ["gestor1"],
+      "avaliados": ["Pedro"],
       "titulo": "Ciclo do Departamento de Marketing",
       "tipo": "Mensal",
       "inicio": "2025-10-26",
       "termino": "2025-11-26"
     }
-  ]
+  ],
+  "currentUser": {
+    "id": "1",
+    "nome": "Pedro",
+    "cpf": "111.222.333-44",
+    "email": "pedro@teste.com",
+    "senha": "123456",
+    "cargo": "funcionario"
+  }
 }

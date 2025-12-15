@@ -14,6 +14,7 @@ export const loginSlice = createSlice({
       state.isAuthenticated = true;
       state.currentUser = action.payload;
       state.error = null;
+      state.token = action.payload.token;
     },
 
     loginFailure: (state, action) => {
@@ -29,6 +30,7 @@ export const loginSlice = createSlice({
     },
   },
 });
+
 
 export const { loginSuccess, loginFailure, logout } = loginSlice.actions;
 

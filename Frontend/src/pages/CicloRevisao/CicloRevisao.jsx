@@ -11,6 +11,7 @@ import ButtonCreate from "../../Components/ButtonCreate";
 import { Grid, Box, Container } from "@mui/material";
 import Title from "../../Components/Title";
 import SetaVoltar from "../../Components/SetaVoltar";
+import { createEntityAdapter } from "@reduxjs/toolkit";
 
 /**
  * Página "Ciclo de Revisão".
@@ -31,7 +32,9 @@ export default function CicloRevisao() {
   const dispatch = useDispatch();
   const ciclos = useSelector(selectAllCiclos); // Busca todos os ciclos
   const ciclosStatus = useSelector((state) => state.ciclos.status); // Busca o status (idle, loading, etc.)
-  const { currentUser } = useSelector((state) => state.login); // Busca o usuário logado
+  const reduxUser = useSelector((state) => state.login.currentUser);
+  const currentUser =
+    reduxUser || JSON.parse(localStorage.getItem("currentUser"));
 
   // Efeito para buscar os ciclos do Redux (da "API")
   useEffect(() => {
@@ -64,10 +67,9 @@ export default function CicloRevisao() {
         </h2>
         <Grid container spacing={2}>
           {ciclosAgrupados[tipo].map((ciclo) => (
-            <Grid item xs={12} sm={6} md={4} key={ciclo.id}>
-              {/* Cada card é um link para a lista de funcionários do ciclo */}
+            <Grid item xs={12} sm={6} md={4} key={ciclo._id}>
               <Link
-                to={`/ciclo-funcionarios/${ciclo.id}`}
+                to={`/ciclo-funcionarios/${ciclo._id}`}
                 className="card-link"
               >
                 <CardCiclo ciclo={ciclo} />
@@ -94,8 +96,7 @@ export default function CicloRevisao() {
           py: 3, // Padding vertical
         }}
       >
-        
-        <Title className="titulo-pagina"  titulo="Ciclos de Revisão" />
+        <Title className="titulo-pagina" titulo="Ciclos de Revisão" />
       </Container>
 
       <MenuNav label={"Ciclo de Revisão"} />
@@ -114,3 +115,7 @@ export default function CicloRevisao() {
     </Box>
   );
 }
+
+const ciclosAdapter = createEntityAdapter({
+  selectId: (ciclo) => ciclo._id,
+});

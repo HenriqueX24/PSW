@@ -4,7 +4,9 @@ import {
   createEntityAdapter,
 } from "@reduxjs/toolkit";
 
-const ciclosAdapter = createEntityAdapter();
+const ciclosAdapter = createEntityAdapter({
+  selectId: (ciclo) => ciclo._id,
+});
 
 const initialState = ciclosAdapter.getInitialState({
   status: "idle",
@@ -12,10 +14,35 @@ const initialState = ciclosAdapter.getInitialState({
 });
 
 export const fetchCiclos = createAsyncThunk("ciclos/fetchCiclos", async () => {
-  const response = await fetch("http://localhost:3001/ciclos");
-  return response.json();
+  // 1. Obter o token de autenticação (e.g., do localStorage ou do estado Redux)
+  const token = localStorage.getItem("userToken"); // Supondo que você armazena o token aqui
+
+// *** ADICIONE ESTE LOG PARA DEBUG ***
+console.log("Token para fetchCiclos:", token);
+
+if (!token) {
+  // Você pode lançar um erro mais explícito ou apenas deixar que a chamada falhe,
+  // mas é melhor garantir que a requisição só ocorra se o token existir.
+  throw new Error("Token de autenticação não encontrado. Faça login.");
+}
+
+  // 2. Incluir o token no cabeçalho 'Authorization'
+  const response = await fetch("http://localhost:3001/ciclos", {
+  headers: {
+      // O esquema 'Bearer' é o mais comum para tokens JWT
+      "Authorization": `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },  
 });
 
+// 3. Opcional: Tratar a resposta 401/403 aqui se precisar de lógica específica
+  if (!response.ok) {
+    // Isso fará com que a thunk caia no .rejected
+    throw new Error("Falha na autenticação ou autorização.");
+  }
+
+return response.json();
+});
 export const addNewCiclo = createAsyncThunk(
   "ciclos/addNewCiclo",
   async (novoCiclo) => {

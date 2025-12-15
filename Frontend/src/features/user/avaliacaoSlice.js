@@ -56,7 +56,7 @@ export const deleteAvaliacao = createAsyncThunk(
     await fetch(`http://localhost:3001/avaliacoes/${avaliacaoId}`, {
       method: "DELETE",
     });
-    return avaliacaoId; 
+    return avaliacaoId;
   }
 );
 
@@ -77,12 +77,11 @@ const avaliacaoSlice = createSlice({
         state.status = "failed";
         state.error = action.error.message;
       })
-      .addCase(addNewAvaliacao.fulfilled, avaliacoesAdapter.addOne) 
-      .addCase(updateAvaliacao.fulfilled, avaliacoesAdapter.upsertOne) 
-      .addCase(deleteAvaliacao.fulfilled, avaliacoesAdapter.removeOne); 
+      .addCase(addNewAvaliacao.fulfilled, avaliacoesAdapter.addOne)
+      .addCase(updateAvaliacao.fulfilled, avaliacoesAdapter.upsertOne)
+      .addCase(deleteAvaliacao.fulfilled, avaliacoesAdapter.removeOne);
   },
 });
-
 
 export const {
   selectAll: selectAllAvaliacoes,
@@ -92,7 +91,8 @@ export const {
 
 export const selectAvaliacoesRespondidas = createSelector(
   [selectAllAvaliacoes],
-  (avaliacoes) => avaliacoes.filter((avaliacao) => avaliacao.status === "Respondida")
+  (avaliacoes) =>
+    avaliacoes.filter((avaliacao) => avaliacao.status === "Respondida")
 );
 
 export default avaliacaoSlice.reducer;

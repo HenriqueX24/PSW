@@ -49,14 +49,19 @@ export default function Login() {
     // 2. Verifica o resultado da ação
     if (loginUser.fulfilled.match(resultAction)) {
       // Login bem-sucedido. O payload contém o token e os dados do usuário.
-      // Você deve salvar o token no localStorage/sessão aqui se necessário.
-      // A thunk/slice também deve atualizar o estado de login.
+      // Salve o token no localStorage:
+      localStorage.setItem("userToken", resultAction.payload.token);
+      // (Opcional) Salve o usuário também, se quiser:
+      localStorage.setItem(
+        "currentUser",
+        JSON.stringify(resultAction.payload.user)
+      );
       alert(`Bem-vindo, ${resultAction.payload.user.nome}!`);
-      navigate("/ciclo-revisao"); 
-
+      navigate("/ciclo-revisao");
     } else if (loginUser.rejected.match(resultAction)) {
       // Login falhou.
-      const errorMessage = resultAction.payload || "E-mail/CPF ou senha inválidos.";
+      const errorMessage =
+        resultAction.payload || "E-mail/CPF ou senha inválidos.";
       // Sua action loginFailure pode ser despachada aqui, se necessário.
       alert(errorMessage);
 
@@ -90,7 +95,7 @@ export default function Login() {
   return (
     <>
       <Box
-        fullWidth
+        fullwidth="true"
         margin="normal"
         sx={{
           borderStyle: "solid",

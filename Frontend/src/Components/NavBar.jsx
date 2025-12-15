@@ -44,15 +44,14 @@ const BottomNav = ({ navigate }) => (
         color: "var(--icon)",
       },
     ].map((item) => (
-      <Tooltip title={item.label}>
-      <IconButton
-        key={item.path}
-        onClick={() => navigate(item.path)}
-        aria-label={item.label}
-        color="default"
-      >
-        <item.Icon sx={{ color: item.color }} fontSize="large" />
-      </IconButton>
+      <Tooltip title={item.label} key={item.path}>
+        <IconButton
+          onClick={() => navigate(item.path)}
+          aria-label={item.label}
+          color="default"
+        >
+          <item.Icon sx={{ color: item.color }} fontSize="large" />
+        </IconButton>
       </Tooltip>
     ))}
   </Box>
@@ -79,3 +78,14 @@ function NavBar() {
 }
 
 export default NavBar;
+
+// loginSlice.js
+const userFromStorage = JSON.parse(localStorage.getItem("currentUser"));
+
+const initialState = {
+  isAuthenticated: !!userFromStorage,
+  currentUser: userFromStorage || null,
+  // ...outros campos
+};
+
+//localStorage.setItem("currentUser", JSON.stringify(usuario));
