@@ -100,6 +100,8 @@ export default function Perfil() {
             />
           </svg>
         </button>
+        
+        <h1>Meu Perfil</h1>
         <IconButton
           onClick={handleEdit}
           aria-label="Editar Perfil"
@@ -107,7 +109,6 @@ export default function Perfil() {
         >
           <EditIcon />
         </IconButton>
-        <h1>Meu Perfil</h1>
       </header>
       <hr className="divider" />
       <main className="perfil-main">
