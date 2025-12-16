@@ -68,11 +68,7 @@ export const loginSlice = createSlice({
   name: 'login',
   initialState,
   reducers: {
-    logout: (state) => {
-      state.isAuthenticated = false;
-      state.currentUser = null;
-      state.error = null;
-    },
+    logout: () => initialState,
     resetUpdate: (state) => { 
         state.isSuccess = false;
         state.error = null;

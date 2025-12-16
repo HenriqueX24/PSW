@@ -1,6 +1,5 @@
-// fileName: CicloFuncionarios.jsx (Atualizado para incluir Gestores)
 import "./ciclo-funcionarios.css";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import CardFuncionario from "../../Components/CardFuncionario"; 
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -43,9 +42,9 @@ export default function CicloFuncionarios() {
   }
   
   // CORREÇÃO: Filtra APENAS os usuários que estão no ciclo. 
-  // O filtro é feito comparando o 'nome' do usuário com o array 'avaliados' do ciclo.
+  // O filtro é feito comparando o '_id' do usuário com o array 'avaliados' do ciclo.
   const employeesInCycle = allUsers.filter(user => 
-    (ciclo?.avaliados || []).includes(user.nome)
+    (ciclo?.avaliados || []).includes(user.id)
   );
 
   // NOVO: Adicione uma propriedade ao ciclo que aponta para o ID da avaliação.
@@ -100,7 +99,7 @@ export default function CicloFuncionarios() {
 
             return (
               <CardFuncionario
-                key={emp.id}
+                key={emp._id}
                 employee={emp}
                 avaliacaoStatus={avaliacaoStatus} // "pendente" para todos
                 avaliacaoId={avaliacoId} // PASSA O ID VÁLIDO

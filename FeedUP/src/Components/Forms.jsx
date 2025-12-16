@@ -36,7 +36,7 @@ export default function Forms() {
   const { register, handleSubmit, formState: { errors, isSubmitting }, setValue } = useForm({
     resolver: yupResolver(validationSchema),
     context: { isEditMode }, 
-    defaultValues: isEditMode ? currentUser : { cargo: 'funcionario' }
+    defaultValues: isEditMode ? (currentUser?.user || currentUser) : { cargo: 'funcionario' }
   });
 
   const handleCpfChange = (e) => {
@@ -55,7 +55,8 @@ export default function Forms() {
     try {
       if (isEditMode) {
         // Lógica de edição (já usa await)
-        await dispatch(updateUser({ ...currentUser, ...data })).unwrap();
+        const userToEdit = currentUser?.user || currentUser;
+        await dispatch(updateUser({ ...userToEdit, ...data })).unwrap();
         alert('Perfil atualizado com sucesso!');
         navigate('/perfil');
       } else {

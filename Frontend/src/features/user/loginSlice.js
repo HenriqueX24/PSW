@@ -5,7 +5,6 @@ const userFromStorage = JSON.parse(localStorage.getItem("currentUser"));
 const initialState = {
   isAuthenticated: !!userFromStorage,
   currentUser: userFromStorage || null,
-  error: null,
 };
 
 export const loginSlice = createSlice({
@@ -25,11 +24,22 @@ export const loginSlice = createSlice({
       state.error = action.payload;
     },
 
-    logout: (state) => {
-      state.isAuthenticated = false;
-      state.currentUser = null;
+    logout: () => initialState,
+      
+      //localStorage.removeItem("currentUser");
+      //localStorage.removeItem("userToken");
+    resetUpdate: (state) => {
+      state.isSucsess = false;
       state.error = null;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase("loginUser/fulfilled", (state, action) => {
+        state.isAuthenticated = true;
+        state.currentUser = action.payload.user;
+      })
+      .addDefaultCase((state, action) => {});
   },
 });
 

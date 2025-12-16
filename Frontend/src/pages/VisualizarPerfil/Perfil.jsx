@@ -100,7 +100,7 @@ export default function Perfil() {
             />
           </svg>
         </button>
-        
+
         <h1>Meu Perfil</h1>
         <IconButton
           onClick={handleEdit}
@@ -173,7 +173,7 @@ export default function Perfil() {
               sx={{ display: "flex", align: "left" }}
             >
               <Button
-                onClick={()=>navigate("/login")} // Ação: Navega para /login
+                onClick={() => navigate("/login")} // Ação: Navega para /login
                 color="error"
                 variant="outlined"
               >
