@@ -5,7 +5,7 @@ import {
 } from "@reduxjs/toolkit";
 
 const ciclosAdapter = createEntityAdapter({
-  selectId: (ciclo) => ciclo._id,
+  selectId: (ciclo) => ciclo._id || ciclo.id,
 });
 
 const initialState = ciclosAdapter.getInitialState({
@@ -14,34 +14,34 @@ const initialState = ciclosAdapter.getInitialState({
 });
 
 export const fetchCiclos = createAsyncThunk("ciclos/fetchCiclos", async () => {
-  // 1. Obter o token de autenticação (e.g., do localStorage ou do estado Redux)
-  const token = localStorage.getItem("userToken"); // Supondo que você armazena o token aqui
+  // 1. Obter o token de autenticação
+  const token = localStorage.getItem("userToken"); //armazena o token aqui
 
-// *** ADICIONE ESTE LOG PARA DEBUG ***
-console.log("Token para fetchCiclos:", token);
+  // *** ADICIONE ESTE LOG PARA DEBUG ***
+  console.log("Token para fetchCiclos:", token);
 
-if (!token) {
-  // Você pode lançar um erro mais explícito ou apenas deixar que a chamada falhe,
-  // mas é melhor garantir que a requisição só ocorra se o token existir.
-  throw new Error("Token de autenticação não encontrado. Faça login.");
-}
+  if (!token) {
+    // Você pode lançar um erro mais explícito ou apenas deixar que a chamada falhe,
+    // mas é melhor garantir que a requisição só ocorra se o token existir.
+    throw new Error("Token de autenticação não encontrado. Faça login.");
+  }
 
   // 2. Incluir o token no cabeçalho 'Authorization'
   const response = await fetch("http://localhost:3001/ciclos", {
-  headers: {
+    headers: {
       // O esquema 'Bearer' é o mais comum para tokens JWT
-      "Authorization": `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
-    },  
-});
+    },
+  });
 
-// 3. Opcional: Tratar a resposta 401/403 aqui se precisar de lógica específica
+  // 3. Opcional: Tratar a resposta 401/403 aqui se precisar de lógica específica
   if (!response.ok) {
     // Isso fará com que a thunk caia no .rejected
     throw new Error("Falha na autenticação ou autorização.");
   }
 
-return response.json();
+  return response.json();
 });
 export const addNewCiclo = createAsyncThunk(
   "ciclos/addNewCiclo",

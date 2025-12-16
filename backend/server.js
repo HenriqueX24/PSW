@@ -30,6 +30,9 @@ app.use("/metas", metasRouter);
 const ciclosRouter = require("./routes/ciclos");
 app.use("/ciclos", ciclosRouter);
 
+const avaliacoesRouter = require("./routes/avaliacoes");
+app.use("/avaliacoes", avaliacoesRouter);
+
 app.listen(PORT, () => {
   console.log(`🚀 Servidor back-end rodando na porta ${PORT}`);
 });

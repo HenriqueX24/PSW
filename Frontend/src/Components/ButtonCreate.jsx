@@ -31,7 +31,6 @@ export default function ButtonCreate({ nameButton, onClick }) {
           textTransform: "none", // Impede que o texto fique em MAIÚSCULAS
           margin: "20px",
         }}
-        borderRadius={8}
       >
         <span className="plus-icon">+</span> {nameButton}
       </Button>

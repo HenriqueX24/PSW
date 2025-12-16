@@ -2,17 +2,17 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
+import StepButton from "@mui/material/StepLabel";
 import Typography from "@mui/material/Typography";
 import { useNavigate, useLocation } from "react-router-dom";
 
 // Define as etapas e suas rotas correspondentes
 const steps = [
   { label: "Ciclo de Revisão", route: "/ciclo-revisao" },
-  { label: "Funcionários", route: "/ciclo-funcionarios" },
-  { label: "Avaliações", route: "/avaliacao" },
+  { label: "Funcionários", route: "/ciclo-funcionarios/:id" },
+  { label: "Avaliações", route: "/avaliacao/:id" },
   { label: "Metas", route: "/metas" },
-  { label: "Fazer Avaliação", route: "/fazer-avaliacao" },
+  { label: "Fazer Avaliação", route: "/fazer-avaliacao/:id" },
 ];
 
 /**
@@ -38,11 +38,7 @@ export default function HorizontalLinearStepper() {
   // Navega para a rota do step que foi clicado
   const handleStepClick = (index) => {
     const target = steps[index].route;
-
-    // Lógica de fallback (mapa 'fallbackMap' não está definido aqui,
-    // mas a intenção é navegar para o 'target')
-    const finalRoute = /* fallbackMap[target] || */ target;
-    navigate(finalRoute);
+    navigate(target);
   };
 
   return (
@@ -50,12 +46,12 @@ export default function HorizontalLinearStepper() {
       <Stepper activeStep={activeStep >= 0 ? activeStep : 0} alternativeLabel>
         {steps.map((step, index) => (
           <Step key={step.label}>
-            <StepLabel
+            <StepButton
               onClick={() => handleStepClick(index)}
               sx={{ cursor: "pointer" }} // Adiciona cursor de clique
             >
               {step.label}
-            </StepLabel>
+            </StepButton>
           </Step>
         ))}
       </Stepper>

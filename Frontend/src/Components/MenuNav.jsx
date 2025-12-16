@@ -64,17 +64,6 @@ export default function MenuNav() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
-  // 3. Gerenciar o estado do Drawer (menu mobile)
-  const [open, setOpen] = useState(false);
-
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
   return (
     // Envolver tudo em um Box para melhor gestão de layout
     <Box sx={{ flexGrow: 1 }}>

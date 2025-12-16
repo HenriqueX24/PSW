@@ -150,6 +150,7 @@ export default function Perfil() {
                 type="radio"
                 name="tipo"
                 checked={currentUser?.cargo === "funcionario"}
+                readOnly
               />
               <span className="radio-custom" />
               Funcionário
@@ -159,6 +160,7 @@ export default function Perfil() {
                 type="radio"
                 name="tipo"
                 checked={currentUser?.cargo === "gestor"}
+                readOnly
               />
               <span className="radio-custom" />
               Gestor

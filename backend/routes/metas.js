@@ -15,7 +15,8 @@ router.route('/').post((req, res) => {
   const novaMeta = new Meta({
     titulo,
     descricao,
-    periodo,
+    inicio,
+    termino,
     responsavel,
     status
   });

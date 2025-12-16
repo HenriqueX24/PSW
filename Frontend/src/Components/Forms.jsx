@@ -69,8 +69,7 @@ export default function Forms() {
     resolver: yupResolver(validationSchema),
     context: { isEditMode },
     defaultValues: isEditMode
-      ? currentUser?.user || currentUser
-      : { cargo: "funcionario" }, // Define valores padrão
+      ? currentUser?.user || currentUser : { cargo: "funcionario" }, // Define valores padrão
   });
 
   // Máscara para o campo de CPF
