@@ -5,7 +5,10 @@ import {
   createSelector,
 } from "@reduxjs/toolkit";
 
-const metasAdapter = createEntityAdapter({});
+const metasAdapter = createEntityAdapter({
+  selectId: (instance) => instance._id || instance.id,
+});
+
 const initialState = metasAdapter.getInitialState({
   status: "idle",
   error: null,
@@ -19,16 +22,25 @@ export const fetchMetas = createAsyncThunk("metas/fetchMetas", async () => {
 
 export const addNewMeta = createAsyncThunk(
   "metas/addNewMeta",
-  async (novaMeta) => {
-    const response = await fetch("http://localhost:3001/metas", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(novaMeta),
-    });
-    const data = await response.json();
-    return data;
+  async (novaMeta, { rejectWithValue }) => {
+    try {
+      const response = await fetch("http://localhost:3001/metas", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(novaMeta),
+      });
+      if (!response.ok) {
+        // Tenta extrair mensagem de erro do backend (pode ser HTML ou JSON)
+        const errorText = await response.text();
+        throw new Error(errorText);
+      }
+      const data = await response.json();
+      return data;
+    } catch (err) {
+      return rejectWithValue(err.message);
+    }
   }
 );
 
@@ -80,16 +92,14 @@ const metaSlice = createSlice({
   },
 });
 
-export const { 
-  selectAll: selectAllMetas, 
+export const {
+  selectAll: selectAllMetas,
   selectById: selectMetaById,
   selectIds: selectMetaIds,
 } = metasAdapter.getSelectors((state) => state.metas);
 
-
-export const selectMetasConcluidas = createSelector(
-  [selectAllMetas],
-  (metas) => metas.filter((meta) => meta.status === "Concluída")
+export const selectMetasConcluidas = createSelector([selectAllMetas], (metas) =>
+  metas.filter((meta) => meta.status === "Concluída")
 );
 
 export default metaSlice.reducer;

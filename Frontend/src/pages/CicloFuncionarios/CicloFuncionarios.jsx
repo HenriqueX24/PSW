@@ -32,7 +32,7 @@ export default function CicloFuncionarios() {
   // Efeito de proteção de rota: Redireciona para /login se não estiver autenticado
   useEffect(() => {
     if (!isAuthenticated) {
-      navigate('/login');
+      navigate('/ciclo-funcionarios'); 
     }
   }, [isAuthenticated, navigate]);
 

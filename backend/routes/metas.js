@@ -10,7 +10,7 @@ router.route('/').get((req, res) => {
 
 
 router.route('/').post((req, res) => {
-  const { titulo, descricao, periodo, responsavel, status } = req.body;
+  const { titulo, descricao, inicio, termino, responsavel, status } = req.body;
 
   const novaMeta = new Meta({
     titulo,
