@@ -9,10 +9,10 @@ import { useNavigate, useLocation } from "react-router-dom";
 // Define as etapas e suas rotas correspondentes
 const steps = [
   { label: "Ciclo de Revisão", route: "/ciclo-revisao" },
-  { label: "Funcionários", route: "/ciclo-funcionarios/:id" },
-  { label: "Avaliações", route: "/avaliacao/:id" },
+  { label: "Funcionários", route: "/ciclo-funcionarios" },
+  { label: "Avaliações", route: "/avaliacao" },
   { label: "Metas", route: "/metas" },
-  { label: "Fazer Avaliação", route: "/fazer-avaliacao/:id" },
+  { label: "Fazer Avaliação", route: "/fazer-avaliacao" },
 ];
 
 /**

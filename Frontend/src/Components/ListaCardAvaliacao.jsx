@@ -58,11 +58,10 @@ const ListaCardAvaliacao = () => {
         // Mapeia os dados do Redux para os cards
         content = avaliacoes.map((avaliacao) => (
             <CardAvaliacao
-                key={avaliacao.id}
+                key={avaliacao._id}
                 titulo={avaliacao.titulo}
-                data={formatarData(avaliacao.dataCriacao)} 
-                // O link aponta para a rota de preenchimento da avaliação específica
-                link={`/fazer-avaliacao/${avaliacao.id}`} 
+                data={formatarData(avaliacao.dataCriacao)}  
+                link={`/fazer-avaliacao/${avaliacao._id}`}
             />
         ));
     }

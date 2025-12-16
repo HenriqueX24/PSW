@@ -68,10 +68,7 @@ export default function CicloRevisao() {
         <Grid container spacing={2}>
           {ciclosAgrupados[tipo].map((ciclo) => (
             <Grid item xs={12} sm={6} md={4} key={ciclo.id}>
-              <Link
-                to={`/ciclo-funcionarios/${ciclo.id}`}
-                className="card-link"
-              >
+               <Link to={`/ciclo-funcionarios/${ciclo._id}`} className="card-link">
                 <CardCiclo ciclo={ciclo} />
               </Link>
             </Grid>

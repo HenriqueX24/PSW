@@ -15,12 +15,12 @@ import { useNavigate } from 'react-router-dom';
 export default function CardFuncionario({ employee, avaliacaoStatus, avaliacaoId }) {
   const navigate = useNavigate();
   
-  const { id, nome, email } = employee;
+  const { _id, nome, email } = employee;
 
   // Navega para a página de detalhes da avaliação específica
   const handleViewEvaluation = () => {
     if (avaliacaoId) { 
-      navigate(`/avaliacao/${avaliacaoId}`);
+      navigate(`/fazer-avaliacao/${avaliacaoId}`);
     }
   };
 

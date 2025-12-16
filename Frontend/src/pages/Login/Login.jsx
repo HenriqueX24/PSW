@@ -51,11 +51,8 @@ export default function Login() {
       // Login bem-sucedido. O payload contém o token e os dados do usuário.
       // Salve o token no localStorage:
       localStorage.setItem("userToken", resultAction.payload.token);
-      // (Opcional) Salve o usuário também, se quiser:
-      localStorage.setItem(
-        "currentUser",
-        JSON.stringify(resultAction.payload.user)
-      );
+      localStorage.getItem("currentUser")
+
       alert(`Bem-vindo, ${resultAction.payload.user.nome}!`);
       navigate("/ciclo-revisao");
     } else if (loginUser.rejected.match(resultAction)) {

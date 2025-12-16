@@ -44,7 +44,7 @@ export default function CicloFuncionarios() {
   // CORREÇÃO: Filtra APENAS os usuários que estão no ciclo. 
   // O filtro é feito comparando o '_id' do usuário com o array 'avaliados' do ciclo.
   const employeesInCycle = allUsers.filter(user => 
-    (ciclo?.avaliados || []).includes(user.id)
+   (ciclo?.avaliados || []).includes(user._id)
   );
 
   // NOVO: Adicione uma propriedade ao ciclo que aponta para o ID da avaliação.

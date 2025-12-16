@@ -5,7 +5,9 @@ import {
   createSelector,
 } from "@reduxjs/toolkit";
 
-const avaliacoesAdapter = createEntityAdapter({});
+const avaliacoesAdapter = createEntityAdapter({
+  selectId: (a) => a._id,
+});
 
 const initialState = avaliacoesAdapter.getInitialState({
   status: "idle",
@@ -39,7 +41,8 @@ export const addNewAvaliacao = createAsyncThunk(
 export const updateAvaliacao = createAsyncThunk(
   "avaliacoes/updateAvaliacao",
   async (avaliacaoAtualizada) => {
-    const { id } = avaliacaoAtualizada;
+    const id = avaliacaoAtualizada._id;
+    fetch(`http://localhost:3001/avaliacoes/${id}`)
     const response = await fetch(`http://localhost:3001/avaliacoes/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },

@@ -46,8 +46,9 @@ function App() {
       <Route path="/criar-meta" element={<CriarMeta />} />
       <Route path="/criar-ciclo" element={<CriarCiclo />} />
       <Route path="/criar-avaliacao" element={<CriarAvaliacao />} />
-      <Route path="/ciclo-funcionarios/:id" element={<CicloFuncionarios />} />
-      <Route path="/avaliacao/:id" element={<Avaliacao />} />
+      <Route path="/ciclo-funcionarios" element={<Navigate to="/ciclo-revisao" replace />} />
+      <Route path="/avaliacao" element={<Avaliacao />} />
+      <Route path="/fazer-avaliacao" element={<Navigate to="/avaliacao" replace />} />
       <Route path="/fazer-avaliacao/:id" element={<FazerAvaliacao />} />
       <Route path="*" element={<Navigate to="/login" replace />} />
       <Route path="/ciclo-revisao" element={<CicloRevisao />} />
