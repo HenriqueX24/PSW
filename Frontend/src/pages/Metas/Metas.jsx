@@ -56,14 +56,10 @@ export default function Metas() {
     content = Object.keys(metasAgrupadas).map((status) => (
       <div key={status} className="cycle-section">
         <h2 className="cycle-title">{status}</h2>{" "}
-        {/* Removida a seta para um visual mais limpo */}
-        {/* MUDANÇA: Usa o Grid do Material-UI para o layout em "caixinhas" */}
         <Grid container spacing={2}>
           {metasAgrupadas[status].map((meta) => (
             <Grid item xs={12} sm={6} md={4} key={meta.id}>
-              {/* Link para a página de detalhe da meta */}
               <Link to={`/meta-detalhe/${meta.id}`} className="card-link">
-                {/* MUDANÇA: Passa a prop hideStatus={true} */}
                 <CardMeta meta={meta} hideStatus={true} />
               </Link>
             </Grid>
@@ -94,10 +90,7 @@ export default function Metas() {
           <Title className="titulo-pagina" titulo={"Metas"} />
         </Container>
 
-        {/* Navbar */}
         <MenuNav />
-
-        {/* Main content */}
 
         <main className="ciclo-main">
           {content}

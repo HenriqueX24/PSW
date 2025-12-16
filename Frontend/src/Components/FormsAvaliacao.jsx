@@ -14,7 +14,7 @@ import { Typography, Box, TextField, Divider, RadioGroup, FormControlLabel, Radi
  */
 export default function FormsAvaliacao({ avaliacao, onRespostasChange }) {
   
-  // Guard Clause: Verifica se a avaliação e as questões existem
+  // Verifica se a avaliação e as questões existem
   if (!avaliacao || !avaliacao.questoes) {
     return <Typography variant="h6">Avaliação não encontrada ou em formato inválido.</Typography>;
   }
@@ -38,13 +38,13 @@ export default function FormsAvaliacao({ avaliacao, onRespostasChange }) {
       }
   }, [respostas, onRespostasChange]);
 
-  // Função para renderizar o tipo de input correto (Slider, Radio, etc.)
+  // Função para renderizar o tipo de input correto (Slider e Radio)
   const renderQuestaoInput = (questao) => {
       const valorAtual = respostas[questao.id] || (questao.tipo === 'slider' ? (questao.slider?.min || 0) : '');
 
       switch (questao.tipo) {
           case 'slider':
-              // Renderiza um Slider do Material-UI
+              // Renderiza um Slider 
               return (
                   <Box sx={{ mt: 2, px: 2 }}>
                       <Slider
@@ -80,7 +80,7 @@ export default function FormsAvaliacao({ avaliacao, onRespostasChange }) {
                   </RadioGroup>
               );
           default:
-              // Fallback para texto livre
+              // texto livre
               return (
                   <TextField
                       fullWidth

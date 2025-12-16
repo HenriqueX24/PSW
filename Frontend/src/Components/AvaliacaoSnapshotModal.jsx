@@ -37,7 +37,7 @@ const formatResposta = (resposta, questao) => {
     const opcaoSelecionada = questao.opcoes.find(opt => String(opt.id) === String(resposta));
     return opcaoSelecionada ? `Opção Selecionada: "${opcaoSelecionada.texto}"` : `Resposta Salva: ${resposta}`;
   }
-  // Para outros tipos (como texto, se houver) ou respostas vazias
+  // Para outros tipos (como texto) ou respostas vazias
   return resposta || "Sem Resposta Salva";
 };
 
@@ -53,7 +53,7 @@ const formatResposta = (resposta, questao) => {
  * @returns {JSX.Element | null} O modal ou nulo se não houver avaliação.
  */
 export default function AvaliacaoSnapshotModal({ open, handleClose, avaliacao }) {
-  // Guard Clause: Não renderiza se não houver avaliação
+  
   if (!avaliacao) {
     return null; 
   }

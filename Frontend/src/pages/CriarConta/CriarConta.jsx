@@ -16,13 +16,10 @@ import { Container } from "@mui/material";
  * @returns {JSX.Element} A página de criação de conta.
  */
 function CriarConta() {
-  // A rota de destino para a tela de login.
-  // Você deve substituir '/login' pela rota real da sua tela de login.
   const rotaLogin = '/login'; 
 
   return (
     <SimpleContainer>
-      {/*<h1>Criar conta</h1>*/}
       <Container
         maxWidth="lg"
         sx={{
@@ -33,7 +30,6 @@ function CriarConta() {
           py: 3, // Padding vertical
         }}
       >
-      {/* Passando a rota de destino para SetaVoltar */}
       <SetaVoltar destino={rotaLogin} /> 
       <Title titulo='Criar conta' />
       </Container>

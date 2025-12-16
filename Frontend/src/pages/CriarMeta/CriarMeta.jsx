@@ -2,29 +2,27 @@
 import React from "react";
 import "./criar-meta.css";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux"; // Adicionado useSelector
+import { useDispatch, useSelector } from "react-redux"; 
 import NavBar from '../../Components/NavBar'
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { addNewMeta } from "../../features/user/metaSlice";
-import { selectAllUsers } from "../../features/user/usersSlice"; // Importado selectAllUsers
+import { selectAllUsers } from "../../features/user/usersSlice"; 
 import Title from "../../Components/Title";
 import { Container, Box } from "@mui/material";
 
-// Esquema de validação do formulário com Yup
-// O campo 'responsavel' agora será um select que deve ter um valor (email)
 const validationSchema = Yup.object().shape({
   titulo: Yup.string()
     .required('O título da meta é obrigatório.'),
   descricao: Yup.string()
     .required('A descrição é obrigatória.')
     .min(10, 'A descrição deve ter pelo menos 10 caracteres.'),
-  // O período usa o mesmo campo, mas o nome do input é 'periodo'. Vou assumir que 'periodo' é o campo de data de início
-  // e 'termino' para a data de término (corrigindo o input de término para usar um campo diferente).
-  inicio: Yup.string() // NOVO: Adicionei 'inicio'
+  // O período usa o mesmo campo, mas o nome do input é 'periodo'
+  // e 'termino' para a data de término
+  inicio: Yup.string() 
     .required('A data de início é obrigatória.'),
-  termino: Yup.string() // NOVO: Adicionei 'termino'
+  termino: Yup.string()
     .required('A data de término é obrigatória.'),
   responsavel: Yup.string() // Alterado para string simples (email do gestor)
     .required('O nome do responsável é obrigatório.'), // Mensagem de erro mantida
@@ -47,12 +45,12 @@ export default function CriarMeta() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   
-  // NOVO: Busca e filtra a lista de usuários
+  
   const userList = useSelector(selectAllUsers);
   // Filtra usuários com cargo 'funcionario' para serem os responsáveis
   const gestoresList = userList.filter((user) => user.cargo === "funcionario");
 
-  // NOVO: Prepara as opções de responsáveis (gestores) no formato <option value="email">Nome</option>
+  //  Prepara as opções de responsáveis (gestores) no formato 
   const responsavelOptions = gestoresList.map((user) => ({
     label: user.nome,
     value: user.email, // O valor será o email do gestor
@@ -65,12 +63,12 @@ export default function CriarMeta() {
     formState: { errors, isSubmitting } // Pega erros de validação e status de envio
   } = useForm({
     resolver: yupResolver(validationSchema), // Conecta o Yup ao RHF
-    // NOVO: Default values para os novos campos
+    // Default values para os novos campos
     defaultValues: {
       titulo: '',
       descricao: '',
-      inicio: '', // NOVO
-      termino: '', // NOVO
+      inicio: '', 
+      termino: '', 
       responsavel: '', // Valor inicial vazio para o select
     }
   });
@@ -78,18 +76,12 @@ export default function CriarMeta() {
   // Função executada no submit do formulário (após validação)
   const onSubmit = async (data) => {
     try {
-      // Usando 'inicio' e 'termino' da validação, e adicionando 'periodo' no formato que a API pode esperar, 
-      // ou removendo 'periodo' (assumo que 'periodo' no seu json-server é o campo de início).
-      // Se 'periodo' for a data de início:
+      
       const metaData = { 
         ...data, 
-        periodo: data.inicio, // Mapeia 'inicio' para 'periodo' (se for o caso)
+        periodo: data.inicio, 
         status: 'Pendente' 
       };
-      
-      // Ajuste: O form estava pegando 4 campos, mas 'periodo' era usado para dois. 
-      // Vou passar 'inicio' e 'termino' explicitamente, e remover 'periodo' dos inputs HTML.
-      // E remover 'periodo' dos campos do yup. A meta na store só precisa do que a API aceita.
       
       // Enviando todos os campos validados
       const { inicio, termino, ...rest } = data; // Separando inicio e termino
@@ -163,7 +155,7 @@ export default function CriarMeta() {
           {/* Campo Data de Início */}
           <div className="form-group">
             <label htmlFor="inicio">Data de Início</label>
-            <input // Alterado id de 'inicio' para 'inicio' e usando 'inicio' no register
+            <input 
               type="date"
               id="inicio"
               placeholder="Escolha uma data para início"
@@ -175,7 +167,7 @@ export default function CriarMeta() {
           {/* Campo Data de Término */}
           <div className="form-group">
             <label htmlFor="termino">Data de Término</label>
-            <input // Alterado id de 'inicio' para 'termino' e usando 'termino' no register
+            <input 
               type="date"
               id="termino"
               placeholder="Escolha uma data para término"
@@ -187,12 +179,12 @@ export default function CriarMeta() {
           {/* Campo Responsável (Select) */}
             <div className="form-group">
             <label htmlFor="responsavel">Responsável</label>
-            <select // NOVO: Usando <select> para o responsável
+            <select 
               id="responsavel"
               {...register("responsavel")} 
             >
               <option value="">Selecione um funcionário...</option>
-              {/* Popula o select com os funcionários (filtrados anteriormente) */}
+              {/* Popula o select com os funcionários  */}
               {responsavelOptions.map(option => (
                 <option key={option.value} value={option.value}>
                   {option.label}

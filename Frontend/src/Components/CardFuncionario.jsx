@@ -24,7 +24,7 @@ export default function CardFuncionario({ employee, avaliacaoStatus, avaliacaoId
     }
   };
 
-  // Navega para a página de metas (do funcionário, presumidamente)
+  // Navega para a página de metas do funcionário
   const handleViewGoals = () => {
     navigate(`/metas`); // Navega para a página de metas
   };
@@ -42,12 +42,12 @@ export default function CardFuncionario({ employee, avaliacaoStatus, avaliacaoId
       {/* Caixa da Direita: Ações e Status */}
       <div className="employee-actions">
         
-        {/* Exibição do Status (Realizado ou Pendente) */}
+        {/* Exibição do Status  */}
         <span className={`status-label ${avaliacaoStatus}`}>
           Avaliação {avaliacaoStatus}
         </span>
         
-        {/* Lógica: Botão "Ver Avaliação" aparece SE status for 'pendente' */}
+        {/* Botão "Ver Avaliação" aparece se status for 'pendente' */}
         {avaliacaoStatus === "pendente" && (
           <button
             type="button"
@@ -58,7 +58,7 @@ export default function CardFuncionario({ employee, avaliacaoStatus, avaliacaoId
           </button>
         )}
 
-        {/* Lógica: Botão "Metas" aparece SEMPRE */}
+        {/* Botão "Metas" aparece SEMPRE */}
         <button
           type="button"
           className="ver-avaliacao-btn"

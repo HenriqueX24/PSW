@@ -88,7 +88,7 @@ export default function Forms() {
     setShowSenha((show) => !show);
   };
 
-  // Função de submit (Criação ou Edição)
+  // Função de submit 
   const onSubmit = async (data) => {
     try {
       if (isEditMode) {
@@ -180,29 +180,6 @@ export default function Forms() {
           />
         </RadioGroup>
       </FormControl>
-
-      {/* Campos de leitura para edição */}
-      {/*isEditMode && (
-        <div className="form-group" style={{ marginTop: "20px" }}>
-          <label>Tipo de Usuário</label>
-          <div>
-            <input
-              type="radio"
-              name="tipo"
-              checked={currentUser?.cargo === "funcionario"}
-              readOnly
-            />
-            Funcionário
-            <input
-              type="radio"
-              name="tipo"
-              checked={currentUser?.cargo === "gestor"}
-              readOnly
-            />
-            Gestor
-          </div>
-        </div>
-      )}*/}
 
       <ButtonSubmit
         texto={isEditMode ? "Salvar Alterações" : "Criar Conta"}

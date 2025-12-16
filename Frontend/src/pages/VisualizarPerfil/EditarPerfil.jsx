@@ -23,11 +23,11 @@ function EditarPerfil() {
       <Container
         maxWidth="lg"
         sx={{
-          display: "flex", // Habilita Flexbox
-          alignItems: "center", // Centraliza verticalmente
-          justifyContent: "flex-start", // Alinha ao início (esquerda)
-          gap: 50, // Adiciona um pequeno espaço entre a seta e o título
-          py: 3, // Padding vertical
+          display: "flex", 
+          alignItems: "center", 
+          justifyContent: "flex-start", 
+          gap: 50, 
+          py: 3, 
         }}
       >
       {/* Passando a rota de destino para SetaVoltar */}

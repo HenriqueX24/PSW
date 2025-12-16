@@ -18,24 +18,14 @@ const ListaCardMeta = ({ metas, className }) => {
   return (
     // Usa a classe CSS recebida por props ou um valor padrão "goals-section"
     <div className={className || "goals-section"}>
-      {/* Mapeia o array de metas. 
-          O '?' (optional chaining) evita que o app quebre se 'metas' for nulo. */}
+      {/* Mapeia o array de metas. */}
+          
       {metas?.map((meta) => (
         // Cada card é um link para a página de detalhes da meta
         <Link to={`/meta-detalhe/${meta.id}`} key={meta.id} className="goal-card-link">
           <CardMeta
-            meta={meta} // Passa o objeto 'meta' inteiro para o componente filho
+            meta={meta} // Passa o objeto 'meta'  para o componente filho
             
-            /* [NOTA]: O CardMeta antigo (que você me mostrou antes) esperava 
-               props separadas (titulo, descricao, status).
-               Este código está passando a prop 'meta' (um objeto). 
-               Isso é uma melhoria, desde que o `CardMeta.jsx` 
-               tenha sido atualizado para receber `({ meta })` 
-               em vez de `({ titulo, descricao, status })`.
-               Vou assumir que a versão do CardMeta que documentei
-               no lote anterior (que recebia props separadas) 
-               foi atualizada para esta nova forma.
-            */
           />
         </Link>
         

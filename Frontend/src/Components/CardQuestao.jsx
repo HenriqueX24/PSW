@@ -17,8 +17,8 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
-import OpcoesMultiplaEscolha from "./OpcoesMultiplaEscolha"; // Componente filho
-import OpcaoSlider from "./OpcaoSlider"; // Componente filho
+import OpcoesMultiplaEscolha from "./OpcoesMultiplaEscolha"; 
+import OpcaoSlider from "./OpcaoSlider"; 
 
 /**
  * Componente Card para *construir* ou *editar* uma questão dentro

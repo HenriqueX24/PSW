@@ -34,7 +34,7 @@ const CardAvaliacao = ({ titulo, data, link }) => {
     </svg>
   );
 
-  // SVG do Ícone de Link (Corrente)
+  // SVG do Ícone de Link 
   const IconeLink = (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
       <path

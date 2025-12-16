@@ -25,16 +25,7 @@ const satisfactionOptions = [
   { value: "neutro", label: "Neutro" },
   { value: "insatisfeito", label: "Insatisfeito" },
 ];
-{
-  /* const handleDeadlineChange = (event, newValue) => {
-  console.log(`Nova avaliação de prazo: ${newValue}`);
-};
 
-const handleSatisfactionChange = (event, newValue) => {
-  console.log(`Nova avaliação de satisfação: ${newValue}`);
-};
-*/
-}
 
 /**
  * Componente de formulário de "pesquisa" (Survey).
@@ -52,22 +43,22 @@ const handleSatisfactionChange = (event, newValue) => {
 export default function SurveyForm({ onQ1Change, onQ2Change, onQ3Change }) {
   return (
     <div>
-      {/* 1. Replicating the Original Component */}
+      
       <RowRadioButtonsGroup
         groupLabel={q1.title}
         options={deadlineOptions}
-        name="deadline-evaluation-1" // Unique name for Q1
-        onChange={onQ1Change} // Passed from FazerAvaliacao
+        name="deadline-evaluation-1" 
+        onChange={onQ1Change} 
       />
 
       <hr style={{ margin: "20px 0" }} />
 
-      {/* 2. Using the Component for a Different Question */}
+      
       <RowRadioButtonsGroup
         groupLabel={q2.title}
         options={satisfactionOptions}
         name="project-satisfaction"
-        onChange={onQ2Change} // Passed from FazerAvaliacao
+        onChange={onQ2Change} 
       />
 
       <hr style={{ margin: "20px 0" }} />
@@ -75,8 +66,8 @@ export default function SurveyForm({ onQ1Change, onQ2Change, onQ3Change }) {
       <RowRadioButtonsGroup
         groupLabel={q3.title}
         options={deadlineOptions}
-        name="deadline-evaluation-3" // Unique name for Q3
-        onChange={onQ3Change} // Passed from FazerAvaliacao
+        name="deadline-evaluation-3" 
+        onChange={onQ3Change} 
       />
 
       <hr style={{ margin: "20px 0" }} />

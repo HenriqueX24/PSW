@@ -68,7 +68,7 @@ export default function CicloFuncionarios() {
           type="button"
           className="botao-voltar"
           aria-label="Voltar"
-          onClick={() => navigate("/ciclo-revisao")} // Navega de volta para a lista de ciclos
+          onClick={() => navigate("/ciclo-revisao")} 
         >
           <svg width="24" height="24" fill="none">
             <path
@@ -90,19 +90,16 @@ export default function CicloFuncionarios() {
           {/* Mapeia e renderiza um Card para cada funcionário filtrado */}
           {employeesInCycle.map((emp) => {
             
-            // SIMULAÇÃO: Definindo todos como "pendente" para que o botão "Ver Avaliação"
-            // apareça tanto para Pedro quanto para o Gestor, conforme o requisito.
             const avaliacaoStatus = "pendente"; 
             const avaliacoId = ciclo.avaliacaoTemplateId || '1'; // Renomeado para evitar conflito de nome
 
-            // Nota: O botão "Metas" sempre aparecerá, pois não há condição limitando-o no CardFuncionario.
-
+            
             return (
               <CardFuncionario
                 key={emp._id}
                 employee={emp}
                 avaliacaoStatus={avaliacaoStatus} // "pendente" para todos
-                avaliacaoId={avaliacoId} // PASSA O ID VÁLIDO
+                avaliacaoId={avaliacoId} // passa o id valido
               />
             );
           })}

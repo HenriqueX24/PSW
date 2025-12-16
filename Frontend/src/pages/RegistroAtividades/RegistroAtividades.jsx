@@ -14,7 +14,7 @@ import {
 
 import NavBar from "../../Components/NavBar";
 import Title from "../../Components/Title";
-import AvaliacaoSnapshotModal from "../../Components/AvaliacaoSnapshotModal"; // Modal para ver snapshot
+import AvaliacaoSnapshotModal from "../../Components/AvaliacaoSnapshotModal"; //para ver respostas da avaliacao
 
 /**
  * Componente de Card interno para o Histórico.
@@ -66,35 +66,15 @@ const showAvaliacaoSnapshot = (avaliacao) => {
       `Avaliação "${avaliacao.titulo}" concluída, mas sem respostas salvas.`
     );
   }
-{/*
-  // Constrói a string de exibição do snapshot
-  let snapshotText = `Avaliação: ${avaliacao.titulo}\nStatus: ${
-    avaliacao.status
-  }\nRespondida em: ${new Date(
-    avaliacao.dataResposta
-  ).toLocaleString()}\n\n--- Respostas ---\n`;
-
-  // Itera sobre as questões e exibe a resposta salva
-  avaliacao.questoes.forEach((questao, index) => {
-    const idQuestao = String(questao.id);
-    const resposta = avaliacao.respostas[idQuestao];
-
-    snapshotText += `${index + 1}. ${questao.enunciado}:\n   > ${
-      resposta || "Sem Resposta Salva"
-    }\n\n`;
-  });
-
-  alert(snapshotText); // Usa alert para a demonstração
-};
- */}}
+}
 export default function RegistroAtividades() {
   const dispatch = useDispatch();
 
-  // 1. Estados para o Modal
+  // Estados para caixa de respostas da avaliação
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedAvaliacao, setSelectedAvaliacao] = useState(null);
 
-  // Funções de controle do Modal
+  // Funções de controle da caixa
   const handleModalClose = () => {
     setModalOpen(false);
     setSelectedAvaliacao(null); // Limpa os dados do item
@@ -119,22 +99,21 @@ export default function RegistroAtividades() {
       tipo: "Meta",
       // Assumindo que você tem um campo de data de conclusão para ordenação
       data: meta.dataConclusao || new Date().getTime(),
-      dados: meta, // Guarda o snapshot final
+      dados: meta, // Guarda os resultados 
     })),
     // Mapeia avaliações respondidas
     ...avaliacoesRespondidas.map((avaliacao) => ({
       id: `avaliacao-${avaliacao.id}`,
       titulo: avaliacao.titulo,
       tipo: "Avaliação",
-      // Assumindo que você tem um campo de data de resposta para ordenação
       data: avaliacao.dataResposta || new Date().getTime(),
-      dados: avaliacao, // Guarda o snapshot da avaliação com as respostas
+      dados: avaliacao, // Guarda a avaliação com as respostas
     })),
   ].sort((a, b) => b.data - a.data); // Ordena do mais recente para o mais antigo
 
   // Handler para o clique no card (abre Modal ou Alert)
   const handleCardClick = (item) => {
-    // Lógica para mostrar o snapshot (modal, navegação, etc.)
+    // Lógica para mostrar as respostas
     if (item.tipo === "Meta") {
       alert(
         `Visualizar Snapshot Final da Meta: ${item.titulo}\nStatus: ${
@@ -143,7 +122,6 @@ export default function RegistroAtividades() {
           item.dados.comentarios ? item.dados.comentarios.length : 0
         }`
       );
-      // Implemente aqui a abertura de um Modal com o "snapshot final da meta" (item.dados)
     } else if (item.tipo === "Avaliação") {
       // Abre o Modal com os dados da avaliação
       setSelectedAvaliacao(item);
@@ -191,7 +169,6 @@ export default function RegistroAtividades() {
       </Container>
       <NavBar />
 
-      {/* O Modal de Snapshot (controlado por state) */}
       <AvaliacaoSnapshotModal 
         open={modalOpen} 
         handleClose={handleModalClose} 

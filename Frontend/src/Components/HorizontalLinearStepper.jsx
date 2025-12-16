@@ -6,7 +6,7 @@ import StepButton from "@mui/material/StepLabel";
 import Typography from "@mui/material/Typography";
 import { useNavigate, useLocation } from "react-router-dom";
 
-// Define as etapas e suas rotas correspondentes
+// Define as rotas e labels dos passos do stepper
 const steps = [
   { label: "Ciclo de Revisão", route: "/ciclo-revisao" },
   { label: "Funcionários", route: "/ciclo-funcionarios" },
@@ -29,8 +29,6 @@ export default function HorizontalLinearStepper() {
   const location = useLocation();
 
   // Encontra o "step" ativo baseado na URL atual
-  // location.pathname.startsWith(step.route) garante que rotas como /avaliacao/123
-  // ainda ativem o step "Avaliações" (/avaliacao).
   const activeStep = steps.findIndex((step) =>
     location.pathname.startsWith(step.route)
   );

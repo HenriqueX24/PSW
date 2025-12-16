@@ -26,12 +26,12 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
  * @returns {JSX.Element} A página de login.
  */
 export default function Login() {
-  const [identifier, setIdentifier] = useState(""); // Estado para Email ou CPF
+  const [identifier, setIdentifier] = useState(""); // Estado para email ou cpf
   const [senha, setSenha] = useState(""); // Estado para Senha
   const [showSenha, setShowSenha] = useState(false); // Estado para visibilidade da senha
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const userList = useSelector(selectAllUsers); // Busca TODOS os usuários
+  const userList = useSelector(selectAllUsers); // Busca os usuários
 
   console.log("Usuários disponíveis para login:", userList);
 
@@ -43,13 +43,13 @@ export default function Login() {
       return;
     }
 
-    // 1. Dispara a thunk de login
+    // Dispara a thunk de login
     const resultAction = await dispatch(loginUser({ identifier, senha }));
 
-    // 2. Verifica o resultado da ação
+    // Verifica o resultado da ação
     if (loginUser.fulfilled.match(resultAction)) {
       // Login bem-sucedido. O payload contém o token e os dados do usuário.
-      // Salve o token no localStorage:
+      // Salva o token no localStorage:
       localStorage.setItem("userToken", resultAction.payload.token);
       localStorage.getItem("currentUser")
 
@@ -59,20 +59,19 @@ export default function Login() {
       // Login falhou.
       const errorMessage =
         resultAction.payload || "E-mail/CPF ou senha inválidos.";
-      // Sua action loginFailure pode ser despachada aqui, se necessário.
+      // action loginFailure pode ser despachada aqui
       alert(errorMessage);
 
       return;
     }
 
-    // Lógica de autenticação no client-side
+    // Lógica de autenticação no client
     const foundUser = userList.find(
       (user) => user.email === identifier || user.cpf === identifier
     );
   };
 
   const handleClickShowSenha = () => {
-    // Nova função
     setShowSenha((show) => !show);
   };
 
@@ -119,12 +118,11 @@ export default function Login() {
               <div style={{ position: "relative" }}>
                 <input
                   id="senha"
-                  // Use o estado showSenha para alternar o tipo
                   type={showSenha ? "text" : "password"}
                   value={senha}
                   onChange={(e) => setSenha(e.target.value)}
                   placeholder="Digite sua senha"
-                  style={{ width: "100%", paddingRight: "40px" }} // Ajuste o padding para o ícone
+                  style={{ width: "100%", paddingRight: "40px" }} 
                 />
                 {/* Botão de visibilidade da senha */}
                 <IconButton

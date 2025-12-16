@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom'; // Assumindo react-router-dom
  * @returns {JSX.Element} O botão de voltar.
  */
 export default function SetaVoltar({ destino }) {
-    // Se o navigate for usado internamente
+    
     const navigate = useNavigate(); // Hook do react-router-dom
 
     const handleVoltar = () => {

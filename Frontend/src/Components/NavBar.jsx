@@ -4,8 +4,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useNavigate } from "react-router-dom";
 
-// Componente para a barra de navegação inferior (Bottom Navigation)
-// Este é um componente interno, renderizado pelo NavBar
+// Este é um componente renderizado pelo NavBar
 const BottomNav = ({ navigate }) => (
   <Box
     sx={{
@@ -16,7 +15,6 @@ const BottomNav = ({ navigate }) => (
       width: "100%",
       backgroundColor: "var(--text)",
       borderTop: "1px solid var(--border)",
-      // ALTERAÇÃO: 'display: flex' torna a barra visível em todas as resoluções.
       display: "flex",
       justifyContent: "space-around",
       padding: "8px 0",
@@ -71,7 +69,7 @@ function NavBar() {
 
   return (
     <div>
-      {/* 4. Bottom Navigation (Visível em todas as resoluções) */}
+      {/* Bottom Navigation (Visível em todos os perfis) */}
       <BottomNav navigate={navigate} />
     </div>
   );
@@ -85,7 +83,6 @@ const userFromStorage = JSON.parse(localStorage.getItem("currentUser"));
 const initialState = {
   isAuthenticated: !!userFromStorage,
   currentUser: userFromStorage || null,
-  // ...outros campos
 };
 
-//localStorage.setItem("currentUser", JSON.stringify(usuario));
+

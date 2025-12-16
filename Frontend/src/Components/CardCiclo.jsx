@@ -10,7 +10,7 @@ import { Grid } from "@mui/material";
  * @returns {JSX.Element | null} O card do ciclo ou nulo se o ciclo não for fornecido.
  */
 export default function CardCiclo({ ciclo }) {
-  // Guard Clause: Não renderiza se o ciclo não for fornecido
+  // Não renderiza se o ciclo não for fornecido
   if (!ciclo) {
     return null;
   }

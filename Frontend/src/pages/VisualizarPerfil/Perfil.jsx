@@ -61,20 +61,6 @@ export default function Perfil() {
     setOpenDeleteDialog(false);
   };
 
-  // Lógica de exclusão (atualmente não utilizada pelo botão)
-  const handleConfirmDelete = async () => {
-    try {
-      await dispatch(deleteUser(currentUser.id)).unwrap();
-      dispatch(logout());
-      handleCloseDeleteDialog();
-      navigate("/login");
-    } catch (err) {
-      alert("Falha ao encerrar a conta.");
-      console.error("Falha ao deletar usuário:", err);
-      handleCloseDeleteDialog();
-    }
-  };
-
   // Tela de carregamento se 'currentUser' ainda não estiver disponível
   if (!currentUser) {
     return <div>Carregando perfil...</div>;

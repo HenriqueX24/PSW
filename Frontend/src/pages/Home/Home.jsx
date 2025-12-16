@@ -31,7 +31,6 @@ function Home() {
 
   return (
     <Box sx={{ backgroundColor: "white", minHeight: "100vh" }}>
-      {/* 1. TÍTULO 'Menu' (Movido para cima da AppBar) */}
       <Container maxWidth="lg" sx={{ textAlign: "center", py: 3 }}>
         <Typography
           variant="h1"
@@ -49,13 +48,12 @@ function Home() {
 
       <NavBar />
 
-      {/* 2. AppBar Principal (Barra de Navegação) */}
+      {/* AppBar Principal (Barra de Navegação) */}
       <MenuNav />
 
-      {/* 3. Conteúdo Principal */}
+      {/* Conteúdo Principal */}
       <Container
         maxWidth="lg"
-        // ALTERAÇÃO: pb: 10 (80px) garante espaço para a barra fixa inferior em todas as resoluções
         sx={{ pt: 4, pb: 10 }}
       >
         <Grid container justifyContent="center" alignItems="center">
@@ -73,9 +71,9 @@ function Home() {
             </Box>
           </Grid>
 
-          {/* Outros componentes do corpo da página iriam aqui */}
+          
           <Grid item xs={12}>
-            {/* Conteúdo da Home */}
+            
           </Grid>
         </Grid>
       </Container>

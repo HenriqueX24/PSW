@@ -46,7 +46,7 @@ export default function CriarCiclo() {
 
   // Estados locais para controlar o seletor e permitir o reset
   const [selectedAvaliadoEmail, setSelectedAvaliadoEmail] = useState(""); 
-  const [selectedAvaliadorEmail, setSelectedAvaliadorEmail] = useState(""); // NOVO ESTADO
+  const [selectedAvaliadorEmail, setSelectedAvaliadorEmail] = useState(""); 
 
   // Prepara as opções no formato {label: nome, value: email}
   const avaliadosOptions = funcionariosList.map((user) => ({
@@ -54,7 +54,7 @@ export default function CriarCiclo() {
     value: user.email,
   }));
 
-  const avaliadoresOptions = gestoresList.map((user) => ({ // NOVO: Opções de Avaliadores
+  const avaliadoresOptions = gestoresList.map((user) => ({ 
     label: user.nome,
     value: user.email,
   }));
@@ -99,7 +99,7 @@ export default function CriarCiclo() {
     setValue("avaliados", newAvaliados, { shouldValidate: true });
   };
   
-  // NOVO: Lógica para Avaliadores (Gestores)
+  // Lógica para Avaliadores (Gestores)
   const handleAvaliadorSelect = (newEmail) => {
     if (newEmail && !avaliadores.includes(newEmail)) {
         setValue("avaliadores", [...avaliadores, newEmail], { shouldValidate: true });
@@ -115,7 +115,6 @@ export default function CriarCiclo() {
   // Função de submissão do formulário
   const onSubmit = async (data) => {
     try {
-      // data.avaliados e data.avaliadores já são arrays, prontos para envio.
       await dispatch(addNewCiclo(data)).unwrap();
 
       alert("Ciclo criado com sucesso!");
@@ -163,7 +162,7 @@ export default function CriarCiclo() {
           className="ciclo-form"
           onSubmit={handleSubmit(onSubmit)}
         >
-          {/* ... (Campos Título, Tipo, Início, Término) ... */}
+          
           <div className="form-group">
             <label>Título do Ciclo de Revisão</label>
             <input
@@ -201,7 +200,7 @@ export default function CriarCiclo() {
             )}
           </div>
           
-          {/* NOVO: Seção de Avaliadores (Gestores) com Seletor e Chips */}
+          {/* Seção de Avaliadores (Gestores) com Seletor e Chips */}
           <div className="form-group">
             <label>Avaliador</label>
             <SelectUsers

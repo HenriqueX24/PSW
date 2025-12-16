@@ -44,8 +44,7 @@ router.route('/login').post(async (req, res) => {
   }
 
   try {
-    // Busca por email OU cpf. A expressão regular (regex) é opcional, 
-    // mas ajuda a garantir que o campo esteja sendo usado corretamente.
+    // Busca por email OU cpf. 
     const user = await User.findOne({ 
       $or: [
         { email: email }, // Procura pelo valor em 'email' na coluna 'email'

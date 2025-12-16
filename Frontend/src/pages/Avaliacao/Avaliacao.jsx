@@ -159,7 +159,7 @@ function Avaliacao() {
             type="button"
             className="botao-voltar"
             aria-label="Voltar"
-            onClick={() => navigate(-1)} /* navigate(-1) volta para a última página acessada*/
+            onClick={() => navigate(-1)} /* volta para a última página acessada*/
           >
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
               <path
@@ -176,15 +176,15 @@ function Avaliacao() {
           <Title titulo="Avaliações" className="titulo-pagina"/>
         </Container>
 
-        {/* NAVBAR REACT */}
+        {/* Navbar react */}
         <MenuNav />
 
         <div className="avaliacao-container">
-          {/* LISTA */}
+          {/* Lista */}
           <AppBar position="static" color="default" elevation={1}>
             {/* Componente que busca e lista as avaliações do Redux */}
             <ListaCardAvaliacao />
-            {/*Condição para renderizar o botão SOMENTE se o usuário for um Gestor */}
+            {/*Condição para renderizar o botão somente se o usuário for um Gestor */}
             {isGestor && (
             <ButtonCreate
               nameButton={"Criar Avaliação"}
@@ -192,10 +192,10 @@ function Avaliacao() {
             />
             )}
           </AppBar>
-          {/* FIM LISTA */}
+          
         </div>
 
-        {/* 4. Bottom Navigation (Agora visível em todas as resoluções) */}
+        {/* Bottom Navigation  */}
         <BottomNav navigate={navigate} />
       </Box>
     </div>

@@ -10,7 +10,7 @@ import Title from "../../Components/Title";
 import NavBar from "../../Components/NavBar";
 import NativeSelectDemo from "../../Components/NativeSelectDemo";
 
-// Corrigido "em-analise" para "Em análise" para melhor exibição
+
 // Mapeamento dos status para exibição e classes CSS
 const STATUS_MAP = [
   { label: "Pendente", className: "pendente" },
@@ -52,9 +52,9 @@ export default function MetaDetalhe() {
 
   // Efeito para sincronizar o 'range' (índice do status) com o status atual da meta
   useEffect(() => {
-    // 1. Verifica se a meta existe
+    //Verifica se a meta existe
     if (meta) {
-      // 2. Se a meta JÁ TIVER um status (ou seja, é uma meta existente)
+      //Se a meta JÁ TIVER um status (ou seja, é uma meta existente)
       if (meta.status) {
         const initialIndex = STATUS_MAP.findIndex(
           (s) => s.label.toLowerCase() === meta.status.toLowerCase()
@@ -62,17 +62,12 @@ export default function MetaDetalhe() {
         if (initialIndex !== -1) {
           setRange(initialIndex);
         } else {
-            setRange(0); // <-- CORREÇÃO: Força para o índice 0 se status for desconhecido
+            setRange(0); 
         }
       } 
-      // 3. Se a meta NÃO TIVER um status, define como 'Pendente' (índice 0)
+      // Se a meta não tiver um status, define como 'Pendente' (índice 0)
       else {
-        // Se a meta não tiver status, garante que seja 0.
           setRange(0);
-          {/* const pendenteIndex = STATUS_MAP.findIndex(s => s.label === "Pendente");
-          if (pendenteIndex !== -1) {
-              setRange(pendenteIndex); 
-          } */}
       }
     }
   }, [meta]); // Dependência: 'meta'. Roda quando a meta é carregada
@@ -82,9 +77,7 @@ export default function MetaDetalhe() {
     const newStatus = STATUS_MAP[range].label;
     
     // Verificações para evitar chamadas desnecessárias.
-    // 1. O status mudou?
     const statusChanged = meta.status !== newStatus;
-    // 2. Há um novo comentário para adicionar?
     const commentAdded = novoComentario.trim() !== "";
     
     // Se nada mudou, informa o usuário
@@ -110,11 +103,6 @@ export default function MetaDetalhe() {
           // Adiciona o novo comentário no array
           updatedMeta.comentarios = [...comentariosExistentes, novoComentarioObj];
       }
-      
-      // Remove o campo `comentario` que é do `useState` para não poluir
-      // o objeto se estivéssemos usando um único estado.
-      // Neste caso, estamos usando `novoComentario` e não o incluímos explicitamente.
-
 
       // Despacha a ação de atualização para o Redux
       await dispatch(updateMeta(updatedMeta)).unwrap();
@@ -125,7 +113,6 @@ export default function MetaDetalhe() {
       }
       
       alert("Meta atualizada com sucesso!");
-      //navigate("/metas"); // Opcional: Se quiser manter na tela de detalhes, remova esta linha
     } catch (err) {
       console.error("Falha ao atualizar a meta:", err);
       alert("Falha ao atualizar a meta.");
@@ -148,7 +135,7 @@ export default function MetaDetalhe() {
 
   return (
     <>
-      {/* Header (Manteve-se o mesmo) */}
+      {/* Header */}
       <Container
         maxWidth="sm"
         sx={{

@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from "react";
 import "./FazerAvaliacao.css";
-import { useNavigate, useParams } from "react-router-dom"; // Importa useParams
+import { useNavigate, useParams } from "react-router-dom"; 
 import ButtonSubmit from "../../Components/ButtonSubmit";
 import NavBar from "../../Components/NavBar";
 import MenuNav from "../../Components/MenuNav";
 import { Typography, Box, Container } from "@mui/material";
-// Componentes estáticos removidos: SurveyForm, Slider
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectAvaliacaoById,
   fetchAvaliacoes,
   updateAvaliacao,
 } from "../../features/user/avaliacaoSlice";
-import FormsAvaliacao from "../../Components/FormsAvaliacao"; // Importa o FormsAvaliacao
+import FormsAvaliacao from "../../Components/FormsAvaliacao"; 
 import Title from "../../Components/Title";
 
 /**
@@ -31,10 +30,10 @@ import Title from "../../Components/Title";
  * @returns {JSX.Element} A página para responder uma avaliação.
  */
 function FazerAvaliacao() {
-  const { id } = useParams(); // Obtém o ID da URL
+  const { id } = useParams(); // Obtém o id da URL
   const dispatch = useDispatch();
 
-  // Busca a avaliação pelo ID do estado do Redux
+  // Busca a avaliação pelo id do estado do Redux
   const avaliacao = useSelector((state) =>
     selectAvaliacaoById(state, String(id))
   );
@@ -45,7 +44,7 @@ function FazerAvaliacao() {
 
   const navigate = useNavigate();
 
-  // Carrega as avaliações se necessário (ex: se o usuário recarregar a página)
+  // Carrega as avaliações se necessário 
   useEffect(() => {
     if (avaliacaoStatus === "idle" || avaliacaoStatus === "failed") {
       dispatch(fetchAvaliacoes());
@@ -56,7 +55,7 @@ function FazerAvaliacao() {
     navigate("/ciclo-revisao");
   };
 
-  // Callback para receber as respostas do FormsAvaliacao (componente filho)
+  // Callback para receber as respostas do FormsAvaliacao 
   const handleRespostasChange = (novasRespostas) => {
     setRespostasAvaliacao(novasRespostas);
   };
@@ -94,14 +93,13 @@ function FazerAvaliacao() {
       .unwrap()
       .then(() => {
         alert(`Avaliação "${avaliacao.titulo}" enviada com sucesso e salva!`);
-        navigate(-1); // Volta para a página anterior
+        navigate(-1); 
       })
       .catch((error) => {
         alert(`Erro ao salvar a avaliação: ${error.message}`);
       });
   };
 
-  // --- Renderização Condicional ---
   if (avaliacaoStatus === "loading" || avaliacaoStatus === "idle") {
     return <Typography sx={{ p: 4 }}>Carregando Avaliação...</Typography>;
   }
@@ -121,16 +119,14 @@ function FazerAvaliacao() {
         {/* Bloco de cabeçalho com as classes para o CSS */}
         <Container
           maxWidth="lg"
-          className="cabecalho" //  Adicionada classe para o container
+          className="cabecalho" 
           sx={{
-            // As propriedades de display e alinhamento foram movidas para o CSS
-            // para que a media query possa controlá-las.
             py: 3,
           }}
         >
           <button
             type="button"
-            className="botao-voltar" // <-- ALTERAÇÃO: Classe para o botão
+            className="botao-voltar" 
             aria-label="Voltar"
             onClick={() => navigate(-1)}
           >
@@ -147,7 +143,7 @@ function FazerAvaliacao() {
 
           <Title
             titulo={avaliacao.titulo || "Fazer Avaliação"}
-            className="titulo-pagina" // <-- ALTERAÇÃO: Adicionada classe para o título
+            className="titulo-pagina" 
           />
         </Container>
         <MenuNav />
@@ -155,7 +151,7 @@ function FazerAvaliacao() {
           {/* Formulário de Avaliação */}
           <form className="autoavaliacao-form" onSubmit={handleSubmit}>
             <div className="form-section">
-              {/* NOVO: Usa o componente reutilizável FormsAvaliacao */}
+              {/*Usa o componente reutilizável FormsAvaliacao */}
               <FormsAvaliacao
                 avaliacao={avaliacao}
                 onRespostasChange={handleRespostasChange}

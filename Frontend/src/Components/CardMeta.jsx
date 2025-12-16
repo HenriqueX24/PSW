@@ -12,7 +12,7 @@ import "./CardMeta.css";
  */
 function CardMeta({ meta, hideStatus = false }) {
 
-  // "Guard Clause": Não renderiza nada se a prop 'meta' não for fornecida.
+  // Não renderiza nada se a prop 'meta' não for fornecida.
   if (!meta) {
     return null;
   }
@@ -22,7 +22,7 @@ function CardMeta({ meta, hideStatus = false }) {
   const statusClass = status ? status.toLowerCase().replace(/\s/g, '-') : 'pendente';
 
   return (
-    // Usa a nova classe principal 'goal-card-container'
+    
     <div className="goal-card-container"> 
       <span className="goal-title">{titulo}</span>
       <span className="goal-desc">{descricao}</span>

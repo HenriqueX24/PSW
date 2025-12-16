@@ -9,9 +9,8 @@ import {
   useTheme,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import React, { useState } from "react"; // 1. Importar useState
+import React, { useState } from "react"; 
 import { NavLink } from "react-router-dom";
-// 2. Importar o componente Drawer
 import HorizontalLinearStepper from "./HorizontalLinearStepper.jsx";
 
 // Componente para agrupar e centralizar os links de navegação do menu principal
@@ -65,17 +64,13 @@ export default function MenuNav() {
   const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
   return (
-    // Envolver tudo em um Box para melhor gestão de layout
+    
     <Box sx={{ flexGrow: 1 }}>
-      {/* 2. AppBar Principal (Barra de Navegação) */}
+      {/* AppBar Principal (Barra de Navegação) */}
       <AppBar position="static" color="default" elevation={1}>
         <Container maxWidth="lg" disableGutters={isMobile}>
           <Toolbar disableGutters>
-            <HorizontalLinearStepper />
-            {/* Links de Navegação (Desktop) 
-            <NavLinks />*/}
-
-            {/* Ações à Direita e Toggle Button */}
+            <HorizontalLinearStepper />          
             <Box
               sx={{
                 flexGrow: 1,
@@ -83,8 +78,7 @@ export default function MenuNav() {
                 justifyContent: "flex-end",
                 alignItems: "center",
               }}
-            >
-              
+            >       
             </Box>
           </Toolbar>
         </Container>
