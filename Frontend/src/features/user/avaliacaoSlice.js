@@ -5,7 +5,9 @@ import {
   createSelector,
 } from "@reduxjs/toolkit";
 
-const avaliacoesAdapter = createEntityAdapter({});
+const avaliacoesAdapter = createEntityAdapter({
+  selectId: (instance) => instance._id || instance.id,
+});
 
 const initialState = avaliacoesAdapter.getInitialState({
   status: "idle",

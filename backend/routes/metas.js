@@ -26,6 +26,23 @@ router.route('/').post((req, res) => {
     .catch(err => res.status(400).json('Erro: ' + err));
 });
 
+router.post('/metas', async (req, res) => {
+    try {
+        const novaMeta = new Meta(req.body); 
+        await novaMeta.save();
+        res.status(201).json(novaMeta); // Retorna 201 e o objeto salvo
+    } catch (err) {
+        console.error("ERRO AO SALVAR META:", err); 
+        
+        // Se for um erro de validação do Mongoose
+        if (err.name === 'ValidationError') {
+            return res.status(400).json({ message: "Dados inválidos.", details: err.errors });
+        }
+        
+        // Para todos os outros erros (incluindo falhas de DB), retorna JSON 500
+        res.status(500).json({ message: "Erro interno do servidor. Verifique os logs." });
+    }
+});
 
 router.route('/:id').get((req, res) => {
   Meta.findById(req.params.id)
