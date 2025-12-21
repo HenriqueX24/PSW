@@ -17,9 +17,9 @@ connection.once("open", () => {
   console.log("Conexão com o MongoDB Atlas estabelecida com sucesso!");
 });
 
-app.get("/", (req, res) => {
-  res.send("Olá! O seu backend FeedUp está no ar!");
-});
+app.get("/", (_req, res) => {
+    res.send("Olá! O seu backend FeedUp está no ar!");
+  });
 
 const usersRouter = require("./routes/users");
 app.use("/users", usersRouter);

@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Container,
-  Typography,
   TextField,
   Button,
   Box,
@@ -12,7 +11,6 @@ import './CriarAvaliacao.css'
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import CardQuestao from "../../Components/CardQuestao"; 
 import ButtonCreate from "../../Components/ButtonCreate";
-import NavBar from "../../Components/NavBar";
 import { useDispatch } from 'react-redux'; 
 import { addNewAvaliacao } from "../../features/user/avaliacaoSlice"; 
 import Title from "../../Components/Title"
@@ -73,8 +71,9 @@ function CriarAvaliacao() {
     const novaAvaliacao = {
       titulo,
       questoes,
-      // Adiciona uma data de criação 
-      dataCriacao: new Date().toISOString(), 
+      dataCriacao: new Date().toISOString(), // Adiciona uma data de criação 
+      status: "Pendente", // Adicionado no modelo de dados
+      respostas: {}       // Inicializa o objeto de respostas
     };
 
     // Despacha a ação assíncrona para salvar a avaliação
@@ -82,7 +81,7 @@ function CriarAvaliacao() {
       .unwrap() // Lida com a promise do thunk (para .then e .catch)
       .then(() => {
         alert("Avaliação criada com sucesso!");
-        navigate("/avaliacao/:id"); // Volta para a Lista de Avaliações
+        navigate("/avaliacao"); // Volta para a Lista de Avaliações
       })
       .catch((error) => {
         console.error("Erro ao salvar avaliação:", error);

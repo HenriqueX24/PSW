@@ -3,14 +3,14 @@ const Avaliacao = require("../models/avaliacao.model");
 const { protect } = require("../middleware/authMiddleware");
 
 // GET /avaliacoes - Lista todas as avaliações
-router.get("/", async (req, res) => {
-  try {
-    const avaliacoes = await Avaliacao.find();
-    res.json(avaliacoes);
-  } catch (err) {
-    res.status(500).json({ msg: "Erro ao buscar avaliações: " + err.message });
-  }
-});
+router.get("/", async (_req, res) => {
+    try {
+      const avaliacoes = await Avaliacao.find();
+      res.json(avaliacoes);
+    } catch (err) {
+      res.status(500).json({ msg: "Erro ao buscar avaliações: " + err.message });
+    }
+  });
 
 // GET /avaliacoes/:id - Busca uma avaliação por ID
 router.get("/:id", async (req, res) => {
@@ -40,6 +40,18 @@ router.post("/", async (req, res) => {
     res.status(201).json(saved);
   } catch (err) {
     res.status(400).json({ msg: "Erro ao criar avaliação: " + err.message });
+  }
+});
+
+router.get("/:id", async (req, res) => {
+  try {
+    const avaliacao = await Avaliacao.findById(req.params.id);
+    if (!avaliacao) {
+      return res.status(404).json({ msg: "Avaliação não encontrada" });
+    }
+    res.json(avaliacao);
+  } catch (err) {
+    res.status(500).json({ msg: "Erro ao buscar avaliação: " + err.message });
   }
 });
 

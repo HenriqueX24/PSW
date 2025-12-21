@@ -57,6 +57,14 @@ export default function Login() {
       navigate("/ciclo-revisao");
     } else if (loginUser.rejected.match(resultAction)) {
       // Login falhou.
+      if (status === 'failed') {
+  return (
+    <div className="error-alert">
+      <p>⚠️ {error}</p> {/* Mostrará: "Não foi possível conectar ao servidor..." */}
+      <button onClick={() => window.location.reload()}>Tentar Reconectar</button>
+    </div>
+  );
+}
       const errorMessage =
         resultAction.payload || "E-mail/CPF ou senha inválidos.";
       // action loginFailure pode ser despachada aqui

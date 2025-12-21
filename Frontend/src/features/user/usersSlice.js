@@ -53,10 +53,28 @@ const initialState = usersAdapter.getInitialState({
   error: null,
 });
 
-export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
-  const response = await fetch("http://localhost:3001/users");
-  const data = await response.json();
-  return data;
+export const fetchUsers = createAsyncThunk("users/fetchUsers", async (_, { rejectWithValue, getState }) => {
+  try {
+    const token = localStorage.getItem("userToken");
+
+    const response = await fetch("http://localhost:3001/users", {
+      method: "GET",
+      headers: {
+        'Authorization': `Bearer ${token}`, // Adiciona o cabeçalho de autorização
+        'Content-Type': `application/json` //Geralmente é uma boa prática incluir
+      },
+    });
+
+    if(!response.ok){
+      const errorData = await response.json(); 
+      throw new Error(errorData.message || "Erro ao buscar usuários");
+    }
+
+    return await response.json(); 
+
+  } catch( error ){
+    return rejectWithValue(error.message);
+  } 
 });
 
 export const usersSlice = createSlice({
@@ -72,11 +90,17 @@ export const usersSlice = createSlice({
       })
       .addCase(fetchUsers.fulfilled, (state, action) => {
         state.status = "succeeded";
+
+        if(Array.isArray(action.payload)){
+          usersAdapter.setAll(state, action.payload);
+        } else {
+          console.error("Payload recebido não é um array:", action.payload);
+        }
         usersAdapter.setAll(state, action.payload);
       })
       .addCase(fetchUsers.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.error.message;
+        state.error = action.error.message || action.payload;
       })
       .addCase(addNewUser.fulfilled, usersAdapter.addOne);
   },

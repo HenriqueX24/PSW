@@ -26,6 +26,7 @@ router.route("/").post(protect, async (req, res) => {
     res.status(500).json({ msg: "Erro no servidor: " + error.message });
   }
 });
+
 router.route("/").get(protect, async (req, res) => {
   try {
     const ciclos = await Ciclo.find({ usuario: req.user.id });

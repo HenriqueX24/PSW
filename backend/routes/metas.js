@@ -2,7 +2,7 @@ const router = require('express').Router();
 let Meta = require('../models/Meta.model'); 
 
 
-router.route('/').get((req, res) => {
+router.route('/').get((_req, res) => {
   Meta.find()
     .then(metas => res.json(metas))
     .catch(err => res.status(400).json('Erro: ' + err));
