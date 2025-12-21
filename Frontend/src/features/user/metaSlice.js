@@ -47,12 +47,17 @@ export const addNewMeta = createAsyncThunk(
 export const updateMeta = createAsyncThunk(
   "metas/updateMeta",
   async (metaAtualizada) => {
-    const { id } = metaAtualizada;
+    const id = metaAtualizada._id || metaAtualizada.id;
     const response = await fetch(`http://localhost:3001/metas/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(metaAtualizada),
     });
+
+    if (!response.ok){
+      throw new Error('Erro ao atualizar no servidor');
+    }
+
     const data = await response.json();
     return data;
   }

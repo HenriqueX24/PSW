@@ -1,6 +1,6 @@
 // MetaDetalhe.jsx (Arquivo modificado)
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./meta-detalhe.css";
 import { useNavigate, useParams, Link } from "react-router-dom"; 
 import { useSelector, useDispatch } from "react-redux";
@@ -88,7 +88,10 @@ export default function MetaDetalhe() {
 
     try {
       // Cria o objeto base de atualização
-      const updatedMeta = { ...meta, status: newStatus };
+      const updatedMeta = { 
+        ...meta, 
+        status: newStatus 
+      };
       
       // Lógica para adicionar o novo comentário ao histórico
       if (commentAdded) {

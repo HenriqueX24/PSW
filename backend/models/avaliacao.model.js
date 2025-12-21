@@ -42,19 +42,31 @@ const avaliacaoSchema = new Schema(
       trim: true,
     },
     tipo: {},
-
     opcoes: {},
-
+    questoes: [QuestaoSchema],
+    respostas: {
+      type: Map,
+      of: Schema.Types.Mixed,
+      default: {}
+    },
+    status: {
+      type: String,
+      default: "Pendente"
+    },
     dataCriacao: {
       type: Date,
+      default: Date.now,
       required: true,
     },
+    dataResposta: {
+      type: Date,
+    }
   },
   {
     timestamps: true,
   }
 );
 
-const Ciclo = mongoose.model("Avaliacao", avaliacaoSchema);
+const Avaliacao = mongoose.model("Avaliacao", avaliacaoSchema);
 
-module.exports = Ciclo;
+module.exports = Avaliacao;

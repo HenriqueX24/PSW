@@ -57,9 +57,11 @@ router.route('/:id').put(async (req, res) => {
 
     meta.titulo = req.body.titulo || meta.titulo;
     meta.descricao = req.body.descricao || meta.descricao;
-    meta.periodo = req.body.periodo || meta.periodo;
+    meta.inicio = req.body.inicio || meta.inicio;
+    meta.termino = req.body.termino || meta.termino;
     meta.responsavel = req.body.responsavel || meta.responsavel;
     meta.status = req.body.status || meta.status;
+    meta.comentarios = req.body.comentarios || meta.comentarios;
 
     const metaAtualizada = await meta.save();
     res.json(metaAtualizada);

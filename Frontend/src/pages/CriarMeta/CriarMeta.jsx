@@ -79,7 +79,8 @@ export default function CriarMeta() {
       
       const metaData = { 
         ...data, 
-        periodo: data.inicio, 
+        inicio: data.inicio, 
+        termino: data.termino,
         status: 'Pendente' 
       };
       

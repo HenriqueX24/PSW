@@ -42,7 +42,7 @@ export const updateAvaliacao = createAsyncThunk(
   "avaliacoes/updateAvaliacao",
   async (avaliacaoAtualizada) => {
     const id = avaliacaoAtualizada._id;
-    fetch(`http://localhost:3001/avaliacoes/${id}`)
+    //fetch(`http://localhost:3001/avaliacoes/${id}`)
     const response = await fetch(`http://localhost:3001/avaliacoes/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },

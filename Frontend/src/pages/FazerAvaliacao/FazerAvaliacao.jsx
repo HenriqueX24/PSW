@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./FazerAvaliacao.css";
 import { useNavigate, useParams } from "react-router-dom"; 
 import ButtonSubmit from "../../Components/ButtonSubmit";

@@ -1,5 +1,4 @@
 // src/Components/CardMeta.jsx
-import React from 'react';
 import "./CardMeta.css";
 
 /**
