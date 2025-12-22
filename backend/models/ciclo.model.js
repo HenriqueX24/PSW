@@ -23,6 +23,19 @@ const cicloSchema = new Schema(
       default: "Pendente",
     },
 
+    avaliadores: [
+      {
+        type: String, // email
+        required: true,
+      },
+    ],
+    avaliados: [
+      {
+        type: String, // email
+        required: true,
+      },
+    ],
+
     usuario: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

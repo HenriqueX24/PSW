@@ -97,17 +97,16 @@ export default function CicloRevisao() {
       </Container>
 
       <MenuNav label={"Ciclo de Revisão"} />
-      <main className="ciclo-main">
-        {content}
-        {/* Renderização condicional do botão "Criar Ciclo" */}
-        {currentUser && currentUser.cargo === "gestor" && (
-          <ButtonCreate
-            nameButton={"Criar Ciclo"}
-            onClick={() => navigate("/criar-ciclo")}
-          />
-        )}
-      </main>
-
+        <main className="ciclo-main">
+          {content}
+          {/* Renderização condicional do botão "Criar Ciclo" */}
+          {currentUser && currentUser.cargo === "gestor" && (
+            <ButtonCreate
+              nameButton={"Criar Ciclo"}
+              onClick={() => navigate("/criar-ciclo")}
+            />
+          )}
+        </main>
       <NavBar />
     </Box>
   );

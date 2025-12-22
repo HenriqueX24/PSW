@@ -3,9 +3,9 @@ let Ciclo = require("../models/ciclo.model");
 const { protect } = require("../middleware/authMiddleware");
 
 router.route("/").post(protect, async (req, res) => {
-  const { titulo, dataInicio, dataFim, status } = req.body;
+  const { titulo, dataInicio, dataFim, avaliadores, avaliados } = req.body;
 
-  if (!titulo || !dataInicio || !dataFim) {
+  if (!titulo || !dataInicio || !dataFim || !avaliadores || !avaliados) {
     return res
       .status(400)
       .json({ msg: "Por favor, preencha os campos obrigatórios" });
@@ -16,7 +16,8 @@ router.route("/").post(protect, async (req, res) => {
       titulo,
       dataInicio,
       dataFim,
-      status,
+      avaliadores,
+      avaliados,
       usuario: req.user.id,
     });
 

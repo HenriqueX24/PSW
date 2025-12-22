@@ -47,13 +47,28 @@ export const fetchCiclos = createAsyncThunk("ciclos/fetchCiclos", async (_, { re
 });
 export const addNewCiclo = createAsyncThunk(
   "ciclos/addNewCiclo",
-  async (novoCiclo) => {
-    const response = await fetch("http://localhost:3001/ciclos", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(novoCiclo),
-    });
-    return response.json();
+  async (novoCiclo, {rejectWithValue}) => {
+    try {
+      const token = localStorage.getItem('userToken'); //Pegar o token do storage
+      const response = await fetch("http://localhost:3001/ciclos", {
+        method: "POST",
+        headers: { 
+          "Content-Type": "application/json" ,
+          "Authorization": `Bearer ${token}` 
+        },
+        body: JSON.stringify(novoCiclo),
+      });  
+
+      const data = await response.json();
+
+      if(!response.ok){
+        return rejectWithValue(data.msg || data || "Erro ao criar ciclo");
+      }
+
+      return data;
+    } catch (error){
+      return rejectWithValue(error.message);
+    }
   }
 );
 

@@ -1,7 +1,7 @@
 import "./ciclo-funcionarios.css";
 import { useEffect } from "react";
 import CardFuncionario from "../../Components/CardFuncionario"; 
-import { useNavigate, useParams, Link } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectCicloById } from "../../features/user/ciclosSlice";
 import { selectAllUsers } from "../../features/user/usersSlice";
@@ -32,7 +32,7 @@ export default function CicloFuncionarios() {
   // Efeito de proteção de rota: Redireciona para /login se não estiver autenticado
   useEffect(() => {
     if (!isAuthenticated) {
-      navigate('/ciclo-funcionarios'); 
+      navigate('/login'); 
     }
   }, [isAuthenticated, navigate]);
 
