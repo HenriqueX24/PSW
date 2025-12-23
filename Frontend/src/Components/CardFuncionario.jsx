@@ -30,7 +30,7 @@ export default function CardFuncionario({ employee, avaliacaoStatus, avaliacaoId
   };
 
   return (
-    <div key={id} className="employee-card">
+    <div key={_id} className="employee-card">
       
       {/* Caixa da Esquerda: Informações */}
       <div className="employee-info">

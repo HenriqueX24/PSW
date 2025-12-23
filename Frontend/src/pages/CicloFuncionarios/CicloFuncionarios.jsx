@@ -44,8 +44,12 @@ export default function CicloFuncionarios() {
   // CORREÇÃO: Filtra APENAS os usuários que estão no ciclo. 
   // O filtro é feito comparando o '_id' do usuário com o array 'avaliados' do ciclo.
   const employeesInCycle = allUsers.filter(user => 
-   (ciclo?.avaliados || []).includes(user._id)
+   ciclo.avaliados?.some(avaliadoId => String(avaliadoId) === String(user._id))
   );
+
+  console.log("IDs no Ciclo:", ciclo.avaliados);
+  console.log("Total de Usuários:", allUsers.length);
+  console.log("Funcionários Filtrados:", employeesInCycle);
 
   // NOVO: Adicione uma propriedade ao ciclo que aponta para o ID da avaliação.
   // Se você não tiver um campo `avaliacaoTemplateId` no ciclo, use um ID
@@ -88,21 +92,18 @@ export default function CicloFuncionarios() {
         <main className="mainCiclo">
         <section className="employee-list">
           {/* Mapeia e renderiza um Card para cada funcionário filtrado */}
-          {employeesInCycle.map((emp) => {
-            
-            const avaliacaoStatus = "pendente"; 
-            const avaliacoId = ciclo.avaliacaoTemplateId || '1'; // Renomeado para evitar conflito de nome
-
-            
-            return (
-              <CardFuncionario
-                key={emp._id}
-                employee={emp}
-                avaliacaoStatus={avaliacaoStatus} // "pendente" para todos
-                avaliacaoId={avaliacoId} // passa o id valido
-              />
-            );
-          })}
+          {employeesInCycle.lenght > 0 ? (
+          employeesInCycle.map((emp) => (
+                <CardFuncionario
+                  key={emp._id}
+                  employee={emp}
+                  avaliacaoStatus="pendente" // "pendente" para todos
+                  avaliacaoId={avaliacaoTemplateId} // passa o id valido
+                />
+          ))
+          ) : (
+            <p>Nenhum funcionário encontrado para este ciclo.</p>
+          )}
         </section>
       </main>
 

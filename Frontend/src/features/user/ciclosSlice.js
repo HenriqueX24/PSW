@@ -13,15 +13,21 @@ const initialState = ciclosAdapter.getInitialState({
   error: null,
 });
 
+// Função auxiliar para pegar os headers (evita repetição de código)
+const getAuthHeaders = () => {
+  const token = localStorage.getItem("userToken");
+  return {
+    "Content-Type": "application/json",
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+  };
+};
+
 export const fetchCiclos = createAsyncThunk("ciclos/fetchCiclos", async (_, { rejectWithValue }) => {
   try{
     const token = localStorage.getItem("userToken"); //armazena o token aqui
     const response = await fetch("http://localhost:3001/ciclos", {
-    headers: {
-      // O esquema 'Bearer' é o mais comum para tokens JWT
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
+      method: "GET",
+      headers: getAuthHeaders(),
   });
 
     const data = await response.json();
@@ -52,10 +58,7 @@ export const addNewCiclo = createAsyncThunk(
       const token = localStorage.getItem('userToken'); //Pegar o token do storage
       const response = await fetch("http://localhost:3001/ciclos", {
         method: "POST",
-        headers: { 
-          "Content-Type": "application/json" ,
-          "Authorization": `Bearer ${token}` 
-        },
+        headers: getAuthHeaders(),
         body: JSON.stringify(novoCiclo),
       });  
 
@@ -89,9 +92,11 @@ const ciclosSlice = createSlice({
       })
       .addCase(fetchCiclos.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.error.message || action.error.message;
+        state.error = action.payload || action.error.message;
       })
-      .addCase(addNewCiclo.fulfilled, ciclosAdapter.addOne);
+      .addCase(addNewCiclo.fulfilled, (state, action) => {
+        ciclosAdapter.addOne(state, action.payload)
+      });
   },
 });
 
