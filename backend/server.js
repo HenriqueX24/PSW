@@ -11,7 +11,11 @@ const PORT = process.env.PORT || 5000;
 // Middleware primeiro
 app.use(express.json());
 
-app.use(cors());
+app.use(cors({
+  origin: ["hhttps://front-a7ua.onrender.com"],
+  credentials: true
+}));
+
 // Mongo
 const uri = process.env.DATABASE_URL;
 
