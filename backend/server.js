@@ -33,7 +33,7 @@ app.use(cors({
 }));
 
 // MUITO IMPORTANTE: responder preflight
-app.options("*", cors());
+app.options("/", cors());
 
 
 // Mongo

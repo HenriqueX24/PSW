@@ -23,20 +23,21 @@ export default function HorizontalLinearStepper() {
   const location = useLocation();
   const cargo = useSelector((state) => state.login.currentUser?.cargo);
 
-  const steps = cargo === 'gestor'
-    ? [
-        { label: 'Ciclo de Revisão', route: '/ciclo-revisao' },
-        { label: 'Funcionários', route: '/ciclo-funcionarios' },
-        { label: 'Avaliações', route: '/avaliacao' },
-        { label: 'Metas', route: '/metas' },
-        { label: 'Fazer Avaliação', route: '/fazer-avaliacao' },
-      ]
-    : [
-        { label: 'Ciclo de Revisão', route: '/ciclo-revisao' },
-        { label: 'Funcionários', route: '/ciclo-funcionarios' },
-        { label: 'Metas', route: '/metas' },
-        { label: 'Fazer Avaliação', route: '/fazer-avaliacao' },
-      ];
+  const steps =
+    cargo === "gestor"
+      ? [
+          { label: "Ciclo de Revisão", route: "/ciclo-revisao" },
+          //{ label: 'Funcionários', route: '/ciclo-funcionarios' },
+          { label: "Avaliações", route: "/avaliacao" },
+          { label: "Metas", route: "/metas" },
+          { label: "Fazer Avaliação", route: "/fazer-avaliacao" },
+        ]
+      : [
+          { label: "Ciclo de Revisão", route: "/ciclo-revisao" },
+          //{ label: "Funcionários", route: "/ciclo-funcionarios" },
+          { label: "Metas", route: "/metas" },
+          { label: "Fazer Avaliação", route: "/fazer-avaliacao" },
+        ];
 
   // Encontra o "step" ativo baseado na URL atual
   const activeStep = steps.findIndex((step) =>
