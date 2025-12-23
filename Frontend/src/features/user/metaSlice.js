@@ -5,6 +5,8 @@ import {
   createSelector,
 } from "@reduxjs/toolkit";
 
+import { API_URL } from "../../config/api";
+
 const metasAdapter = createEntityAdapter({
   selectId: (instance) => instance._id || instance.id,
 });
@@ -15,7 +17,7 @@ const initialState = metasAdapter.getInitialState({
 });
 
 export const fetchMetas = createAsyncThunk("metas/fetchMetas", async () => {
-  const response = await fetch("http://localhost:3001/metas");
+  const response = await fetch(`${API_URL}/metas`);
   const data = await response.json();
   return data;
 });
@@ -24,7 +26,7 @@ export const addNewMeta = createAsyncThunk(
   "metas/addNewMeta",
   async (novaMeta, { rejectWithValue }) => {
     try {
-      const response = await fetch("http://localhost:3001/metas", {
+      const response = await fetch(`${API_URL}/metas`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -48,7 +50,7 @@ export const updateMeta = createAsyncThunk(
   "metas/updateMeta",
   async (metaAtualizada) => {
     const id = metaAtualizada._id || metaAtualizada.id;
-    const response = await fetch(`http://localhost:3001/metas/${id}`, {
+    const response = await fetch(`${API_URL}/metas/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(metaAtualizada),
@@ -65,7 +67,7 @@ export const updateMeta = createAsyncThunk(
 export const deleteMeta = createAsyncThunk(
   "metas/deleteMeta",
   async (metaId) => {
-    await fetch(`http://localhost:3001/metas/${metaId}`, {
+    await fetch(`${API_URL}/metas/${metaId}`, {
       method: "DELETE",
     });
     return metaId;

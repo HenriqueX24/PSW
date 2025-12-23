@@ -9,6 +9,8 @@ import "./criar-ciclo.css";
 import NavBar from "../../Components/NavBar";
 import { selectAllUsers } from "../../features/user/usersSlice";
 import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { fetchAvaliacoes, selectAllAvaliacoes } from "../../features/user/avaliacaoSlice";
 import Title from "../../Components/Title";
 import { Container, Box, Chip, Stack } from "@mui/material";
 import SelectUsers from "../../Components/SelectUsers";
@@ -22,6 +24,7 @@ const validationSchema = Yup.object().shape({
   // Ambos, Avaliadores e Avaliados, são arrays de emails
   avaliadores: Yup.array().min(1, "Selecione ao menos um avaliador").required(),
   avaliados: Yup.array().min(1, "Selecione ao menos um avaliado").required(),
+  avaliacaoTemplateId: Yup.string().required("Selecione um template de avaliação"),
 });
 
 /**
@@ -39,6 +42,15 @@ export default function CriarCiclo() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userList = useSelector(selectAllUsers);
+  const avaliacoes = useSelector(selectAllAvaliacoes);
+  const avaliacoesStatus = useSelector((state) => state.avaliacoes.status);
+
+  useEffect(() => {
+    if (avaliacoesStatus === "idle") {
+      dispatch(fetchAvaliacoes());
+    }
+  }, [avaliacoesStatus, dispatch]);
+
 
   // Listas filtradas por cargo
   const gestoresList = userList.filter((user) => user.cargo === "gestor");
@@ -127,6 +139,7 @@ export default function CriarCiclo() {
       dataFim: data.termino, // converte nome
       avaliadores: data.avaliadores,
       avaliados: data.avaliados,
+      avaliacaoTemplateId: data.avaliacaoTemplateId,
     };
     try {
       await dispatch(addNewCiclo(cicloPayload)).unwrap();
@@ -208,6 +221,23 @@ export default function CriarCiclo() {
               <p className="error-message">{errors.termino.message}</p>
             )}
           </div>
+
+          {/* Template de Avaliação (criado pelo gestor) */}
+          <div className="form-group">
+            <label>Template de Avaliação</label>
+            <select {...register("avaliacaoTemplateId")}>
+              <option value="">Selecione...</option>
+              {avaliacoes.map((a) => (
+                <option key={a._id} value={a._id}>
+                  {a.titulo}
+                </option>
+              ))}
+            </select>
+            {errors.avaliacaoTemplateId && (
+              <p className="error-message">{errors.avaliacaoTemplateId.message}</p>
+            )}
+          </div>
+
 
           {/* Seção de Avaliadores (Gestores) com Seletor e Chips */}
           <div className="form-group">

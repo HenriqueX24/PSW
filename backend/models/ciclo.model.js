@@ -36,6 +36,12 @@ const cicloSchema = new Schema(
       },
     ],
 
+    avaliacaoTemplateId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Avaliacao",
+      required: true,
+    },
+
     usuario: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

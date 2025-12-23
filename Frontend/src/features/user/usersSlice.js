@@ -4,8 +4,11 @@ import {
   createEntityAdapter,
 } from "@reduxjs/toolkit";
 
+import { API_URL } from "../../config/api";
+
 const usersAdapter = createEntityAdapter({
-  selectId: (users) => users._id || users._id,
+  // backend (Mongo) usa _id; json-server usa id.
+  selectId: (users) => users._id || users.id,
 });
 
 const initialState = usersAdapter.getInitialState({
@@ -27,7 +30,7 @@ export const fetchUsers = createAsyncThunk("users/fetchUsers", async (_, { rejec
   try {
     //const token = localStorage.getItem("userToken");
 
-    const response = await fetch("http://localhost:3001/users", {
+    const response = await fetch(`${API_URL}/users`, {
       method: "GET",
       headers: getAuthHeaders(),
     });
@@ -49,7 +52,7 @@ export const addNewUser = createAsyncThunk(
   "users/addNewUser",
   async (newUser, {rejectWithValue}) => {
     try{
-      const response = await fetch("http://localhost:3001/users", {
+      const response = await fetch(`${API_URL}/users`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newUser),
@@ -71,7 +74,7 @@ export const deleteUser = createAsyncThunk(
   "users/deleteUser",
   async (userId, {rejectWithValue}) => {
     try{
-    const response = await fetch(`http://localhost:3001/users/${userId}`, {
+    const response = await fetch(`${API_URL}/users/${userId}`, {
       method: "DELETE",
       headers: getAuthHeaders(),
     });
@@ -88,7 +91,7 @@ export const updateUser = createAsyncThunk(
     // Pegue o token do localStorage
     //const token = localStorage.getItem("userToken");
     try{
-    const response = await fetch(`http://localhost:3001/users/profile`, {
+    const response = await fetch(`${API_URL}/users/profile`, {
       method: "PUT",
       headers: getAuthHeaders(),
       body: JSON.stringify(userAtualizado),
@@ -110,7 +113,7 @@ export const loginUser = createAsyncThunk(
   "users/loginUser",
   async ({ identifier, senha }, { rejectWithValue }) => {
     try {
-      const response = await fetch("http://localhost:3001/users/login", {
+      const response = await fetch(`${API_URL}/users/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: identifier, senha }), // O backend espera `email` e `senha`
@@ -151,7 +154,10 @@ export const usersSlice = createSlice({
         state.error = action.error.message || action.payload;
       })
       .addCase(addNewUser.fulfilled, (state, action) => {
-        usersAdapter.addOne(state, action.payload);
+        // Se o backend retornar só uma mensagem, não tenta enfiar isso no adapter.
+        if (action.payload && (action.payload._id || action.payload.id)) {
+          usersAdapter.addOne(state, action.payload);
+        }
       });
   },
 });

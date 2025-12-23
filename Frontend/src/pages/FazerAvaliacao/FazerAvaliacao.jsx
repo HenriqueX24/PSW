@@ -9,29 +9,17 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   selectAvaliacaoById,
   fetchAvaliacoes,
-  updateAvaliacao,
+  fetchMinhasAvaliacoes,
+  responderAvaliacao,
 } from "../../features/user/avaliacaoSlice";
 import FormsAvaliacao from "../../Components/FormsAvaliacao"; 
 import Title from "../../Components/Title";
 
-/**
- * Página "Fazer Avaliação".
- *
- * Permite que um usuário *responda* a um modelo de avaliação.
- * 1. Obtém o `id` da avaliação da URL (via `useParams`).
- * 2. Busca/Seleciona a avaliação específica do `avaliacaoSlice` do Redux.
- * 3. Renderiza o componente `FormsAvaliacao`, que gera dinamicamente
- * os inputs (Slider, Múltipla Escolha) com base nas 'questoes' da avaliação.
- * 4. Recebe as respostas do usuário através do callback `handleRespostasChange`.
- * 5. Ao submeter, valida se todas as questões foram respondidas.
- * 6. Despacha a ação `updateAvaliacao` para salvar as `respostas` no objeto
- * da avaliação, marcando-a como "Respondida".
- *
- * @returns {JSX.Element} A página para responder uma avaliação.
- */
+
 function FazerAvaliacao() {
   const { id } = useParams(); // Obtém o id da URL
   const dispatch = useDispatch();
+  const cargo = useSelector((state) => state.login.currentUser?.cargo);
 
   // Busca a avaliação pelo id do estado do Redux
   const avaliacao = useSelector((state) =>
@@ -47,9 +35,9 @@ function FazerAvaliacao() {
   // Carrega as avaliações se necessário 
   useEffect(() => {
     if (avaliacaoStatus === "idle" || avaliacaoStatus === "failed") {
-      dispatch(fetchAvaliacoes());
+      if (cargo === 'gestor') { dispatch(fetchAvaliacoes()); } else { dispatch(fetchMinhasAvaliacoes()); }
     }
-  }, [avaliacaoStatus, dispatch]);
+  }, [avaliacaoStatus, dispatch, cargo]);
 
   const handleVoltar = () => {
     navigate("/ciclo-revisao");
@@ -80,24 +68,16 @@ function FazerAvaliacao() {
       return;
     }
 
-    // Preparar o objeto de atualização
-    const avaliacaoPreenchida = {
-      ...avaliacao,
-      respostas: respostasAvaliacao, // Salva o snapshot das respostas
-      status: "Respondida", // Marca como respondida
-      dataResposta: new Date().toISOString(), // Adiciona o timestamp para ordenação
-    };
-
     // Enviar a atualização via Thunk
-    dispatch(updateAvaliacao(avaliacaoPreenchida))
-      .unwrap()
+    dispatch(responderAvaliacao({ avaliacaoId: id, respostas: respostasAvaliacao })).unwrap()
       .then(() => {
         alert(`Avaliação "${avaliacao.titulo}" enviada com sucesso e salva!`);
         navigate(-1); 
       })
       .catch((error) => {
-        alert(`Erro ao salvar a avaliação: ${error.message}`);
-      });
+      const msg = error?.msg || error?.message || "Erro ao salvar a avaliação";
+      alert(`Erro ao salvar a avaliação: ${msg}`);
+    });
   };
 
   if (avaliacaoStatus === "loading" || avaliacaoStatus === "idle") {

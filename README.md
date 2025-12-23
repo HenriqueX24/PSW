@@ -1,18 +1,19 @@
-# FeedUP - PSW
+# FeedUP - PSW (Front + Back)
 
-<h3>Frontend com React e Redux</h3>
-Está na pasta Frontend. Faça um clone e 
+## 1) Backend
 
-* instale as dependêcias: *npm i* 
-* instale o json-server: *npm install -g json-server* 
-* rode em terminais separados as duas instruções:    
- *npx json-server --watch db.json --port 3001*
-* rode o software: *npm run dev*
+1. Entre na pasta `backend/`.
 
-<h3>Backend com Node,Express,MongoDB,JWT</h3>
+2. Instale dependências: npm i
 
-* instale as dependêcias: npm i 
+3. Rode: npm run dev
 
-* instalar mongoose: npm i mongoose
-  
-* npm run dev
+## 2) Frontend
+
+1. Entre na pasta `Frontend/`.
+
+2. Instale dependências: npm i
+
+3. Rode:npm run dev
+
+> O front usa `VITE_API_URL` (padrão `http://localhost:5000`).

@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const Avaliacao = require("../models/avaliacao.model");
 const { protect } = require("../middleware/authMiddleware");
+const { requireGestor } = require("../middleware/roleMiddleware");
 
 // GET /avaliacoes - Lista todas as avaliações
 router.get("/", async (_req, res) => {
@@ -11,6 +12,63 @@ router.get("/", async (_req, res) => {
       res.status(500).json({ msg: "Erro ao buscar avaliações: " + err.message });
     }
   });
+
+
+// GET /avaliacoes/minhas - Lista avaliações APLICADAS do usuário logado (funcionário)
+router.get("/minhas", protect, async (req, res) => {
+  try {
+    const { cicloId, status } = req.query;
+    const filtro = {
+      isTemplate: false,
+      avaliadoEmail: String(req.user.email || "").toLowerCase().trim(),
+    };
+    if (cicloId) filtro.cicloId = cicloId;
+    if (status) filtro.status = status;
+    const avaliacoes = await Avaliacao.find(filtro).sort({ createdAt: -1 });
+    res.json(avaliacoes);
+  } catch (err) {
+    res.status(500).json({ msg: "Erro ao buscar minhas avaliações: " + err.message });
+  }
+});
+
+// GET /avaliacoes/do-ciclo/:cicloId - Lista avaliações APLICADAS de um ciclo (gestor)
+router.get("/do-ciclo/:cicloId", protect, requireGestor, async (req, res) => {
+  try {
+    const avaliacoes = await Avaliacao.find({
+      isTemplate: false,
+      cicloId: req.params.cicloId,
+    }).sort({ createdAt: -1 });
+    res.json(avaliacoes);
+  } catch (err) {
+    res.status(500).json({ msg: "Erro ao buscar avaliações do ciclo: " + err.message });
+  }
+});
+
+// PUT /avaliacoes/:id/responder - Funcionário responde sua avaliação aplicada
+router.put("/:id/responder", protect, async (req, res) => {
+  try {
+    const avaliacao = await Avaliacao.findById(req.params.id);
+    if (!avaliacao) return res.status(404).json({ msg: "Avaliação não encontrada" });
+
+    if (avaliacao.isTemplate) {
+      return res.status(400).json({ msg: "Este ID é de um template, não de uma avaliação aplicada." });
+    }
+
+    const emailUser = String(req.user.email || "").toLowerCase().trim();
+    if (String(avaliacao.avaliadoEmail || "").toLowerCase().trim() !== emailUser) {
+      return res.status(403).json({ msg: "Você não tem permissão para responder esta avaliação." });
+    }
+
+    avaliacao.respostas = req.body.respostas || {};
+    avaliacao.status = "Respondida";
+    avaliacao.dataResposta = new Date();
+
+    const saved = await avaliacao.save();
+    res.json(saved);
+  } catch (err) {
+    res.status(400).json({ msg: "Erro ao responder avaliação: " + err.message });
+  }
+});
 
 // GET /avaliacoes/:id - Busca uma avaliação por ID
 router.get("/:id", async (req, res) => {
@@ -26,9 +84,10 @@ router.get("/:id", async (req, res) => {
 });
 
 // POST /avaliacoes - Cria uma nova avaliação
-router.post("/", async (req, res) => {
+router.post("/", protect, requireGestor, async (req, res) => {
   try {
     const novaAvaliacao = new Avaliacao({
+      isTemplate: true,
       titulo: req.body.titulo,
       questoes: req.body.questoes,
       dataCriacao: req.body.dataCriacao || new Date(),
@@ -43,20 +102,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
-  try {
-    const avaliacao = await Avaliacao.findById(req.params.id);
-    if (!avaliacao) {
-      return res.status(404).json({ msg: "Avaliação não encontrada" });
-    }
-    res.json(avaliacao);
-  } catch (err) {
-    res.status(500).json({ msg: "Erro ao buscar avaliação: " + err.message });
-  }
-});
-
-// PUT /avaliacoes/:id - Atualiza uma avaliação existente
-router.put("/:id", async (req, res) => {
+router.put("/:id", protect, requireGestor, async (req, res) => {
   try {
     const updated = await Avaliacao.findByIdAndUpdate(
       req.params.id,
@@ -83,7 +129,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // DELETE /avaliacoes/:id - Remove uma avaliação
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", protect, requireGestor, async (req, res) => {
   try {
     const deleted = await Avaliacao.findByIdAndDelete(req.params.id);
     if (!deleted) {

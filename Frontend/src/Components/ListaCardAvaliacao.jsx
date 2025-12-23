@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   selectAllAvaliacoes,
   fetchAvaliacoes,
+  fetchMinhasAvaliacoes,
 } from "../features/user/avaliacaoSlice"; // Certifique-se de que o caminho está correto
 import CardAvaliacao from "./CardAvaliacao"; 
 import { Typography, Box } from "@mui/material"; 
@@ -24,14 +25,15 @@ const ListaCardAvaliacao = () => {
   const avaliacoes = useSelector(selectAllAvaliacoes); 
   const avaliacoesStatus = useSelector((state) => state.avaliacoes.status);
   const error = useSelector((state) => state.avaliacoes.error);
+  const cargo = useSelector((state) => state.login.currentUser?.cargo);
 
   // Efeito para carregar as avaliações na montagem do componente,
   // caso ainda não tenham sido carregadas (status "idle").
   useEffect(() => {
     if (avaliacoesStatus === "idle") {
-      dispatch(fetchAvaliacoes());
+      if (cargo === 'gestor') { dispatch(fetchAvaliacoes()); } else { dispatch(fetchMinhasAvaliacoes()); }
     }
-  }, [avaliacoesStatus, dispatch]);
+  }, [avaliacoesStatus, dispatch, cargo]);
 
   // Função utilitária para formatar a data
   const formatarData = (dataString) => {
@@ -61,7 +63,7 @@ const ListaCardAvaliacao = () => {
                 key={avaliacao._id}
                 titulo={avaliacao.titulo}
                 data={formatarData(avaliacao.dataCriacao)}  
-                link={`/fazer-avaliacao/${avaliacao._id}`}
+                link={cargo === 'gestor' ? `/avaliacao-detalhe/${avaliacao._id}` : `/fazer-avaliacao/${avaliacao._id}`}
             />
         ));
     }

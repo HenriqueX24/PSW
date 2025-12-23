@@ -8,8 +8,8 @@ import {
   selectMetasConcluidas, // Seletor para metas concluídas
 } from "../../features/user/metaSlice";
 import {
-  fetchAvaliacoes,
-  selectAvaliacoesRespondidas, // Seletor para avaliações respondidas
+  fetchMinhasAvaliacoes,
+  selectAvaliacoesRespondidas,
 } from "../../features/user/avaliacaoSlice";
 
 import NavBar from "../../Components/NavBar";
@@ -26,7 +26,7 @@ import AvaliacaoSnapshotModal from "../../Components/AvaliacaoSnapshotModal"; //
  */
 // Componente simples para representar um Card de Histórico
 const HistoricoCard = ({ titulo, tipo, onClick }) => (
-  <Grid xs={12} sm={6} md={4}>
+  <Grid item xs={12} sm={6} md={4}>
     <Paper
       sx={{
         p: 2,
@@ -83,7 +83,7 @@ export default function RegistroAtividades() {
   // Efeito para buscar os dados ao carregar o componente
   useEffect(() => {
     dispatch(fetchMetas());
-    dispatch(fetchAvaliacoes());
+    dispatch(fetchMinhasAvaliacoes());
   }, [dispatch]);
 
   // Selecionando os dados filtrados 
@@ -94,16 +94,15 @@ export default function RegistroAtividades() {
   const historicoCombinado = [
     // Mapeia metas concluídas
     ...metasConcluidas.map((meta) => ({
-      id: `meta-${meta.id}`,
+      id: `meta-${meta._id || meta.id}`,
       titulo: meta.titulo,
       tipo: "Meta",
-      // Assumindo que você tem um campo de data de conclusão para ordenação
       data: meta.dataConclusao || new Date().getTime(),
       dados: meta, // Guarda os resultados 
     })),
     // Mapeia avaliações respondidas
     ...avaliacoesRespondidas.map((avaliacao) => ({
-      id: `avaliacao-${avaliacao.id}`,
+      id: `avaliacao-${avaliacao._id || avaliacao.id}`,
       titulo: avaliacao.titulo,
       tipo: "Avaliação",
       data: avaliacao.dataResposta || new Date().getTime(),

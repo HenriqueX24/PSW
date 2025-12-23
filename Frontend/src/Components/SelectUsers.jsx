@@ -40,12 +40,8 @@ export default function NativeSelectDemo({ options, value, onChange, selectLabel
             Selecione um(a) {selectLabel}
           </MenuItem>
 
-          {/* Mapeia as opções usando o indice como o valor. */}
-          {options.map((option, index) => (
-            <MenuItem 
-              key={option.label} 
-              value={option.label} 
-            >
+          {options.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
               {option.label}
             </MenuItem>
           ))}

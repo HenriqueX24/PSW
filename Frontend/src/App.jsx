@@ -31,7 +31,8 @@ function App() {
   if (userStatus === "failed") {
     return (
       <div>
-        Falha ao carregar dados. Verifique se o json-server está rodando.
+        Falha ao carregar dados. Verifique se o back-end está rodando e se o
+        VITE_API_URL aponta para ele.
       </div>
     );
   }

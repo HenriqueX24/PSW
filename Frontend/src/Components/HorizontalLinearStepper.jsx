@@ -5,15 +5,9 @@ import Step from "@mui/material/Step";
 import StepButton from "@mui/material/StepLabel";
 import Typography from "@mui/material/Typography";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-// Define as rotas e labels dos passos do stepper
-const steps = [
-  { label: "Ciclo de Revisão", route: "/ciclo-revisao" },
-  { label: "Funcionários", route: "/ciclo-funcionarios" },
-  { label: "Avaliações", route: "/avaliacao" },
-  { label: "Metas", route: "/metas" },
-  { label: "Fazer Avaliação", route: "/fazer-avaliacao" },
-];
+// Passos serão definidos dinamicamente com base no tipo de usuário (gestor/funcionário).
 
 /**
  * Componente de "Stepper" (Passo a Passo) de navegação.
@@ -27,6 +21,22 @@ const steps = [
 export default function HorizontalLinearStepper() {
   const navigate = useNavigate();
   const location = useLocation();
+  const cargo = useSelector((state) => state.login.currentUser?.cargo);
+
+  const steps = cargo === 'gestor'
+    ? [
+        { label: 'Ciclo de Revisão', route: '/ciclo-revisao' },
+        { label: 'Funcionários', route: '/ciclo-funcionarios' },
+        { label: 'Avaliações', route: '/avaliacao' },
+        { label: 'Metas', route: '/metas' },
+        { label: 'Fazer Avaliação', route: '/fazer-avaliacao' },
+      ]
+    : [
+        { label: 'Ciclo de Revisão', route: '/ciclo-revisao' },
+        { label: 'Funcionários', route: '/ciclo-funcionarios' },
+        { label: 'Metas', route: '/metas' },
+        { label: 'Fazer Avaliação', route: '/fazer-avaliacao' },
+      ];
 
   // Encontra o "step" ativo baseado na URL atual
   const activeStep = steps.findIndex((step) =>

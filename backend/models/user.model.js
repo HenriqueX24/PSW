@@ -18,19 +18,12 @@ const userSchema = new Schema({
   timestamps: true,
 });
 
-userSchema.pre('save', async function(next) {
+userSchema.pre('save', async function () {
+  // Se a senha não mudou, não precisa re-hash
+  if (!this.isModified('senha')) return;
 
-  if (!this.isModified('senha')) {
-    return next();
-  }
-
-  try {
-    const salt = await bcrypt.genSalt(10);
-    this.senha = await bcrypt.hash(this.senha, salt);
-    next();
-  } catch (error) {
-    next(error);
-  }
+  const salt = await bcrypt.genSalt(10);
+  this.senha = await bcrypt.hash(this.senha, salt);
 });
 
 userSchema.methods.comparePassword = async function(candidatePassword) {

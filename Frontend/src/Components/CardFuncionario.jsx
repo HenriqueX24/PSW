@@ -10,9 +10,10 @@ import { useNavigate } from 'react-router-dom';
  * @param {object} props.employee - O objeto do funcionário ({ id, nome, email }).
  * @param {string} props.avaliacaoStatus - O status da avaliação (ex: "pendente", "realizado").
  * @param {string | number} props.avaliacaoId - O ID da avaliação, usado para navegar para a avaliação.
+ * @param {string} [props.cicloId] - ID do ciclo (para saber de qual ciclo é essa avaliação).
  * @returns {JSX.Element} O card do funcionário.
  */
-export default function CardFuncionario({ employee, avaliacaoStatus, avaliacaoId }) {
+export default function CardFuncionario({ employee, avaliacaoStatus, avaliacaoId, cicloId }) {
   const navigate = useNavigate();
   
   const { _id, nome, email } = employee;
@@ -20,7 +21,11 @@ export default function CardFuncionario({ employee, avaliacaoStatus, avaliacaoId
   // Navega para a página de detalhes da avaliação específica
   const handleViewEvaluation = () => {
     if (avaliacaoId) { 
-      navigate(`/fazer-avaliacao/${avaliacaoId}`);
+      const qs = new URLSearchParams();
+      if (cicloId) qs.set("ciclo", cicloId);
+      if (email) qs.set("avaliado", email);
+      const suffix = qs.toString() ? `?${qs.toString()}` : "";
+      navigate(`/fazer-avaliacao/${avaliacaoId}${suffix}`);
     }
   };
 

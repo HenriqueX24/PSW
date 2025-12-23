@@ -41,21 +41,21 @@ export default function CicloFuncionarios() {
     return <div>Carregando dados do ciclo...</div>;
   }
   
-  // CORREÇÃO: Filtra APENAS os usuários que estão no ciclo. 
-  // O filtro é feito comparando o '_id' do usuário com o array 'avaliados' do ciclo.
-  const employeesInCycle = allUsers.filter(user => 
-   ciclo.avaliados?.some(avaliadoId => String(avaliadoId) === String(user._id))
-  );
+
+ const employeesInCycle = allUsers.filter(user =>
+  ciclo.avaliados?.some(avaliadoEmail => String(avaliadoEmail) === String(user.email))
+);
 
   console.log("IDs no Ciclo:", ciclo.avaliados);
   console.log("Total de Usuários:", allUsers.length);
   console.log("Funcionários Filtrados:", employeesInCycle);
 
-  // NOVO: Adicione uma propriedade ao ciclo que aponta para o ID da avaliação.
-  // Se você não tiver um campo `avaliacaoTemplateId` no ciclo, use um ID
-  // de avaliação que você sabe que existe no seu db.json (ex: '1').
-  // CORRIGINDO O ID FIXO 101 para um ID que provavelmente existe ('1') ou um obtido do ciclo.
-  const avaliacaoTemplateId = ciclo.avaliacaoTemplateId || '1'; // Usando '1' como fallback/mock
+  
+ const avaliacaoTemplateId = ciclo.avaliacaoTemplateId;
+
+  if (!avaliacaoTemplateId) {
+  return <p>Este ciclo não tem um template de avaliação vinculado.</p>;
+  }
 
   return (
     <Box sx={{ backgroundColor: "white", minHeight: "100vh" }}>
@@ -92,13 +92,14 @@ export default function CicloFuncionarios() {
         <main className="mainCiclo">
         <section className="employee-list">
           {/* Mapeia e renderiza um Card para cada funcionário filtrado */}
-          {employeesInCycle.lenght > 0 ? (
+          {employeesInCycle.length > 0 ? (
           employeesInCycle.map((emp) => (
                 <CardFuncionario
-                  key={emp._id}
+                  key={emp._id || emp.id}
                   employee={emp}
                   avaliacaoStatus="pendente" // "pendente" para todos
                   avaliacaoId={avaliacaoTemplateId} // passa o id valido
+                  cicloId={cicloId}
                 />
           ))
           ) : (

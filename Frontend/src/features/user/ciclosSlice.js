@@ -4,6 +4,8 @@ import {
   createEntityAdapter,
 } from "@reduxjs/toolkit";
 
+import { API_URL } from "../../config/api";
+
 const ciclosAdapter = createEntityAdapter({
   selectId: (ciclo) => ciclo._id || ciclo.id,
 });
@@ -24,8 +26,7 @@ const getAuthHeaders = () => {
 
 export const fetchCiclos = createAsyncThunk("ciclos/fetchCiclos", async (_, { rejectWithValue }) => {
   try{
-    const token = localStorage.getItem("userToken"); //armazena o token aqui
-    const response = await fetch("http://localhost:3001/ciclos", {
+    const response = await fetch(`${API_URL}/ciclos`, {
       method: "GET",
       headers: getAuthHeaders(),
   });
@@ -42,21 +43,12 @@ export const fetchCiclos = createAsyncThunk("ciclos/fetchCiclos", async (_, { re
   }
   
 
-  /*** ADICIONE ESTE LOG PARA DEBUG ***
-  console.log("Token para fetchCiclos:", token);*/
-
-  /*if (!token) {
-    // Você pode lançar um erro mais explícito ou apenas deixar que a chamada falhe,
-    // mas é melhor garantir que a requisição só ocorra se o token existir.
-    throw new Error("Token de autenticação não encontrado. Faça login.");
-  }*/  
 });
 export const addNewCiclo = createAsyncThunk(
   "ciclos/addNewCiclo",
   async (novoCiclo, {rejectWithValue}) => {
     try {
-      const token = localStorage.getItem('userToken'); //Pegar o token do storage
-      const response = await fetch("http://localhost:3001/ciclos", {
+      const response = await fetch(`${API_URL}/ciclos`, {
         method: "POST",
         headers: getAuthHeaders(),
         body: JSON.stringify(novoCiclo),

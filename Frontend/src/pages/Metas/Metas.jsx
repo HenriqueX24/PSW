@@ -57,13 +57,17 @@ export default function Metas() {
       <div key={status} className="cycle-section">
         <h2 className="cycle-title">{status}</h2>{" "}
         <Grid container spacing={2}>
-          {metasAgrupadas[status].map((meta) => (
-            <Grid item xs={12} sm={6} md={4} key={meta.id}>
-              <Link to={`/meta-detalhe/${meta.id}`} className="card-link">
-                <CardMeta meta={meta} hideStatus={true} />
-              </Link>
-            </Grid>
-          ))}
+          {metasAgrupadas[status].map((meta) => {
+            const metaId = meta._id || meta.id; // Mongo usa _id
+           return (
+        <Grid item xs={12} sm={6} md={4} key={metaId}>
+        <Link to={`/meta-detalhe/${metaId}`} className="card-link">
+        <CardMeta meta={meta} hideStatus={true} />
+      </Link>
+    </Grid>
+  );
+})}
+
         </Grid>
       </div>
     ));

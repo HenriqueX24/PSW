@@ -41,6 +41,32 @@ const avaliacaoSchema = new Schema(
       required: true,
       trim: true,
     },
+
+    // Se true, este documento é um TEMPLATE criado pelo gestor.
+    // Se false, é uma avaliação APLICADA (instância) para um funcionário em um ciclo.
+    isTemplate: {
+      type: Boolean,
+      default: true,
+      index: true,
+    },
+    templateId: {
+      type: Schema.Types.ObjectId,
+      ref: "Avaliacao",
+    },
+    cicloId: {
+      type: Schema.Types.ObjectId,
+      ref: "Ciclo",
+    },
+    avaliadoEmail: {
+      type: String,
+      trim: true,
+      lowercase: true,
+    },
+    avaliadorEmail: {
+      type: String,
+      trim: true,
+      lowercase: true,
+    },
     tipo: {},
     opcoes: {},
     questoes: [QuestaoSchema],
