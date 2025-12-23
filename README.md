@@ -16,4 +16,6 @@
 
 3. Rode:npm run dev
 
-> O front usa `VITE_API_URL` (padrão `http://localhost:5000`).
+
+## 3) Link direto do Render:
+https://front-a7ua.onrender.com
