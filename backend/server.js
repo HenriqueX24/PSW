@@ -11,8 +11,11 @@ const PORT = process.env.PORT || 5000;
 // Middleware primeiro
 app.use(express.json());
 
-app.use(cors({
-  origin: ["hhttps://front-a7ua.onrender.com"],
+aapp.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://front-a7ua.onrender.com"
+  ],
   credentials: true
 }));
 
